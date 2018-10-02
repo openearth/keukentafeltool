@@ -1,0 +1,47 @@
+{
+  "name": "keukentafeltool",
+  "version": "1.0.0",
+  "description": "Deltares Keukentafeltool App",
+  "author": "Deltares (https://www.deltares.nl/)",
+  "license": "GPL-3.0",
+  "main": "index.js",
+  "scripts": {
+    "analyze": "nuxt build --analyze",
+    "prebuild": "touch ./.env && rimraf dist/",
+    "build": "NODE_ENV=production run-s build:*",
+    "build:client": "nuxt generate",
+    "precommit": "npm run lint",
+    "dev": "run-p dev:*",
+    "dev:client": "PORT=2637 nuxt",
+    "start": "run-p start:dist",
+    "start:dist": "http-server './dist/client/' -c-1 -o -p 2637",
+    "generate": "nuxt generate",
+    "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/openearth/keukentafeltool.git"
+  },
+  "keywords": [],
+  "homepage": "https://github.com/openearth/keukentafeltool#readme",
+  "bugs": {
+    "url": "https://github.com/openearth/keukentafeltool/issues"
+  },
+  "dependencies": {
+    "cross-env": "^5.2.0",
+    "mapbox-gl": "^0.49.0",
+    "nuxt": "^2.0.0",
+    "vue-material": "^1.0.0-beta-10.2"
+  },
+  "devDependencies": {
+    "babel-eslint": "^8.2.1",
+    "eslint": "^4.0.0",
+    "eslint-loader": "^2.0.0",
+    "eslint-plugin-vue": "^4.0.0",
+    "http-server": "^0.11.1",
+    "nodemon": "^1.11.0",
+    "npm-run-all": "^4.1.3",
+    "rimraf": "^2.6.2"
+  }
+}
