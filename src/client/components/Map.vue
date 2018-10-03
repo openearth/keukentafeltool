@@ -15,11 +15,10 @@ if (process.browser) {
 
 const MAP_CENTER = [ 5.10, 52.09 ]
 const MAP_ZOOM = 7
-const MAPBOX_TOKEN = 'pk.eyJ1Ijoic2lnZ3lmIiwiYSI6ImNqbHcwcHFjNjBsdGIza3F1dW5iZjhhY2EifQ.zZkkozZlSRtmB9VgpR9HiQ'
 
 export default {
   async mounted() {
-    mapboxgl.accessToken = MAPBOX_TOKEN
+    mapboxgl.accessToken = process.env.MAPBOX_TOKEN
     const map = new mapboxgl.Map({
       container: this.$refs.mbMap,
       center: MAP_CENTER,
