@@ -1,6 +1,11 @@
+require('dotenv-safe').config()
 const pkg = require('./package')
 
 module.exports = {
+  env: {
+    // pass Node env variables to Nuxt env:
+    MAPBOX_TOKEN: process.env.MAPBOX_TOKEN,
+  },
   mode: 'universal',
   srcDir: 'src/client/',
   generate: {
