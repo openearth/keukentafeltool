@@ -1,4 +1,4 @@
-class BaseLayerControl {
+export default class BaseLayerControl {
   onAdd(map) {
     this._map = map
     return this._container
@@ -17,8 +17,4 @@ class BaseLayerControl {
   switchLayer(style) {
     this._map.setStyle(style)
   }
-}
-
-export default function baseLayerSwitcher() {
-  return new BaseLayerControl()
 }

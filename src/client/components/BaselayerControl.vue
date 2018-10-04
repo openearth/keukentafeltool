@@ -1,13 +1,12 @@
 <template>
   <div
-    ref="layerThumbnail"
-    class="layer-thumbnail"
+    class="baselayer-control baselayer-thumbnail"
     @click="switchBaseLayer"
   >
     <img
       :src="thumbnail"
       :alt="altText"
-      class="layer-thumbnail__image"
+      class="baselayer-thumbnail__image"
     >
   </div>
 </template>
@@ -47,7 +46,7 @@ export default {
 </script>
 
 <style>
-  .layer-thumbnail {
+  .baselayer-thumbnail {
     width: 75px;
     height: 75px;
     margin-right: 1rem;

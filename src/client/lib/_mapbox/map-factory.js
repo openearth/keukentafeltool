@@ -1,20 +1,8 @@
-import baseLayerSwitcher from './baselayer-switcher'
+import BaseLayerControl from './baselayer-control'
 import mapboxgl from './_mapbox'
-import renderVue from '~/lib/render-vue'
+import { MAP_CENTER, MAP_ZOOM, MAP_BASELAYERS, MAP_BASELAYER_DEFAULT } from './map-config'
 
-import BaselayerSwitcher from '~/components/BaselayerSwitcher'
-
-const MAP_CENTER = [ 5.10, 52.09 ]
-const MAP_ZOOM = 7
-
-export const mapBaseLayers = [
-  'streets',
-  'satellite',
-].map(layer => ({
-  style: `mapbox://styles/mapbox/${layer}-v9`,
-  title: layer,
-  thumbnail: `/thumbnails/${layer}.png`
-}))
+import baselayerControlComponent from './baselayer-control-component';
 
 export default function(container) {
   const mapLayers = []
@@ -23,10 +11,8 @@ export default function(container) {
     container,
     center: MAP_CENTER,
     zoom: MAP_ZOOM,
-    style: mapBaseLayers[0].style
+    style: MAP_BASELAYER_DEFAULT.style
   })
-
-  map.on('load', () => attachBaseLayerControl(map))
 
   const _addLayer = map.addLayer.bind(map)
   map.addLayer = (layer, before) => {
@@ -40,6 +26,9 @@ export default function(container) {
     _removeLayer(layer, before)
   }
 
+  map.on('*', () => console.log('alllllll'))
+
+  map.on('load', () => addDefaultControlsToMap(map))
   map.on('style.load', () => {
     mapLayers.forEach(layer => {
       _addLayer(layer)
@@ -49,13 +38,14 @@ export default function(container) {
   return map
 }
 
-function attachBaseLayerControl(map) {
-  const switchControl = baseLayerSwitcher()
-  const component = renderVue(BaselayerSwitcher, {
-    layers: mapBaseLayers,
-    switchHandler: switchControl.switchLayer.bind(switchControl)
+function addDefaultControlsToMap(map) {
+  const Control = new BaseLayerControl()
+  const component = baselayerControlComponent({
+    layers: MAP_BASELAYERS,
+    switchHandler: Control.switchLayer.bind(Control)
   })
-  switchControl.setContainer(component)
+  Control.setContainer(component)
 
-  map.addControl(switchControl, 'top-right')
+  map.addControl(Control, 'bottom-right')
+  map.addControl(new mapboxgl.NavigationControl(), 'top-right')
 }
