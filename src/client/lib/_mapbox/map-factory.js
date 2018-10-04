@@ -26,8 +26,6 @@ export default function(container) {
     _removeLayer(layer, before)
   }
 
-  map.on('*', () => console.log('alllllll'))
-
   map.on('load', () => addDefaultControlsToMap(map))
   map.on('style.load', () => {
     mapLayers.forEach(layer => {
