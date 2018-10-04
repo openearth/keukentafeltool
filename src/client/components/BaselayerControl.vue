@@ -1,14 +1,15 @@
 <template>
-  <div
-    class="baselayer-control baselayer-thumbnail"
+  <button
+    class="baselayer-control"
     @click="switchBaseLayer"
   >
+    <span class="a11y-sr-only">Switch to {{ nextLayer.title }}</span>
     <img
-      :src="thumbnail"
-      :alt="altText"
-      class="baselayer-thumbnail__image"
+      :src="nextLayer.thumbnail"
+      :alt="nextLayer.title"
+      class="baselayer-control__image"
     >
-  </div>
+  </button>
 </template>
 
 <script>
@@ -16,7 +17,15 @@ export default {
   props: {
     layers: {
       type: Array,
-      required: true
+      required: true,
+      validator (layers) {
+        return layers.reduce((isValid, layer) => {
+          return isValid
+            && typeof layer.title === 'string'
+            && typeof layer.thumbnail === 'string'
+            && typeof layer.style === 'string'
+        }, true)
+      }
     },
     switchHandler: {
       type: Function,
@@ -29,11 +38,8 @@ export default {
     }
   },
   computed: {
-    altText() {
-      return `${this.layers[this.nextLayerIndex].title} thumbnail` || 'thumbnail'
-    },
-    thumbnail() {
-      return this.layers[this.nextLayerIndex].thumbnail || ''
+    nextLayer () {
+      return this.layers[this.nextLayerIndex]
     }
   },
   methods: {
@@ -46,11 +52,12 @@ export default {
 </script>
 
 <style>
-  .baselayer-thumbnail {
+  .baselayer-control {
     width: 75px;
     height: 75px;
     margin-right: 1rem;
     margin-top: 1rem;
+    padding: 0;
     cursor: pointer;
     border: 2px solid #aaa;
   }
