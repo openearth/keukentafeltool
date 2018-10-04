@@ -5,6 +5,8 @@
 </template>
 
 <style>
+@import '~/assets/css/a11y.css';
+
 html {
   font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI',
     Roboto, 'Helvetica Neue', Arial, sans-serif;
