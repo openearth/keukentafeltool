@@ -7,7 +7,7 @@
 
       <md-app-content>
         <no-ssr>
-          <mb-map />
+          <mapbox-map />
         </no-ssr>
       </md-app-content>
     </md-app>
@@ -15,11 +15,11 @@
 </template>
 
 <script>
-import MbMap from '~/components/Map'
+import MapboxMap from '~/components/MapboxMap'
 
 export default {
   components: {
-    MbMap
+    MapboxMap
   }
 }
 </script>
