@@ -1,7 +1,7 @@
 <template>
   <button
     class="baselayer-control"
-    @click="switchBaseLayer"
+    @click="switchToNextBaseLayer"
   >
     <span class="a11y-sr-only">Switch to {{ nextLayer.title }}</span>
     <img
@@ -19,12 +19,11 @@ export default {
       type: Array,
       required: true,
       validator (layers) {
-        return layers.reduce((isValid, layer) => {
-          return isValid
-            && typeof layer.title === 'string'
+        return layers.every((layer) => {
+          return typeof layer.title === 'string'
             && typeof layer.thumbnail === 'string'
             && typeof layer.style === 'string'
-        }, true)
+        })
       }
     },
     switchHandler: {
@@ -43,7 +42,7 @@ export default {
     }
   },
   methods: {
-    switchBaseLayer() {
+    switchToNextBaseLayer() {
       this.switchHandler(this.layers[this.nextLayerIndex].style)
       this.nextLayerIndex = (this.nextLayerIndex + 1) % this.layers.length
     }
