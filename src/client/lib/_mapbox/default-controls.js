@@ -5,7 +5,6 @@ import BaseLayerControl from './baselayer-control'
 import baselayerControlComponent from './baselayer-control-component';
 import GeocoderControl from './geocoder-control'
 
-
 export function addDefaultControlsToMap(map) {
   map.addControl(GeocoderControl(), 'top-right')
   map.addControl(createBaseLayerControl(), 'top-right')
