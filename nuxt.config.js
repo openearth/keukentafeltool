@@ -4,6 +4,8 @@ const pkg = require('./package')
 module.exports = {
   env: {
     // pass Node env variables to Nuxt env:
+    DEFAULT_PROJECTION: process.env.DEFAULT_PROJECTION,
+    GEOSERVER_BASE_URL: process.env.GEOSERVER_BASE_URL,
     MAPBOX_TOKEN: process.env.MAPBOX_TOKEN,
   },
   mode: 'universal',

@@ -7,14 +7,14 @@
 
 <script>
 import mapFactory from '~/lib/_mapbox/map-factory'
-import { parcelsLayer } from '~/lib/_mapbox/wms-layer'
+import layerFactory from '~/lib/_mapbox/layer-factory'
 
 export default {
   async mounted() {
     const map = mapFactory(this.$refs.mapboxMap)
 
     map.on('load', () => {
-      map.addLayer(parcelsLayer())
+      map.addLayer(layerFactory.parcels())
     })
   },
 }

@@ -1,8 +1,9 @@
 import BaseLayerControl from './baselayer-control'
-import mapboxgl from './_mapbox'
-import { MAP_CENTER, MAP_ZOOM, MAP_BASELAYERS, MAP_BASELAYER_DEFAULT } from './map-config'
-
 import baselayerControlComponent from './baselayer-control-component';
+import getFeatureInfo from '../get-feature-info'
+import mapboxgl from './_mapbox'
+import parcelLayer from './layer-factory/parcel'
+import { MAP_CENTER, MAP_ZOOM, MAP_BASELAYERS, MAP_BASELAYER_DEFAULT } from './map-config'
 
 export default function(container) {
   const mapLayers = []
@@ -33,6 +34,7 @@ export default function(container) {
   }
 
   map.on('load', () => addDefaultControlsToMap(map))
+  map.on('click', mapClickHandler)
   map.on('style.load', () => {
     mapLayers.forEach(layer => {
       _addLayer(layer)
@@ -52,4 +54,29 @@ function addDefaultControlsToMap(map) {
 
   map.addControl(Control, 'bottom-right')
   map.addControl(new mapboxgl.NavigationControl(), 'top-right')
+}
+
+function mapClickHandler({ point, target }) {
+  const canvas = target.getCanvas()
+  const { _ne, _sw } = target.getBounds()
+  const { x, y } = point
+
+  getFeatureInfo({
+    layer: 'percelen:brp_gewaspercelen_2017_concept',
+    ne: _ne,
+    sw: _sw,
+    width: canvas.offsetWidth,
+    height: canvas.offsetHeight,
+    x,
+    y,
+  })
+    .then(geoJson => {
+      const feature = geoJson.features[0]
+
+      if(!feature || target.getLayer(feature.id)) {
+        return
+      }
+
+      target.addLayer(parcelLayer({ feature }))
+    })
 }
