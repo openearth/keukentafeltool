@@ -5,7 +5,7 @@ import { addDefaultControlsToMap } from './default-controls'
 import { MAP_CENTER, MAP_ZOOM, MAP_BASELAYER_DEFAULT } from './map-config'
 
 export default function(container) {
-  const mapLayers = []
+  let mapLayers = []
 
   const map = new mapboxgl.Map({
     container,
@@ -29,7 +29,7 @@ export default function(container) {
   const _removeLayer = map.removeLayer.bind(map)
   map.removeLayer = (id) => {
     mapLayers = mapLayers.filter((layer) => layer.id !== id)
-    _removeLayer(layer, before)
+    _removeLayer(id)
   }
 
   map.on('load', () => addDefaultControlsToMap(map))
@@ -60,10 +60,15 @@ function mapClickHandler({ point, target }) {
     .then(geoJson => {
       const feature = geoJson.features[0]
 
-      if(!feature || target.getLayer(feature.id)) {
+      if(!feature) {
         return
       }
 
-      target.addLayer(layerFactory.parcel({ feature }))
+      if(target.getLayer(feature.id)) {
+        target.removeLayer(feature.id)
+        target.removeSource(feature.id)
+      } else {
+        target.addLayer(layerFactory.parcel({ feature }))
+      }
     })
 }
