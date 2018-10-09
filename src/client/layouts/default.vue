@@ -1,57 +1,37 @@
 <template>
-  <div>
-    <nuxt/>
+  <div class="default-layout">
+    <app-header />
+    <main class="default-layout__content">
+      <nuxt/>
+      <no-ssr>
+        <mapbox-map />
+      </no-ssr>
+    </main>
   </div>
 </template>
 
+<script>
+import { AppHeader, MapboxMap } from '../components'
+
+export default {
+  components: { AppHeader, MapboxMap },
+}
+</script>
+
 <style>
-@import '~/assets/css/a11y.css';
+@import '../components/app-core/index.css';
 
-html {
-  font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI',
-    Roboto, 'Helvetica Neue', Arial, sans-serif;
-  font-size: 16px;
-  word-spacing: 1px;
-  -ms-text-size-adjust: 100%;
-  -webkit-text-size-adjust: 100%;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-font-smoothing: antialiased;
-  box-sizing: border-box;
+.default-layout {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
 }
 
-*,
-*:before,
-*:after {
-  box-sizing: border-box;
-  margin: 0;
-}
-
-.button--green {
-  display: inline-block;
-  border-radius: 4px;
-  border: 1px solid #3b8070;
-  color: #3b8070;
-  text-decoration: none;
-  padding: 10px 30px;
-}
-
-.button--green:hover {
-  color: #fff;
-  background-color: #3b8070;
-}
-
-.button--grey {
-  display: inline-block;
-  border-radius: 4px;
-  border: 1px solid #35495e;
-  color: #35495e;
-  text-decoration: none;
-  padding: 10px 30px;
-  margin-left: 15px;
-}
-
-.button--grey:hover {
-  color: #fff;
-  background-color: #35495e;
+.default-layout__content {
+  overflow-y: scroll;
+  display: flex;
+  flex: 1;
 }
 </style>
