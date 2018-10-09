@@ -1,9 +1,8 @@
-import BaseLayerControl from './baselayer-control'
-import baselayerControlComponent from './baselayer-control-component';
 import getFeatureInfo from '../get-feature-info'
 import mapboxgl from './_mapbox'
-import parcelLayer from './layer-factory/parcel'
-import { MAP_CENTER, MAP_ZOOM, MAP_BASELAYERS, MAP_BASELAYER_DEFAULT } from './map-config'
+import layerFactory from  './layer-factory'
+import { addDefaultControlsToMap } from './default-controls'
+import { MAP_CENTER, MAP_ZOOM, MAP_BASELAYER_DEFAULT } from './map-config'
 
 export default function(container) {
   const mapLayers = []
@@ -44,18 +43,6 @@ export default function(container) {
   return map
 }
 
-function addDefaultControlsToMap(map) {
-  const Control = new BaseLayerControl()
-  const component = baselayerControlComponent({
-    layers: MAP_BASELAYERS,
-    switchHandler: Control.switchLayer.bind(Control)
-  })
-  Control.setContainer(component)
-
-  map.addControl(Control, 'bottom-right')
-  map.addControl(new mapboxgl.NavigationControl(), 'top-right')
-}
-
 function mapClickHandler({ point, target }) {
   const canvas = target.getCanvas()
   const { _ne, _sw } = target.getBounds()
@@ -77,6 +64,6 @@ function mapClickHandler({ point, target }) {
         return
       }
 
-      target.addLayer(parcelLayer({ feature }))
+      target.addLayer(layerFactory.parcel({ feature }))
     })
 }
