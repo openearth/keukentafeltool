@@ -1,5 +1,5 @@
 <template>
-  <div style="width:50%">
+  <div>
     <input-panel />
   </div>
 </template>
@@ -12,3 +12,9 @@ export default {
   }
 }
 </script>
+
+<style>
+  .input-panel {
+    width: 400px;
+  }
+</style>

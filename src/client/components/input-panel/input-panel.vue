@@ -1,15 +1,29 @@
 <template>
   <div class="input-panel">
     <h2>Input panel title</h2>
-    <parcels-list />
+    <parcel-card
+      v-for="(parcel, index) in parcels"
+      :key="parcel.id"
+      :index="index"
+      :parcel="parcel"
+      class="parcel-card" />
   </div>
 </template>
 
 <script>
-import ParcelsList from '../../components/input-panel/parcels-list'
+import DataParcels from '../../components/input-panel/input-panel.stub.json'
+import ParcelCard from '../../components/parcel-card/parcel-card'
 export default {
   components: {
-    ParcelsList
+    ParcelCard,
+    type: ''
+  },
+  data () {
+    return {
+      parcels: DataParcels,
+      type: '',
+      show: false
+    }
   }
 }
 </script>
