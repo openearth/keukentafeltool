@@ -44,7 +44,8 @@ module.exports = {
   ** Plugins to load before mounting the App
   */
   plugins: [
-    '~/plugins/vue-material'
+    { src: '~/plugins/resize-directive', ssr: false },
+    { src: '~/plugins/vue-material', ssr: true },
   ],
 
   /*

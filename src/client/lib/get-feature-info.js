@@ -17,8 +17,8 @@ export default function getFeatureInfo({ ne, sw, x, y, width, height, layer }) {
     query_layers: layer,
     width: width,
     height: height,
-    x,
-    y,
+    x: Math.round(x),
+    y: Math.round(y),
     bbox
   })
 

@@ -1,5 +1,6 @@
 <template>
   <div
+    v-resize:debounce="resize"
     ref="mapboxMap"
     class="mapbox-map"
   />
@@ -18,15 +19,18 @@ export default {
     }
   },
   async mounted() {
-    const map = mapFactory(this.$refs.mapboxMap)
+    this.map = mapFactory(this.$refs.mapboxMap)
 
-    map.on('load', () => {
-      map.addLayer(layerFactory.parcels())
+    this.map.on('load', () => {
+      this.map.addLayer(layerFactory.parcels())
     })
 
-    this.setupListeners(map)
+    this.setupListeners(this.map)
   },
   methods: {
+    resize() {
+      this.map.resize() // force redraw of the Mapbox map
+    },
     setupListeners(map) {
       if(this.listenersTransformFunction) {
         this.listenersTransformFunction(this.$listeners, map)
