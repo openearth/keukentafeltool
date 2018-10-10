@@ -6,6 +6,7 @@
 
 <script>
 import InputPanel from '../components/input-panel/input-panel'
+
 export default {
   components: {
     InputPanel
