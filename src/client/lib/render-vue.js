@@ -13,3 +13,5 @@ export default function (baseComponent, propsData) {
 
   return instance.$mount().$el
 }
+
+// bla
