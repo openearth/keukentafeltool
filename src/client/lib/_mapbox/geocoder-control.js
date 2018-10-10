@@ -1,5 +1,3 @@
-import { NETHERLANDS_CENTER_LATITUDE, NETHERLANDS_CENTER_LONGITUDE } from './map-config'
-
 let MapboxGeocoder
 
 if (process.browser) {
