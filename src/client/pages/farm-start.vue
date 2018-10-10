@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <md-app-drawer md-permanent="clipped">
     <input-panel />
-  </div>
+  </md-app-drawer>
 </template>
 
 <script>
@@ -15,7 +15,5 @@ export default {
 </script>
 
 <style>
-  .input-panel {
-    width: 400px;
-  }
+
 </style>
