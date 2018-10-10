@@ -19,7 +19,6 @@
             :key="key" >
             <label for="input">{{ key }}</label>
             <md-input
-              id="id"
               :type="text"
               :disabled="true"
               :value="value"
