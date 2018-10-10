@@ -14,7 +14,7 @@
 
 <script>
 import DataParcels from '../../components/input-panel/input-panel.stub.json'
-import ParcelCard from '../../components/parcel-card/parcel-card'
+import { ParcelCard } from '../../components'
 
 export default {
   components: {
