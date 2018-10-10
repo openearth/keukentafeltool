@@ -1,16 +1,25 @@
 <template>
   <div>
-    <input-panel />
+    <input-panel
+      :parcels="parcels"
+    />
   </div>
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 import { InputPanel } from '../components'
 
 export default {
   components: {
     InputPanel
-  }
+  },
+  computed: {
+    ...mapState('parcels', [
+      'parcels'
+    ])
+  },
 }
 </script>
 
