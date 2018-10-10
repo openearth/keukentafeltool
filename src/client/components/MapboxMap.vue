@@ -11,7 +11,7 @@ import layerFactory from '~/lib/_mapbox/layer-factory'
 
 export default {
   props: {
-    mapListenersSetUp: {
+    listenersTransformFunction: {
       type: Function,
       required: false,
       default: undefined
@@ -28,8 +28,8 @@ export default {
   },
   methods: {
     setupListeners(map) {
-      if(this.mapListenersSetUp) {
-        this.mapListenersSetUp(this.$listeners, map)
+      if(this.listenersTransformFunction) {
+        this.listenersTransformFunction(this.$listeners, map)
       } else {
         Object.keys(this.$listeners)
           .forEach(key => map.on(key.replace('_', '/'), this.$listeners[key]))
