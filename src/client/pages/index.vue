@@ -7,7 +7,10 @@
 
       <md-app-content>
         <no-ssr>
-          <mapbox-map />
+          <mapbox-map
+            @parcels_addFeature="addParcel"
+            @parcels_removeFeature="removeParcel"
+          />
         </no-ssr>
       </md-app-content>
     </md-app>
@@ -20,6 +23,14 @@ import MapboxMap from '~/components/MapboxMap'
 export default {
   components: {
     MapboxMap
+  },
+  methods: {
+    addParcel({ feature }) {
+      this.$store.commit('parcels/addParcel', feature)
+    },
+    removeParcel({ id }) {
+      this.$store.commit('parcels/removeParcel', id)
+    },
   }
 }
 </script>

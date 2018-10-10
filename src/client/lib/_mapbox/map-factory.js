@@ -59,7 +59,6 @@ function mapClickHandler({ point, target }) {
   })
     .then(geoJson => {
       const feature = geoJson.features[0]
-
       if(!feature) {
         return
       }
@@ -67,8 +66,10 @@ function mapClickHandler({ point, target }) {
       if(target.getLayer(feature.id)) {
         target.removeLayer(feature.id)
         target.removeSource(feature.id)
+        target.fire('parcels/removeFeature', { id: feature.id })
       } else {
         target.addLayer(layerFactory.parcel({ feature }))
+        target.fire('parcels/addFeature', { feature })
       }
     })
 }
