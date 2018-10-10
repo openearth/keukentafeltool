@@ -4,7 +4,10 @@
     <main class="default-layout__content">
       <nuxt/>
       <no-ssr>
-        <mapbox-map />
+        <mapbox-map
+          @parcels_addFeature="addParcel"
+          @parcels_removeFeature="removeParcel"
+        />
       </no-ssr>
     </main>
   </div>
@@ -15,6 +18,14 @@ import { AppHeader, MapboxMap } from '../components'
 
 export default {
   components: { AppHeader, MapboxMap },
+  methods: {
+    addParcel({ feature }) {
+      this.$store.commit('parcels/addParcel', feature)
+    },
+    removeParcel({ id }) {
+      this.$store.commit('parcels/removeParcel', id)
+    },
+  }
 }
 </script>
 

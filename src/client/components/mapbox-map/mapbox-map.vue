@@ -7,24 +7,38 @@
 </template>
 
 <script>
-import mapFactory from '../../lib/_mapbox/map-factory'
-import { parcelsLayer } from '../../lib/_mapbox/wms-layer'
+import mapFactory from '~/lib/_mapbox/map-factory'
+import layerFactory from '~/lib/_mapbox/layer-factory'
 
 export default {
-  data() {
-    return {
-      map: undefined
+  props: {
+    listenersTransformFunction: {
+      type: Function,
+      required: false,
+      default: undefined
     }
   },
   async mounted() {
     this.map = mapFactory(this.$refs.mapboxMap)
+
     this.map.on('load', () => {
-      this.map.addLayer(parcelsLayer())
+      this.map.addLayer(layerFactory.parcels())
     })
+
+    this.setupListeners(this.map)
   },
   methods: {
     resize() {
       this.map.resize() // force redraw of the Mapbox map
+    },
+    setupListeners(map) {
+      if(this.listenersTransformFunction) {
+        this.listenersTransformFunction(this.$listeners, map)
+      } else {
+        Object.keys(this.$listeners)
+          .forEach(key => map.on(key.replace('_', '/'), this.$listeners[key]))
+      }
+
     }
   }
 }

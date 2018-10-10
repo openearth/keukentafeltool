@@ -33,6 +33,8 @@
     "cross-env": "^5.2.0",
     "mapbox-gl": "^0.49.0",
     "nuxt": "^2.0.0",
+    "proj4": "^2.5.0",
+    "query-string": "^6.2.0",
     "vue-material": "^1.0.0-beta-10.2",
     "vue-resize-directive": "^1.1.4"
   },
