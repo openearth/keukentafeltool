@@ -6,7 +6,7 @@
       class="md-card-header__button"
       @click="isExpanded = !isExpanded">
       <md-card-header>
-        <div class="md-title">{{ index+1 + '. ' + parcel.data.gws_gewas.value }}</div>
+        <div class="md-title">{{ index+1 + '. ' + parcel.properties.gws_gewas }}</div>
         <div class="md-subhead">perceel nummer: {{ parcel.id }}</div>
         <md-icon class="md-card-header__icon">keyboard_arrow_down</md-icon>
       </md-card-header>
@@ -15,14 +15,14 @@
       <div v-if="isExpanded">
         <md-card-content>
           <md-field
-            v-for="(input, key) in parcel.data"
+            v-for="(value, key) in parcel.properties"
             :key="key" >
-            <label for="input">{{ input.label }}</label>
+            <label for="input">{{ key }}</label>
             <md-input
               id="id"
-              v-model="input.value"
-              :type="input.type"
-              :disabled="input.disabled"
+              :type="text"
+              :disabled="true"
+              :value="value"
               name="input" />
           </md-field>
         </md-card-content>
@@ -85,10 +85,10 @@ export default {
     background: none;
   }
   .slide-fade-enter-active {
-    transition: all 1s ease;
+    transition: all .4s ease;
   }
   .slide-fade-leave-active {
-    transition: all 1s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+    transition: all .4s cubic-bezier(1.0, 0.5, 0.8, 1.0);
   }
   .slide-fade-enter, .slide-fade-leave-to {
     transform: translateX(10px);
