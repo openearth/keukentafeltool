@@ -8,7 +8,7 @@ const HEIGHT = 256
 const SRS = 'EPSG:3857'
 const TRANSPARENT = true
 
-export default function parseRequestUrl({
+export default function({
   url,
   service,
   request,
