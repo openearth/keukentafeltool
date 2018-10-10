@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import InputPanel from '../components/input-panel/input-panel'
+import { InputPanel } from '../components'
 
 export default {
   components: {
