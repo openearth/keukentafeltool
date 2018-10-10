@@ -1,9 +1,6 @@
 <template>
-  <div>
-    <input-panel
-      :parcels="parcels"
-    />
-  </div>
+  <input-panel
+    :parcels="parcels" />
 </template>
 
 <script>
@@ -25,6 +22,6 @@ export default {
 
 <style>
   .input-panel {
-    width: 400px;
+    width: 480px;
   }
 </style>
