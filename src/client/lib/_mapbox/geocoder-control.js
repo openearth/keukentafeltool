@@ -8,5 +8,8 @@ if (process.browser) {
 import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css'
 
 export default function() {
-  return new MapboxGeocoder({ accessToken: process.env.MAPBOX_TOKEN })
+  return new MapboxGeocoder({
+    accessToken: process.env.MAPBOX_TOKEN,
+    country: 'nl',
+  })
 }
