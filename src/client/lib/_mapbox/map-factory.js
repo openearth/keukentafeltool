@@ -63,6 +63,8 @@ function mapClickHandler({ point, target }) {
         return
       }
 
+      feature.id = String(feature.properties.id)
+
       if(target.getLayer(feature.id)) {
         target.removeLayer(feature.id)
         target.removeSource(feature.id)
