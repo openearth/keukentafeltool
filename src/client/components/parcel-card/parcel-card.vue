@@ -19,9 +19,9 @@
             :key="key" >
             <label for="input">{{ key }}</label>
             <md-input
-              :type="text"
               :disabled="true"
               :value="value"
+              type="text"
               name="input" />
           </md-field>
         </md-card-content>

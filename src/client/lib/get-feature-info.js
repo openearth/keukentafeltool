@@ -22,5 +22,12 @@ export default function getFeatureInfo({ ne, sw, x, y, width, height, layer }) {
     bbox
   })
 
-  return fetch(url).then(response => response.json())
+  return fetch(url)
+    .then(response => response.json())
+    .then(({ features }) => features[0])
+    .then((feature) => ({
+      ...feature,
+      id: String(feature.properties.id)
+    }))
+    .catch(() => undefined)
 }
