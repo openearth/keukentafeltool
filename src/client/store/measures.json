@@ -1,0 +1,67 @@
+[
+  {
+    "group": "Verminderen bodemoverschot",
+    "measures": [
+      {
+        "id":1,
+        "title":"Verminderen bodemoverschot stikstof"
+      }
+    ]
+  },
+  {
+    "group": "Precisie bemesting",
+    "measures": [
+      {
+        "id":2,
+        "title":"Precisie bemesting (juiste hoeveelheid, plaats, tijdstip)"
+      }
+    ]
+  },
+  {
+    "group": "Verbeteren sponswerking bodem",
+    "measures": [
+      {
+        "id":3,
+        "title":"Precisie bemesting (juiste hoeveelheid, plaats, tijdstip)"
+      }
+    ]
+  },
+  {
+    "group": "Regelbare drainage",
+    "measures": [
+      {
+        "id":4,
+        "title":"Aanleg regelbare drainage op drainage behoefte bodems (waar nu nog geen drainbuizen liggen)"
+      },
+      {
+        "id":5,
+        "title":"Omzetten traditionele buisdrainage naar regelbare buisdrainage"
+      }
+    ]
+  },
+  {
+    "group": "Verminderen oppervlakkige afstroming",
+    "measures": [
+      {
+        "id":6,
+        "title":"Droge buffersstroken"
+      },
+      {
+        "id":7,
+        "title":"Natte bufferstroken"
+      },
+      {
+        "id":8,
+        "title":"Afvangen en zuiveren oppervlakkig afstroming"
+      },
+      {
+        "id":9,
+        "title":"Akkerranden"
+      },
+      {
+        "id":10,
+        "title":"Drempeltjes bij rijenbemesting"
+      }
+    ]
+  }
+]
