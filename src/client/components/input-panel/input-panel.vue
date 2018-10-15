@@ -1,17 +1,14 @@
 <template>
   <div class="input-panel">
-    <h2 class="a11y-sr-only">Input panel title</h2>
-    <div v-if="parcels.length">
+    <h2>Perceelinformatie</h2>
+    <template v-if="parcels.length">
       <parcel-card
         v-for="(parcel, index) in parcels"
         :key="parcel.id"
         :index="index"
         :parcel="parcel"
         class="parcel-card" />
-    </div>
-    <div v-else>
-      <h2>Selecteer een perceel op de kaart</h2>
-    </div>
+    </template>
   </div>
 </template>
 
@@ -39,9 +36,12 @@ export default {
 </script>
 
 <style>
-  .input-panel {
-    padding: 16px;
-    height: 100%;
-    overflow-y: auto;
-  }
+@import "../app-core/variables.css";
+
+.input-panel {
+  padding: 16px;
+  height: 100%;
+  overflow-y: auto;
+  background-color: var(--background-light);
+}
 </style>

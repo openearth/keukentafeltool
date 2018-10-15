@@ -1,0 +1,9 @@
+/**
+ * Overwrites of the Vue Material Design styles for this project.
+ * @todo: do this properly, by creating a new theme: https://vuematerial.io/themes/configuration
+ */
+.md-button {
+  border-radius: 100px !important;
+  padding-left: .5em !important;
+  padding-right: .5em !important;
+}
