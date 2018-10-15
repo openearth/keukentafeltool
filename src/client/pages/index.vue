@@ -8,7 +8,7 @@
       <md-dialog-actions>
         <md-button
           class="md-primary"
-          to="/farm-start"
+          to="/farm"
           @click="showDialog = false">START
         </md-button>
       </md-dialog-actions>
