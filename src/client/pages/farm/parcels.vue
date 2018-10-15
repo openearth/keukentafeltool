@@ -4,7 +4,7 @@
 
 <script>
 import { mapState } from 'vuex'
-import { InputPanel } from '../components'
+import { InputPanel } from '../../components'
 
 export default {
   components: { InputPanel },

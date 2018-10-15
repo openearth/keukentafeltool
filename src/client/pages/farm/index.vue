@@ -5,7 +5,7 @@
     <template v-else>{{ parcelCount }} percelen geselecteerd</template>
     <md-button
       :disabled="parcelCount === 0"
-      to="/farm-parcels"
+      to="/farm/parcels"
       class="md-raised md-primary"
       type="button"
     >
@@ -16,7 +16,7 @@
 
 <script>
 import { mapState } from 'vuex'
-import { FooterBar } from '../components'
+import { FooterBar } from '../../components'
 
 export default {
   components: { FooterBar },
