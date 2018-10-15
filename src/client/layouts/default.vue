@@ -3,12 +3,18 @@
     <app-header />
     <main class="default-layout__content">
       <nuxt/>
-      <no-ssr>
-        <mapbox-map
-          @parcels_addFeature="addParcel"
-          @parcels_removeFeature="removeParcel"
+      <div class="default-layout__content-right">
+        <no-ssr>
+          <mapbox-map
+            @parcels_addFeature="addParcel"
+            @parcels_removeFeature="removeParcel"
+          />
+        </no-ssr>
+        <portal-target
+          name="footer-bar"
+          slim
         />
-      </no-ssr>
+      </div>
     </main>
   </div>
 </template>
@@ -44,5 +50,11 @@ export default {
   overflow-y: scroll;
   display: flex;
   flex: 1;
+}
+
+.default-layout__content-right {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
 }
 </style>

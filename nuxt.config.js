@@ -47,6 +47,7 @@ module.exports = {
   plugins: [
     { src: '~/plugins/resize-directive', ssr: false },
     { src: '~/plugins/vue-material', ssr: true },
+    { src: '~/plugins/vue-portal', ssr: true },
   ],
 
   /*
