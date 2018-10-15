@@ -1,0 +1,19 @@
+<template>
+  <md-tabs md-sync-route>
+    <md-tab
+      id="parcels"
+      md-label="Perceelinformatie"
+      to="/farm/parcels"
+    />
+    <md-tab
+      id="measures"
+      md-label="Maatregelen"
+      to="/farm/measures"
+    />
+    <md-tab
+      id="output"
+      md-label="Output"
+      to="/farm/output"
+    />
+  </md-tabs>
+</template>
