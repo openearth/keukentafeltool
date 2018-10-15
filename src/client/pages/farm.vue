@@ -5,7 +5,9 @@
     class="farm-page__panel"
   >
     <farm-nav />
-    <nuxt-child />
+    <div class="farm-page__content">
+      <nuxt-child />
+    </div>
   </div>
 </template>
 
@@ -26,8 +28,11 @@ export default {
 .farm-page__panel {
   min-width: 50%;
   height: 100%;
-  padding: 16px;
   overflow-y: auto;
   background-color: var(--background-light);
+}
+
+.farm-page__content {
+  padding: 20px;
 }
 </style>
