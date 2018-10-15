@@ -57,8 +57,7 @@ function mapClickHandler({ point, target }) {
     x,
     y,
   })
-    .then(geoJson => {
-      const feature = geoJson.features[0]
+    .then(feature => {
       if(!feature) {
         return
       }
