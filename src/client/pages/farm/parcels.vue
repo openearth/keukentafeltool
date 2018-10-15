@@ -1,21 +1,17 @@
 <template>
-  <input-panel :parcels="parcels" />
+  <parcels-table :parcels="parcels" />
 </template>
 
 <script>
 import { mapState } from 'vuex'
-import { InputPanel } from '../../components'
+
+import { ParcelsTable } from '../../components'
 
 export default {
-  components: { InputPanel },
+  middleware: [ 'require-parcels' ],
+  components: { ParcelsTable },
   computed: {
     ...mapState('parcels', ['parcels']),
   },
 }
 </script>
-
-<style>
-  .input-panel {
-    width: 480px;
-  }
-</style>
