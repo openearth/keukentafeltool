@@ -18,15 +18,15 @@
               <div class="measure-select__caption">KIES</div>
             </div>
           </div>
-          <div class="measure-select__parcels">
+          <!--<div class="measure-select__parcels">
             <span class="measure-select__label">PERCELEN:</span>
             <div class="parcel-chip">36452735 <md-icon class="parcel-chip__icon">clear</md-icon></div>
-          </div>
+          </div>-->
         </div>
       </div>
       <footer-bar>
         <template>Kies een maatregel</template>
-        <template v-if="measure">Klik op een perceel om deze maatregel toe te voegen</template>
+        <!--<template>Klik op een perceel om deze maatregel toe te voegen</template>-->
       </footer-bar>
     </div>
   </div>
