@@ -6,8 +6,8 @@
     <md-button
       :disabled="parcelCount === 0"
       to="/farm/parcels"
-      class="md-raised md-primary"
       type="button"
+      class="md-raised md-primary footer-button"
     >
       Volgende <md-icon>arrow_right_alt</md-icon>
     </md-button>
@@ -26,3 +26,11 @@ export default {
   },
 }
 </script>
+
+<style>
+  .footer-button {
+    border-radius: 100px !important;
+    padding-left: .5em !important;
+    padding-right: .5em !important;
+  }
+</style>
