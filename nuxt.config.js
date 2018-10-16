@@ -45,6 +45,7 @@ module.exports = {
   ** Plugins to load before mounting the App
   */
   plugins: [
+    { src: '~/plugins/persist-state', ssr: false },
     { src: '~/plugins/resize-directive', ssr: false },
     { src: '~/plugins/vue-material', ssr: true },
     { src: '~/plugins/vue-portal', ssr: true },
