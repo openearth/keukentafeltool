@@ -1,1 +1,1 @@
-export { default } from './mapbox-map'
+export default () => import(/* webpackChunkName:'mapbox-map' */ './mapbox-map')
