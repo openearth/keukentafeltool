@@ -11,25 +11,73 @@
         slot="md-table-row"
         slot-scope="{ item }"
       >
+
         <md-table-cell
-          md-label="ID"
+          md-label="Perceel"
           md-sort-by="id"
           md-numeric
         >
           {{ item.id }}
         </md-table-cell>
+
         <md-table-cell
-          md-label="Kwel"
-          md-sort-by="kwel"
+          md-label="Gewas"
+          md-sort-by="gewas"
         >
-          {{ item.kwel }}
+          {{ item.gws_gewas }}
+        </md-table-cell>
+
+        <md-table-cell
+          md-label="Maatregelen"
+          md-sort-by="gewas"
+        >
+          -
         </md-table-cell>
         <md-table-cell
           md-label="Oppervlakte"
           md-sort-by="oppervlakte"
         >
-          {{ item.oppervlakte }}
+          {{ item.oppervlakte }} ha
         </md-table-cell>
+
+        <md-table-cell
+          md-label="Grondsoort"
+          md-sort-by="grondsoort"
+        >
+          {{ item.gewascategorie }}
+        </md-table-cell>
+
+        <md-table-cell
+          md-label="Drainage"
+          md-sort-by="drainage"
+        >
+          {{ item.drain }}
+        </md-table-cell>
+
+        <md-table-cell
+          md-label="Kwel"
+          md-sort-by="kwel"
+          md-numeric
+        >
+          {{ item.kwel }}
+        </md-table-cell>
+
+        <md-table-cell
+          md-label="GHG"
+          md-sort-by="ghg"
+          md-numeric
+        >
+          {{ item.ghg }}
+        </md-table-cell>
+
+        <md-table-cell
+          md-label="GLG"
+          md-sort-by="glg"
+          md-numeric
+        >
+          {{ item.glg }}
+        </md-table-cell>
+
       </md-table-row>
     </md-table>
   </div>

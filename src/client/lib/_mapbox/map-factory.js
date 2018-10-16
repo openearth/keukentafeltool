@@ -34,6 +34,15 @@ export default function(container) {
 
   map.on('load', () => addDefaultControlsToMap(map))
   map.on('click', mapClickHandler)
+  map.on('map/removeClickHandler', () => {
+    map.off('click', mapClickHandler)
+  })
+  map.on('overlays/removeOverlay', ({ id }) => {
+    if(map.getLayer(id)) {
+      map.removeLayer(id)
+      map.removeSource(id)
+    }
+  })
   map.on('style.load', () => {
     mapLayers.forEach(layer => {
       _addLayer(layer)

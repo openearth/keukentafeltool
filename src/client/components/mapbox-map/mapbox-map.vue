@@ -26,6 +26,7 @@ export default {
     })
 
     this.setupListeners(this.map)
+    this.$store.commit('mapbox/initMap', this.map)
   },
   methods: {
     resize() {

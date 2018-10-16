@@ -13,5 +13,9 @@ export default {
   computed: {
     ...mapState('parcels', ['parcels']),
   },
+  mounted() {
+    this.$store.dispatch('mapbox/removeOverlay', 'parcels-layer')
+    this.$store.dispatch('mapbox/removeMapClickHandler', 'parcels-layer')
+  }
 }
 </script>

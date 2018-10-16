@@ -7,6 +7,7 @@
     <farm-nav />
     <div class="farm-page__content">
       <nuxt-child />
+      <button class="farm-page__toggle-content" >more</button>
     </div>
   </div>
 </template>
@@ -32,7 +33,16 @@ export default {
   background-color: var(--background-light);
 }
 
+.farm-page__panel--wide {
+  min-width: 85%;
+}
+
 .farm-page__content {
+  position: relative;
   padding: 20px;
+}
+
+.farm-page__toggle-content {
+  position: absolute;
 }
 </style>
