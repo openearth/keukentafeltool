@@ -9,7 +9,7 @@ export default {
   },
   render(createElement) {
     // this route doesn't need a template, but causes errors otherwise
-    return createElement('div')
+    return createElement('')
   },
 }
 </script>
