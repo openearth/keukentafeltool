@@ -12,9 +12,11 @@
         :key="index">
         <div
           class="measure-select">
-          <div class="measure-select__header">
-            <strong>{{ measure.title }}</strong>
-            <div class="measure-select__caption">KIES</div>
+          <div class="measure-select__button">
+            <div class="measure-select__header">
+              <strong>{{ measure.title }}</strong>
+              <div class="measure-select__caption">KIES</div>
+            </div>
           </div>
           <div class="measure-select__parcels">
             <span class="measure-select__label">PERCELEN:</span>
@@ -54,12 +56,14 @@ export default {
   }
   .measure-select {
     margin-bottom: 12px;
+  }
+  .measure-select__button {
     padding: 12px 18px;
     background: #ffffff;
     border: 1px solid #ffffff;
     cursor: pointer;
   }
-  .measure-select:hover {
+  .measure-select__button:hover {
     border: 1px solid #000000;
   }
   .measure-select:hover .measure-select__caption {
@@ -85,11 +89,10 @@ export default {
     color: transparent;
   }
   .measure-select__parcels {
-    display: block;
-    width: 100%;
+    padding: 12px 18px;
     font-size: 12px;
     color: #666666;
-    margin-top: 12px;
+    background: #ececec;
   }
   .measure-select__label {
     margin-right: 5px;
@@ -101,11 +104,22 @@ export default {
     color: #000000;
     background: #C4C4C4;
     border: 1px solid #B0B0B0;
+    cursor: pointer;
+  }
+  .parcel-chip:hover {
+    color: #ffffff;
+    background: #0038FF;
+    border-color: #0038FF;
+    transition: all ease-in-out 240ms;
+  }
+  .parcel-chip:hover .md-icon {
+    color: #ffffff;
   }
   .parcel-chip__icon {
     width: 14px;
     min-width: 14px;
     height: 14px;
     font-size: 14px!important;
+    vertical-align: text-bottom;
   }
 </style>
