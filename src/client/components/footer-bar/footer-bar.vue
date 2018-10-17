@@ -13,4 +13,9 @@
   align-items: center;
   padding: 10px;
 }
+.footer-bar .md-button {
+  border-radius: 100px !important;
+  padding-left: .5em !important;
+  padding-right: .5em !important;
+}
 </style>
