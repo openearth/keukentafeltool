@@ -51,6 +51,7 @@ export default {
           value: 0.7
         })
       })
+      this.$store.dispatch('mapbox/features/flyToFirstFeature')
     },
     mapClickHandler({ point, target }) {
       const canvas = target.getCanvas()

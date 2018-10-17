@@ -4,7 +4,9 @@ export const state = () => ({
 
 export const mutations = {
   add(state, overlay) {
-    state.overlays = [ ...state.overlays, overlay ]
+    if(!state.overlays.some(storedOverlay => storedOverlay.id == overlay.id)) {
+      state.overlays = [ ...state.overlays, overlay ]
+    }
   },
   remove(state, id) {
     state.overlays = state.overlays.filter(overlay => overlay.id !== id)

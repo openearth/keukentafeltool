@@ -53,6 +53,8 @@ export default {
           value: 1
         })
       })
+      this.$store.dispatch('mapbox/features/flyToFirstFeature')
+
     },
   }
 }
