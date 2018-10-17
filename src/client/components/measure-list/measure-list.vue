@@ -12,13 +12,15 @@
           v-for="(measure, index) in measuregroup.items"
           :key="index">
           <button
-            class="measure-select">
+            class="measure-select"
+            @click="selectMeasure(measure.title)">
             <strong>{{ measure.title }}</strong>
-            <div class="measure-select__caption">KIES</div>
+            <span class="measure-select__caption">KIES</span>
           </button>
         </div>
         <footer-bar>
-          <template>Kies een maatregel</template>
+          <template v-if="selectedMeasure">Klik op een perceel om deze maatregel toe te voegen</template>
+          <template v-else>Kies een maatregel</template>
         </footer-bar>
       </div>
     </div>
@@ -34,9 +36,20 @@ import { FooterBar } from '../../components'
 
 export default {
   components: { FooterBar },
+  data() {
+    return {
+      selectedMeasure: '',
+    }
+  },
   computed: {
     ...mapState('measures', ['measures']),
   },
+  methods: {
+    selectMeasure(value) {
+      this.$emit('clicked', value),
+      this.selectedMeasure = value
+    }
+  }
 }
 </script>
 

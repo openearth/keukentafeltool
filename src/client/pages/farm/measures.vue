@@ -1,6 +1,8 @@
 <template>
   <div>
-    <measure-list :measures="measures" />
+    <measure-list
+      :measures="measures"
+      @clicked="selectedMeasure" />
   </div>
 </template>
 
@@ -13,5 +15,10 @@ export default {
   computed: {
     ...mapState('measures', ['measures']),
   },
+  methods: {
+    selectedMeasure (value) {
+      alert(value)
+    }
+  }
 }
 </script>
