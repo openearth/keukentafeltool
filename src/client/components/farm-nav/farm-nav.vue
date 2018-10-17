@@ -3,17 +3,17 @@
     <md-tab
       id="parcels"
       md-label="Perceelinformatie"
-      to="/farm/parcels"
+      to="/farm/parcels/"
     />
     <md-tab
       id="measures"
       md-label="Maatregelen"
-      to="/farm/measures"
+      to="/farm/measures/"
     />
     <md-tab
       id="output"
       md-label="Output"
-      to="/farm/output"
+      to="/farm/output/"
     />
   </md-tabs>
 </template>
