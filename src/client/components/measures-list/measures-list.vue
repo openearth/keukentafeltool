@@ -2,7 +2,7 @@
   <div>
     <div
       v-if="measures"
-      class="measure-list">
+      class="measures-list">
       <div
         v-for="(measuregroup, index) in measures"
         :key="index"

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <measure-list
+    <measures-list
       :measures="measures"
       @clicked="selectedMeasure" />
   </div>
@@ -8,10 +8,10 @@
 
 <script>
 import { mapState } from 'vuex'
-import { MeasureList } from '../../components'
+import { MeasuresList } from '../../components'
 
 export default {
-  components: { MeasureList },
+  components: { MeasuresList },
   computed: {
     ...mapState('measures', ['measures']),
   },
