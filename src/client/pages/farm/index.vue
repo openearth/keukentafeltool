@@ -16,13 +16,68 @@
 
 <script>
 import { mapState } from 'vuex'
+
+import getFeatureInfo from '../../lib/get-feature-info'
+import initMapState from '../../lib/mixins/init-map-state'
+import layerFactory from '../../lib/_mapbox/layer-factory'
+import parcelColors from '../../lib/_mapbox/parcel-colors'
+
 import { FooterBar } from '../../components'
 
 export default {
   components: { FooterBar },
+  mixins: [ initMapState ],
   computed: {
-    ...mapState('parcels', ['parcels']),
-    parcelCount() { return this.parcels.length },
+    ...mapState('mapbox', [ 'mapObject', 'mapIsLoaded' ]),
+    ...mapState('mapbox/features', [ 'features' ]),
+    parcelCount() { return this.features.length },
+  },
+  methods: {
+    initMapState() {
+      const overlay = layerFactory.parcels()
+      this.$store.dispatch('mapbox/addEventHandler', { event: 'click', handler: (event) => this.mapClickHandler(event) })
+      this.$store.dispatch('mapbox/overlays/add', overlay)
+      this.$store.dispatch('mapbox/overlays/setOpacity', { id: overlay.id, opacity: 1 })
+      this.features.forEach(feature => {
+        this.$store.dispatch('mapbox/features/add', feature)
+        this.$store.dispatch('mapbox/features/setStyle', {
+          id: feature.id,
+          styleOption: 'fill-color',
+          value: parcelColors()
+        })
+        this.$store.dispatch('mapbox/features/setStyle', {
+          id: feature.id,
+          styleOption: 'fill-opacity',
+          value: 0.7
+        })
+      })
+    },
+    mapClickHandler({ point, target }) {
+      const canvas = target.getCanvas()
+      const { _ne, _sw } = target.getBounds()
+      const { x, y } = point
+
+      getFeatureInfo({
+        layer: 'percelen:brp_gewaspercelen_2017_concept',
+        ne: _ne,
+        sw: _sw,
+        width: canvas.offsetWidth,
+        height: canvas.offsetHeight,
+        x,
+        y,
+      })
+        .then(feature => {
+          if(!feature) {
+            return
+          }
+
+          if(target.getLayer(feature.id)) {
+            this.$store.dispatch('mapbox/features/remove', feature.id)
+          } else {
+            this.$store.dispatch('mapbox/features/add', feature)
+          }
+        })
+    }
   },
 }
 </script>

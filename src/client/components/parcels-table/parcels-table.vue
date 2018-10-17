@@ -1,82 +1,30 @@
 <template>
-  <div>
+  <div class="parcels-table">
     <md-table
       v-model="parcelProperties"
-      md-sort="id"
-      md-sort-order="asc"
-      md-card
       md-fixed-header
     >
+
       <md-table-row
         slot="md-table-row"
         slot-scope="{ item }"
       >
 
+        <md-table-cell md-label="Perceel">{{ item.id || 'Onbekend' }}</md-table-cell>
         <md-table-cell
-          md-label="Perceel"
-          md-sort-by="id"
-          md-numeric
-        >
-          {{ item.id }}
-        </md-table-cell>
-
-        <md-table-cell
+          :class="`parcels-table__vegetation--${item.gewascategorie.toLowerCase()}`"
+          class="parcels-table__vegetation"
           md-label="Gewas"
-          md-sort-by="gewas"
         >
-          {{ item.gws_gewas }}
+          {{ item.gewas || 'Onbekend' }}
         </md-table-cell>
-
-        <md-table-cell
-          md-label="Maatregelen"
-          md-sort-by="gewas"
-        >
-          -
-        </md-table-cell>
-        <md-table-cell
-          md-label="Oppervlakte"
-          md-sort-by="oppervlakte"
-        >
-          {{ item.oppervlakte }} ha
-        </md-table-cell>
-
-        <md-table-cell
-          md-label="Grondsoort"
-          md-sort-by="grondsoort"
-        >
-          {{ item.gewascategorie }}
-        </md-table-cell>
-
-        <md-table-cell
-          md-label="Drainage"
-          md-sort-by="drainage"
-        >
-          {{ item.drain }}
-        </md-table-cell>
-
-        <md-table-cell
-          md-label="Kwel"
-          md-sort-by="kwel"
-          md-numeric
-        >
-          {{ item.kwel }}
-        </md-table-cell>
-
-        <md-table-cell
-          md-label="GHG"
-          md-sort-by="ghg"
-          md-numeric
-        >
-          {{ item.ghg }}
-        </md-table-cell>
-
-        <md-table-cell
-          md-label="GLG"
-          md-sort-by="glg"
-          md-numeric
-        >
-          {{ item.glg }}
-        </md-table-cell>
+        <md-table-cell md-label="Maatregelen"> Onbekend </md-table-cell>
+        <md-table-cell md-label="Oppervlakte (ha)"> {{ item.areaal || 'Onbekend' }}</md-table-cell>
+        <md-table-cell md-label="Grondsoort">{{ item.gewascategorie || 'Onbekend' }}</md-table-cell>
+        <md-table-cell md-label="Drainage">{{ item.drain || 'Onbekend' }}</md-table-cell>
+        <md-table-cell md-label="Kwel">{{ item.kwel || 'Onbekend' }}</md-table-cell>
+        <md-table-cell md-label="GHG">{{ item.ghg || 'Onbekend' }}</md-table-cell>
+        <md-table-cell md-label="GLG">{{ item.glg || 'Onbekend' }}</md-table-cell>
 
       </md-table-row>
     </md-table>
@@ -90,16 +38,57 @@ export default {
       type: Array,
       required: true,
       default: () => [],
-      validator() { return true }
     }
   },
   computed: {
     parcelProperties() {
-      const x = this.parcels.map(parcel => parcel.properties)
-
-      console.log('MEEEEH', x)
       return this.parcels.map(parcel => parcel.properties)
+    },
+  },
+  methods: {
+    parcelColor() {
+      return '#FF0000'
     }
   }
 }
 </script>
+
+<style>
+  .parcel-type {
+    width: 5px;
+    height: 5px;
+  }
+
+  .parcels-table__vegetation {
+    position: relative;
+  }
+
+  .parcels-table__vegetation::before {
+    content: "";
+    width: 10px;
+    height: 10px;
+    position: absolute;
+    top: calc(50% - 5px);
+    border: 1px solid #ccc;
+  }
+
+  .parcels-table__vegetation--grasland::before {
+    background-color: #D1FFB9;
+  }
+
+  .parcels-table__vegetation--bouwland::before {
+    background-color: #FFFFDE;
+  }
+
+  .parcels-table__vegetation--braakland::before {
+    background-color: #EBE0CE;
+  }
+
+  .parcels-table__vegetation--natuurterrein::before {
+    background-color: #9BD37F;
+  }
+
+  .parcels-table__vegetation--overige::before {
+    background-color: #D8D8D8;
+  }
+</style>

@@ -1,4 +1,4 @@
-export default function({ id, tiles=[], tileSize=256, paint={} }) {
+export default function({ id, tiles=[], tileSize=512, paint={} }) {
   return {
     id,
     type: 'raster',
