@@ -1,8 +1,6 @@
 <template>
-  <div>
-    <div
-      v-if="measures"
-      class="measures-list">
+  <div class="measures-list">
+    <template v-if="measures">
       <div
         v-for="(measuregroup, index) in measures"
         :key="index"
@@ -23,10 +21,10 @@
           <template v-else>Kies een maatregel</template>
         </footer-bar>
       </div>
-    </div>
-    <div v-else>
+    </template>
+    <template v-else>
       Geen maatregelen gevonden.
-    </div>
+    </template>
   </div>
 </template>
 
