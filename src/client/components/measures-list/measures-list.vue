@@ -2,24 +2,20 @@
   <div class="measures-list">
     <template v-if="measures">
       <div
-        v-for="(measuregroup, index) in measures"
-        :key="index"
-        class="measure-group">
-        <h2 class="measure-group__title">{{ measuregroup.title }}</h2>
+        v-for="(measureGroup, groupIndex) in measures"
+        :key="measureGroup.title"
+        class="measures-list__group">
+        <h2 class="measures-list__group-title">{{ measureGroup.title }}</h2>
         <div
-          v-for="(measure, index) in measuregroup.items"
-          :key="index">
+          v-for="(measure, index) in measureGroup.items"
+          :key="measure.title">
           <button
-            class="measure-select"
-            @click="selectMeasure(measure.title)">
+            class="measures-list__select"
+            @click="selectMeasure({groupIndex, index})">
             <strong>{{ measure.title }}</strong>
-            <span class="measure-select__caption">KIES</span>
+            <span class="measures-list__select-caption">KIES</span>
           </button>
         </div>
-        <footer-bar>
-          <template v-if="selectedMeasure">Klik op een perceel om deze maatregel toe te voegen</template>
-          <template v-else>Kies een maatregel</template>
-        </footer-bar>
       </div>
     </template>
     <template v-else>
@@ -30,38 +26,37 @@
 
 <script>
 import { mapState } from 'vuex'
-import { FooterBar } from '../../components'
 
 export default {
-  components: { FooterBar },
   data() {
     return {
-      selectedMeasure: '',
+      selectedMeasure: {},
     }
   },
   computed: {
     ...mapState('measures', ['measures']),
   },
   methods: {
-    selectMeasure(value) {
-      this.$emit('clicked', value),
-      this.selectedMeasure = value
+    selectMeasure({index, groupIndex}) {
+      const measure = this.measures[groupIndex].items[index]
+      this.$emit('selectMeasure', measure),
+      this.selectedMeasure = measure
     }
   }
 }
 </script>
 
 <style>
-  .measure-group__title {
+  .measures-list__group-title {
     color: #666666;
     font-size: 14px;
     margin-top: 24px;
     margin-bottom: 14px;
   }
-  .measure-group:first-child .measure-group__title {
+  .measures-list__group:first-child .measures-list__group-title {
     margin-top: 0;
   }
-  .measure-select {
+  .measures-list__select {
     margin-bottom: 12px;
     padding: 12px 18px;
     background: #ffffff;
@@ -72,15 +67,15 @@ export default {
     align-items: center;
     width: 100%;
   }
-  .measure-select:hover {
+  .measures-list__select:hover {
     border: 1px solid #000000;
   }
-  .measure-select:hover .measure-select__caption {
+  .measures-list__select:hover .measures-list__select-caption {
     color: #666666;
     transition: color ease-in-out 400ms;
     transition-delay: 100ms;
   }
-  .measure-select__caption {
+  .measures-list__select-caption {
     float: right;
     padding: 0;
     min-width: 0;
