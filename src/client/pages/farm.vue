@@ -13,12 +13,23 @@
 
 <script>
 import { FarmNav } from '../components'
+const isIndexRoute = route => (route.name === 'farm')
 
 export default {
   components: { FarmNav },
   computed: {
-    isIndex() { return this.$route.name === 'farm' }
+    isIndex() { return isIndexRoute(this.$route) },
   },
+  /**
+   * If a user tries to access a farm child route without having any parcels selected,
+   * they are redirected to the farm index page, where they can select parcels.
+   */
+  validate({ redirect, route, store }) {
+    const hasSelectedParcels = (store.state.parcels.parcels.length > 0)
+    if (isIndexRoute(route)) return true
+    if (hasSelectedParcels) return true
+    redirect('/farm')
+  }
 }
 </script>
 
