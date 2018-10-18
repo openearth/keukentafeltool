@@ -8,7 +8,6 @@
 
 <script>
 import mapFactory from '~/lib/_mapbox/map-factory'
-import layerFactory from '~/lib/_mapbox/layer-factory'
 
 export default {
   props: {
@@ -20,12 +19,8 @@ export default {
   },
   async mounted() {
     this.map = mapFactory(this.$refs.mapboxMap)
-
-    this.map.on('load', () => {
-      this.map.addLayer(layerFactory.parcels())
-    })
-
     this.setupListeners(this.map)
+    this.$emit('mapCreated', this.map)
   },
   methods: {
     resize() {

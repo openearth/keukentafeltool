@@ -1,6 +1,4 @@
-import getFeatureInfo from '../get-feature-info'
 import mapboxgl from './_mapbox'
-import layerFactory from  './layer-factory'
 import { addDefaultControlsToMap } from './default-controls'
 import { MAP_CENTER, MAP_ZOOM, MAP_BASELAYER_DEFAULT } from './map-config'
 
@@ -33,7 +31,6 @@ export default function(container) {
   }
 
   map.on('load', () => addDefaultControlsToMap(map))
-  map.on('click', mapClickHandler)
   map.on('style.load', () => {
     mapLayers.forEach(layer => {
       _addLayer(layer)
@@ -41,34 +38,4 @@ export default function(container) {
   })
 
   return map
-}
-
-function mapClickHandler({ point, target }) {
-  const canvas = target.getCanvas()
-  const { _ne, _sw } = target.getBounds()
-  const { x, y } = point
-
-  getFeatureInfo({
-    layer: 'percelen:brp_gewaspercelen_2017_concept',
-    ne: _ne,
-    sw: _sw,
-    width: canvas.offsetWidth,
-    height: canvas.offsetHeight,
-    x,
-    y,
-  })
-    .then(feature => {
-      if(!feature) {
-        return
-      }
-
-      if(target.getLayer(feature.id)) {
-        target.removeLayer(feature.id)
-        target.removeSource(feature.id)
-        target.fire('parcels/removeFeature', { id: feature.id })
-      } else {
-        target.addLayer(layerFactory.parcel({ feature }))
-        target.fire('parcels/addFeature', { feature })
-      }
-    })
 }

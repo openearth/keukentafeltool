@@ -17,6 +17,7 @@ import { MeasuresList } from '../../components'
 import { FooterBar } from '../../components'
 
 export default {
+  middleware: [ 'require-parcels' ],
   components: { MeasuresList, FooterBar },
   data() {
     return {

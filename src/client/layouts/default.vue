@@ -1,14 +1,11 @@
 <template>
   <div class="default-layout">
-    <app-header />
+    <app-header @refresh="resetFeatures" />
     <main class="default-layout__content">
       <nuxt/>
       <div class="default-layout__content-right">
         <no-ssr>
-          <mapbox-map
-            @parcels_addFeature="addParcel"
-            @parcels_removeFeature="removeParcel"
-          />
+          <mapbox-map @mapCreated="setMap" />
         </no-ssr>
         <portal-target
           name="footer-bar"
@@ -25,12 +22,14 @@ import { AppHeader, MapboxMap } from '../components'
 export default {
   components: { AppHeader, MapboxMap },
   methods: {
-    addParcel({ feature }) {
-      this.$store.commit('parcels/addParcel', feature)
+    resetFeatures() {
+      this.$store.dispatch('mapbox/features/resetFeatures')
+      this.$store.dispatch('mapbox/moveMapToCenter')
+      this.$router.push('/farm/')
     },
-    removeParcel({ id }) {
-      this.$store.commit('parcels/removeParcel', id)
-    },
+    setMap(map) {
+      this.$store.dispatch('mapbox/initMap', map)
+    }
   }
 }
 </script>
