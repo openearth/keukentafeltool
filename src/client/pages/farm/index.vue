@@ -6,8 +6,8 @@
     <md-button
       :disabled="parcelCount === 0"
       to="/farm/parcels"
-      class="md-raised md-primary"
       type="button"
+      class="md-raised md-primary"
     >
       Volgende <md-icon>arrow_right_alt</md-icon>
     </md-button>
