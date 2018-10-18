@@ -26,7 +26,6 @@ export const actions = {
       commit('add', feature)
     }
   },
-
   flyToFirstFeature({ state, rootGetters }) {
     if(state.features.length) {
       const map = rootGetters['mapbox/map']
@@ -37,6 +36,17 @@ export const actions = {
 
       map.fitBounds(bounds, { zoom: 14 })
     }
+  },
+  resetFeatures({ commit, state, rootGetters }) {
+    const map = rootGetters['mapbox/map']
+
+    state.features.forEach(({ id }) => {
+      if(map.getLayer(id)) {
+        map.removeLayer(id)
+        map.removeSource(id)
+        commit('remove', id)
+      }
+    })
   },
   setStyle({ rootGetters }, { id, styleOption ,value }) {
     const map = rootGetters['mapbox/map']

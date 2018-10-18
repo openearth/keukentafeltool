@@ -1,3 +1,6 @@
+import mapboxgl from '../../lib/_mapbox/_mapbox'
+import { NETHERLANDS_CENTER_LATITUDE as NL_LAT, NETHERLANDS_CENTER_LONGITUDE as NL_LNG, MAP_ZOOM } from '../../lib/_mapbox/map-config'
+
 export const state = () => ({
   mapObject: {},
   eventHandlers: {},
@@ -33,6 +36,9 @@ export const actions = {
       commit('setMapIsLoaded', true)
       commit('initMap', map)
     })
+  },
+  moveMapToCenter({ state }) {
+    state.mapObject.map.flyTo({center:[ NL_LAT, NL_LNG ], zoom: MAP_ZOOM})
   },
   removeEventHandler({ state, commit }, { event }) {
     const handler = state.eventHandlers[event]

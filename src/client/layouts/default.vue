@@ -1,6 +1,6 @@
 <template>
   <div class="default-layout">
-    <app-header />
+    <app-header @refresh="resetFeatures" />
     <main class="default-layout__content">
       <nuxt/>
       <div class="default-layout__content-right">
@@ -22,6 +22,11 @@ import { AppHeader, MapboxMap } from '../components'
 export default {
   components: { AppHeader, MapboxMap },
   methods: {
+    resetFeatures() {
+      this.$store.dispatch('mapbox/features/resetFeatures')
+      this.$store.dispatch('mapbox/moveMapToCenter')
+      this.$router.push('/farm/')
+    },
     setMap(map) {
       this.$store.dispatch('mapbox/initMap', map)
     }
