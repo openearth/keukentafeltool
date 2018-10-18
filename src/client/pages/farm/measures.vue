@@ -1,9 +1,37 @@
 <template>
-  <h2>Measures</h2>
+  <div>
+    <measures-list
+      :measures="measures"
+      @selectMeasure="selectMeasure"
+    />
+    <footer-bar>
+      <template v-if="selectedMeasure">Klik op een perceel om deze maatregel toe te voegen</template>
+      <template v-else>Kies een maatregel</template>
+    </footer-bar>
+  </div>
 </template>
 
 <script>
+import { mapState } from 'vuex'
+import { MeasuresList } from '../../components'
+import { FooterBar } from '../../components'
+
 export default {
   middleware: [ 'require-parcels' ],
+  components: { MeasuresList, FooterBar },
+  data() {
+    return {
+      selectedMeasure: undefined,
+    }
+  },
+  computed: {
+    ...mapState('measures', ['measures']),
+  },
+  methods: {
+    selectMeasure (measure) {
+      this.selectedMeasure = measure
+      console.log(measure)
+    }
+  }
 }
 </script>
