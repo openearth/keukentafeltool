@@ -1,4 +1,4 @@
-import { NETHERLANDS_CENTER_LATITUDE as NL_LAT, NETHERLANDS_CENTER_LONGITUDE as NL_LNG, MAP_ZOOM } from '../../lib/_mapbox/map-config'
+import { NETHERLANDS_CENTER_LATITUDE, NETHERLANDS_CENTER_LONGITUDE, MAP_ZOOM } from '../../lib/_mapbox/map-config'
 
 export const state = () => ({
   mapObject: {},
