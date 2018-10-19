@@ -30,7 +30,7 @@ export const actions = {
     state.mapObject.map.on(event, handler)
     commit('addEventHandler', { event, handler })
   },
-  addOnceEventHandler({state, commit}, { event, handler }) {
+  addOnceEventHandler({state }, { event, handler }) {
     state.mapObject.map.once(event, handler)
   },
   initMap({ commit }, map) {
@@ -40,7 +40,10 @@ export const actions = {
     })
   },
   moveMapToCenter({ state }) {
-    state.mapObject.map.flyTo({center:[ NL_LNG, NL_LAT ], zoom: MAP_ZOOM})
+    state.mapObject.map.flyTo({
+      center:[ NETHERLANDS_CENTER_LONGITUDE, NETHERLANDS_CENTER_LATITUDE ],
+      zoom: MAP_ZOOM
+    })
   },
   removeEventHandler({ state, commit }, { event }) {
     const handler = state.eventHandlers[event]

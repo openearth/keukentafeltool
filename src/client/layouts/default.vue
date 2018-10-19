@@ -26,7 +26,7 @@ export default {
       this.$store.dispatch('mapbox/features/resetFeatures')
       this.$store.dispatch('mapbox/addOnceEventHandler', {
         event: 'resize',
-        handler: () => { this.$store.dispatch('mapbox/moveMapToCenter') }
+        handler: () => this.$store.dispatch('mapbox/moveMapToCenter')
       })
       this.$router.push('/farm/')
     },

@@ -55,7 +55,7 @@ export default {
       })
       this.$store.dispatch('mapbox/addOnceEventHandler', {
         event: 'resize',
-        handler: () => { this.$store.dispatch('mapbox/features/flyToFirstFeature') }
+        handler: () => this.$store.dispatch('mapbox/features/flyToFirstFeature')
       })
     },
   }
