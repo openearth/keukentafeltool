@@ -2,14 +2,11 @@
   <div class="parcels-table">
     <md-table
       v-model="parcelProperties"
-      md-fixed-header
     >
-
       <md-table-row
         slot="md-table-row"
         slot-scope="{ item }"
       >
-
         <md-table-cell md-label="Perceel">{{ item.id || 'Onbekend' }}</md-table-cell>
         <md-table-cell
           :class="`parcels-table__vegetation--${item.gewascategorie.toLowerCase()}`"
@@ -25,7 +22,6 @@
         <md-table-cell md-label="Kwel">{{ item.kwel || 'Onbekend' }}</md-table-cell>
         <md-table-cell md-label="GHG">{{ item.ghg || 'Onbekend' }}</md-table-cell>
         <md-table-cell md-label="GLG">{{ item.glg || 'Onbekend' }}</md-table-cell>
-
       </md-table-row>
     </md-table>
   </div>
@@ -90,5 +86,33 @@ export default {
 
   .parcels-table__vegetation--overige::before {
     background-color: #D8D8D8;
+  }
+
+  /* fix for the vue-material fixed header table */
+   .parcels-table {
+    width: 100%;
+    table-layout: fixed;
+    border-collapse: collapse;
+  }
+
+  .parcels-table .md-table-cell-container,
+  .parcels-table .md-table-head-container {
+    width: 120px;
+  }
+
+  .parcels-table tbody {
+    display:block;
+    width: 100%;
+    overflow: auto;
+    height: 600px;
+  }
+
+  .parcels-table thead tr {
+    display: block;
+  }
+
+  .parcels-table th,
+  .parcels-table td {
+    width: 200px;
   }
 </style>
