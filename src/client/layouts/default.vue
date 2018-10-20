@@ -24,7 +24,10 @@ export default {
   methods: {
     resetFeatures() {
       this.$store.dispatch('mapbox/features/resetFeatures')
-      this.$store.dispatch('mapbox/moveMapToCenter')
+      this.$store.dispatch('mapbox/addOnceEventHandler', {
+        event: 'resize',
+        handler: () => this.$store.dispatch('mapbox/moveMapToCenter')
+      })
       this.$router.push('/farm/')
     },
     setMap(map) {
