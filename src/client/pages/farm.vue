@@ -2,42 +2,35 @@
   <nuxt-child v-if="isIndex" />
   <div
     v-else
-    :class="{ [`farm-page__panel--wide`]: contentIsOpen }"
-    class="farm-page__panel"
+    :class="{ 'farm-page__panel--wide': panelIsOpen }"
+    class="farm-page__panel md-elevation-3"
   >
-    <farm-nav />
-    <div class="farm-page__content">
-      <nuxt-child />
-    </div>
-    <md-button
-      class="md-button farm-page__toggle-content"
-      @click="toggleContent"
-    >
-      <md-icon>{{ toggleIcon }}</md-icon>
-    </md-button>
+    <header class="farm-page__panel-header">
+      <farm-nav />
+      <toggle-panel-button
+        :is-open="panelIsOpen"
+        @toggle="togglePanel"
+      />
+    </header>
+    <nuxt-child />
   </div>
 </template>
 
 <script>
-import { FarmNav } from '../components'
+import { FarmNav, TogglePanelButton } from '../components'
 
 export default {
-  components: { FarmNav },
+  components: { FarmNav, TogglePanelButton },
   data() {
     return {
-      contentIsOpen: false
+      panelIsOpen: false,
     }
   },
   computed: {
     isIndex() { return this.$route.name === 'farm' },
-    toggleIcon() {
-      return this.contentIsOpen ? 'keyboard_arrow_left' : 'keyboard_arrow_right'
-    }
   },
   methods: {
-    toggleContent() {
-      this.contentIsOpen = !this.contentIsOpen
-    }
+    togglePanel() { this.panelIsOpen = !this.panelIsOpen },
   }
 }
 </script>
@@ -47,30 +40,19 @@ export default {
 
 .farm-page__panel {
   position: relative;
+  z-index: 1;
   min-width: 50%;
   height: 100%;
   overflow-y: auto;
   background-color: var(--background-light);
 }
-
 .farm-page__panel--wide {
   min-width: 85%;
 }
 
-.farm-page__content {
-  padding-top: 20px;
-  padding-bottom: 20px;
-  padding-left: 20px;
-  padding-right: 60px;
-}
-
-.farm-page__toggle-content {
-  position: absolute;
-  top: 50%;
-  right: 10px;
-  width: 40px !important;
-  min-width: 40px !important;
-  padding: 0 !important;
-  margin: 0 !important;
+.farm-page__panel-header {
+  display: flex;
+  justify-content: space-between;
+  background-color: white;
 }
 </style>
