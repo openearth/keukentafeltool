@@ -40,7 +40,7 @@ export default {
 
 .farm-page__panel {
   position: relative;
-  z-index: 1;
+  z-index: 3;
   min-width: 50%;
   height: 100%;
   overflow-y: auto;
