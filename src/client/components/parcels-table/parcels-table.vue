@@ -1,8 +1,6 @@
 <template>
   <md-table
     v-model="parcelProperties"
-    md-sort="id"
-    md-sort-order="asc"
     md-fixed-header
     class="parcels-table"
   >
