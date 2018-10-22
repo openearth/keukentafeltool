@@ -104,7 +104,8 @@ export default {
     display:block;
     width: 100%;
     overflow: auto;
-    height: 600px;
+    min-height: 51px; /* one row */
+    max-height: 561px; /* 11 rows */
   }
 
   .parcels-table thead tr {
