@@ -51,10 +51,7 @@ export default {
           value: 0.7
         })
       })
-      this.$store.dispatch('mapbox/addOnceEventHandler', {
-        event: 'resize',
-        handler: () => this.$store.dispatch('mapbox/features/flyToFirstFeature')
-      })
+      this.$emit('fitFeatures')
     },
     mapClickHandler({ point, target }) {
       const canvas = target.getCanvas()

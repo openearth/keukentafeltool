@@ -1,13 +1,19 @@
 <template>
-  <nuxt-child v-if="isIndex" />
+  <nuxt-child
+    v-if="isIndex"
+    @fitFeatures="fitFeatures"
+  />
   <div
     v-else
-    :class="{ [`farm-page__panel--wide`]: contentIsOpen }"
+    :class="{ [`farm-page__panel--visible`]: panelContentLoaded, [`farm-page__panel--wide`]: contentIsOpen }"
     class="farm-page__panel"
   >
     <farm-nav />
     <div class="farm-page__content">
-      <nuxt-child />
+      <nuxt-child
+        @fitFeatures="fitFeatures"
+        @hasRequiredFeatures="showContent"
+      />
     </div>
     <md-button
       class="md-button farm-page__toggle-content"
@@ -25,7 +31,8 @@ export default {
   components: { FarmNav },
   data() {
     return {
-      contentIsOpen: false
+      contentIsOpen: false,
+      panelContentLoaded: false
     }
   },
   computed: {
@@ -35,9 +42,17 @@ export default {
     }
   },
   methods: {
+    fitFeatures() {
+      setTimeout(() => {
+        this.$store.dispatch('mapbox/features/fitToFeatures')
+      }, 300)
+    },
+    showContent() {
+      this.panelContentLoaded = true
+    },
     toggleContent() {
       this.contentIsOpen = !this.contentIsOpen
-    }
+    },
   }
 }
 </script>
@@ -47,14 +62,19 @@ export default {
 
 .farm-page__panel {
   position: relative;
-  min-width: 50%;
+  width: 0;
   height: 100%;
   overflow-y: auto;
   background-color: var(--background-light);
+  transition: .5s width cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+.farm-page__panel--visible {
+  width: 100%;
 }
 
 .farm-page__panel--wide {
-  min-width: 85%;
+  width: 200%;
 }
 
 .farm-page__content {
