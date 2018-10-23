@@ -1,34 +1,73 @@
 <template>
-  <div class="parcels-table">
+  <form
+    class="parcels-table"
+  >
     <md-table
       v-model="parcelProperties"
       md-fixed-header
     >
-
       <md-table-row
         slot="md-table-row"
         slot-scope="{ item }"
       >
-
         <md-table-cell md-label="Perceel">{{ item.id || 'Onbekend' }}</md-table-cell>
         <md-table-cell
           :class="`parcels-table__vegetation--${item.gewascategorie.toLowerCase()}`"
           class="parcels-table__vegetation"
           md-label="Gewas"
-        >
-          {{ item.gewas || 'Onbekend' }}
-        </md-table-cell>
+        >{{ item.gewas }}</md-table-cell>
         <md-table-cell md-label="Maatregelen"> Onbekend </md-table-cell>
-        <md-table-cell md-label="Oppervlakte (ha)"> {{ item.areaal || 'Onbekend' }}</md-table-cell>
-        <md-table-cell md-label="Grondsoort">{{ item.gewascategorie || 'Onbekend' }}</md-table-cell>
-        <md-table-cell md-label="Drainage">{{ item.drain || 'Onbekend' }}</md-table-cell>
+        <md-table-cell md-label="Oppervlakte (ha)">{{ item.areaal || 'Onbekend' }}</md-table-cell>
+        <md-table-cell md-label="Grondsoort">
+          <select @input.prevent="inputProperty({id: item.id, valueProperty: $event.target.value})">
+            <option
+              :selected="item.gewascategorie === 'Grasland'"
+              value="Grasland"
+            >
+              Grasland
+            </option>
+            <option
+              :selected="item.gewascategorie === 'Bouwland'"
+              value="Bouwland"
+            >
+              Bouwland
+            </option>
+            <option
+              :selected="item.gewascategorie === 'Braakland'"
+              value="Braakland"
+            >
+              Braakland
+            </option>
+            <option
+              :selected="item.gewascategorie === 'Natuur'"
+              value="Natuur"
+            >
+              Natuur
+            </option>
+          </select>
+        </md-table-cell>
+        <md-table-cell md-label="Drainage">
+          <select @input.prevent="inputProperty({id: item.id, valueProperty: $event.target.value})">
+            <option
+              :selected="item.drain === 1"
+              value="1"
+            >
+              Ja
+            </option>
+            <option
+              :selected="item.drain === 0"
+              value="0"
+            >
+              Nee
+            </option>
+          </select>
+        </md-table-cell>
         <md-table-cell md-label="Kwel">{{ item.kwel || 'Onbekend' }}</md-table-cell>
         <md-table-cell md-label="GHG">{{ item.ghg || 'Onbekend' }}</md-table-cell>
         <md-table-cell md-label="GLG">{{ item.glg || 'Onbekend' }}</md-table-cell>
-
       </md-table-row>
     </md-table>
-  </div>
+  </form>
 </template>
 
 <script>
@@ -40,6 +79,11 @@ export default {
       default: () => [],
     }
   },
+  data() {
+    return {
+      selected: ''
+    }
+  },
   computed: {
     parcelProperties() {
       return this.parcels.map(parcel => parcel.properties)
@@ -48,6 +92,9 @@ export default {
   methods: {
     parcelColor() {
       return '#FF0000'
+    },
+    inputProperty(valueProperty) {
+      this.$emit('inputProperty', valueProperty)
     }
   }
 }
@@ -90,5 +137,9 @@ export default {
 
   .parcels-table__vegetation--overige::before {
     background-color: #D8D8D8;
+  }
+
+  .parcels-table__input {
+    border: none;
   }
 </style>

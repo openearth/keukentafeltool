@@ -7,7 +7,10 @@
     >
       Percelen selecteren <md-icon>arrow_left_alt</md-icon>
     </md-button>
-    <parcels-table :parcels="features" />
+    <parcels-table
+      :parcels="features"
+      @inputProperty="inputProperty"
+    />
   </div>
 </template>
 
@@ -58,6 +61,10 @@ export default {
         handler: () => this.$store.dispatch('mapbox/features/flyToFirstFeature')
       })
     },
+    inputProperty (valueProperty) {
+      this.submittedProperty = valueProperty
+      console.log(valueProperty)
+    }
   }
 }
 </script>
