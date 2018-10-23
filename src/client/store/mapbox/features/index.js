@@ -14,6 +14,9 @@ export const mutations = {
   },
   remove(state, id) {
     state.features = state.features.filter(feature => feature.id !== id)
+  },
+  update(state, valueProperty) {
+    state.parcelProperties = []
   }
 }
 

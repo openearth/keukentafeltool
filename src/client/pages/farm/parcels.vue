@@ -62,8 +62,10 @@ export default {
       })
     },
     inputProperty (valueProperty) {
-      this.submittedProperty = valueProperty
       console.log(valueProperty)
+      this.$store.commit('parcelProperties', {
+        drain: 1
+      })
     }
   }
 }

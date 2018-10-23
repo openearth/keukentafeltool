@@ -19,7 +19,7 @@
         <md-table-cell md-label="Maatregelen"> Onbekend </md-table-cell>
         <md-table-cell md-label="Oppervlakte (ha)">{{ item.areaal || 'Onbekend' }}</md-table-cell>
         <md-table-cell md-label="Grondsoort">
-          <select @input.prevent="inputProperty({id: item.id, valueProperty: $event.target.value})">
+          <select @input.prevent="inputProperty({id: item.id, keyProperty: 'gewascategorie', valueProperty: $event.target.value})">
             <option
               :selected="item.gewascategorie === 'Grasland'"
               value="Grasland"
@@ -47,7 +47,7 @@
           </select>
         </md-table-cell>
         <md-table-cell md-label="Drainage">
-          <select @input.prevent="inputProperty({id: item.id, valueProperty: $event.target.value})">
+          <select @input.prevent="inputProperty({id: item.id, key: 'drain', valueProperty: $event.target.value})">
             <option
               :selected="item.drain === 1"
               value="1"
