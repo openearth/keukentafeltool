@@ -13,7 +13,7 @@
     <md-tab
       id="output"
       md-label="Nutriënten"
-      to="/farm/output/"
+      to="/farm/nutrients/"
     />
   </md-tabs>
 </template>
