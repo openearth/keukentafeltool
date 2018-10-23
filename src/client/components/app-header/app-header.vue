@@ -10,6 +10,15 @@
       >
         <md-icon>refresh</md-icon>
       </md-button>
+      <fullscreen-button/>
     </div>
   </md-toolbar>
 </template>
+
+<script>
+import FullscreenButton from '../fullscreen-button'
+
+export default {
+  components: { FullscreenButton },
+}
+</script>
