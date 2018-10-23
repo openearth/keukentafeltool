@@ -5,10 +5,7 @@
       class="md-dense"
     >
       <div class="md-toolbar-section-end">
-        <md-button to="/farm/">
-          <md-icon>edit</md-icon>
-          percelen selecteren
-        </md-button>
+        <md-button to="/farm/">wijzig percelen</md-button>
       </div>
     </md-toolbar>
     <parcels-table :parcels="features" />
