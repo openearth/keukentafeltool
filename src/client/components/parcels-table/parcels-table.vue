@@ -14,27 +14,31 @@
         class="parcels-table__vegetation"
         md-label="Gewas"
       >
-        {{ item.gewas || 'Onbekend' }}
+        {{ item.gewas || '' }}
       </md-table-cell>
-      <md-table-cell md-label="Maatregelen"> Onbekend </md-table-cell>
+      <md-table-cell md-label="Maatregelen" />
       <md-table-cell
-        md-label="Oppervlakte (ha)"
+        md-label="Opp. (ha)"
         md-numeric
-      >{{ item.areaal || 'Onbekend' }}</md-table-cell>
-      <md-table-cell md-label="Grondsoort">{{ item.gewascategorie || 'Onbekend' }}</md-table-cell>
-      <md-table-cell md-label="Drainage">{{ item.drain || 'Onbekend' }}</md-table-cell>
+      >{{ item.areaal || '' }}</md-table-cell>
       <md-table-cell
-        md-label="Kwel"
-        md-numeric
-      >{{ item.kwel || 'Onbekend' }}</md-table-cell>
+        md-label="Grondsoort"
+        class="parcels-table__cell--text">
+        {{ item.bodemgroep.toLowerCase() }}
+      </md-table-cell>
+      <md-table-cell md-label="Drainage">{{ item.drain ? 'ja' : 'nee' }}</md-table-cell>
       <md-table-cell
-        md-label="GHG"
+        md-label="Kwel (m)"
         md-numeric
-      >{{ item.ghg || 'Onbekend' }}</md-table-cell>
+      >{{ formatCmAsMeter(item.kwel) }}</md-table-cell>
       <md-table-cell
-        md-label="GLG"
+        md-label="GHG (m)"
         md-numeric
-      >{{ item.glg || 'Onbekend' }}</md-table-cell>
+      >{{ formatCmAsMeter(item.ghg) }}</md-table-cell>
+      <md-table-cell
+        md-label="GLG (m)"
+        md-numeric
+      >{{ formatCmAsMeter(item.glg) }}</md-table-cell>
     </md-table-row>
   </md-table>
 </template>
@@ -54,9 +58,16 @@ export default {
     },
   },
   methods: {
+    formatCmAsMeter(valueInCm) {
+      if (typeof valueInCm === undefined || typeof valueInCm === null) return ''
+      return (valueInCm / 100).toLocaleString('nl-NL', {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+      })
+    },
     parcelColor() {
       return '#FF0000'
-    }
+    },
   }
 }
 </script>
@@ -127,5 +138,9 @@ export default {
   .parcels-table th,
   .parcels-table td {
     width: 200px;
+  }
+
+  .parcels-table__cell--text {
+    text-transform: capitalize;
   }
 </style>
