@@ -9,7 +9,7 @@
     </md-button>
     <parcels-table
       :parcels="features"
-      @inputProperty="inputProperty"
+      @updateProperty="updateProperty"
     />
   </div>
 </template>
@@ -61,11 +61,8 @@ export default {
         handler: () => this.$store.dispatch('mapbox/features/flyToFirstFeature')
       })
     },
-    inputProperty (valueProperty) {
-      console.log(valueProperty)
-      this.$store.commit('parcelProperties', {
-        drain: 1
-      })
+    updateProperty (parcelProperty) {
+      this.$store.commit('mapbox/features/updateParcelProperty', parcelProperty)
     }
   }
 }
