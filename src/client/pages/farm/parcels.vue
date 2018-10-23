@@ -2,10 +2,9 @@
   <div>
     <md-button
       to="/farm"
-      class="md-button"
       type="button"
     >
-      Percelen selecteren <md-icon>arrow_left_alt</md-icon>
+      <md-icon>arrow_back</md-icon> Percelen selecteren
     </md-button>
     <parcels-table :parcels="features" />
   </div>
