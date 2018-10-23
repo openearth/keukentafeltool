@@ -1,7 +1,6 @@
 <template>
   <md-table
     v-model="parcelProperties"
-    md-fixed-header
     class="parcels-table"
   >
 
@@ -99,5 +98,34 @@ export default {
 
   .parcels-table__vegetation--overige::before {
     background-color: #D8D8D8;
+  }
+
+  /* fix for the vue-material fixed header table */
+   .parcels-table {
+    width: 100%;
+    table-layout: fixed;
+    border-collapse: collapse;
+  }
+
+  .parcels-table .md-table-cell-container,
+  .parcels-table .md-table-head-container {
+    width: 120px;
+  }
+
+  .parcels-table tbody {
+    display:block;
+    width: 100%;
+    overflow: auto;
+    min-height: 51px; /* one row */
+    max-height: 561px; /* 11 rows */
+  }
+
+  .parcels-table thead tr {
+    display: block;
+  }
+
+  .parcels-table th,
+  .parcels-table td {
+    width: 200px;
   }
 </style>
