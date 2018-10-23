@@ -1,30 +1,42 @@
 <template>
-  <div class="parcels-table">
-    <md-table
-      v-model="parcelProperties"
+  <md-table
+    v-model="parcelProperties"
+    class="parcels-table"
+  >
+
+    <md-table-row
+      slot="md-table-row"
+      slot-scope="{ item }"
     >
-      <md-table-row
-        slot="md-table-row"
-        slot-scope="{ item }"
+      <md-table-cell md-label="Perceel">{{ item.id || 'Onbekend' }}</md-table-cell>
+      <md-table-cell
+        :class="`parcels-table__vegetation--${item.gewascategorie.toLowerCase()}`"
+        class="parcels-table__vegetation"
+        md-label="Gewas"
       >
-        <md-table-cell md-label="Perceel">{{ item.id || 'Onbekend' }}</md-table-cell>
-        <md-table-cell
-          :class="`parcels-table__vegetation--${item.gewascategorie.toLowerCase()}`"
-          class="parcels-table__vegetation"
-          md-label="Gewas"
-        >
-          {{ item.gewas || 'Onbekend' }}
-        </md-table-cell>
-        <md-table-cell md-label="Maatregelen"> Onbekend </md-table-cell>
-        <md-table-cell md-label="Oppervlakte (ha)"> {{ item.areaal || 'Onbekend' }}</md-table-cell>
-        <md-table-cell md-label="Grondsoort">{{ item.gewascategorie || 'Onbekend' }}</md-table-cell>
-        <md-table-cell md-label="Drainage">{{ item.drain || 'Onbekend' }}</md-table-cell>
-        <md-table-cell md-label="Kwel">{{ item.kwel || 'Onbekend' }}</md-table-cell>
-        <md-table-cell md-label="GHG">{{ item.ghg || 'Onbekend' }}</md-table-cell>
-        <md-table-cell md-label="GLG">{{ item.glg || 'Onbekend' }}</md-table-cell>
-      </md-table-row>
-    </md-table>
-  </div>
+        {{ item.gewas || 'Onbekend' }}
+      </md-table-cell>
+      <md-table-cell md-label="Maatregelen"> Onbekend </md-table-cell>
+      <md-table-cell
+        md-label="Oppervlakte (ha)"
+        md-numeric
+      >{{ item.areaal || 'Onbekend' }}</md-table-cell>
+      <md-table-cell md-label="Grondsoort">{{ item.gewascategorie || 'Onbekend' }}</md-table-cell>
+      <md-table-cell md-label="Drainage">{{ item.drain || 'Onbekend' }}</md-table-cell>
+      <md-table-cell
+        md-label="Kwel"
+        md-numeric
+      >{{ item.kwel || 'Onbekend' }}</md-table-cell>
+      <md-table-cell
+        md-label="GHG"
+        md-numeric
+      >{{ item.ghg || 'Onbekend' }}</md-table-cell>
+      <md-table-cell
+        md-label="GLG"
+        md-numeric
+      >{{ item.glg || 'Onbekend' }}</md-table-cell>
+    </md-table-row>
+  </md-table>
 </template>
 
 <script>
