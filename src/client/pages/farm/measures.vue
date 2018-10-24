@@ -64,6 +64,7 @@ export default {
           value: 1
         })
       })
+      this.$emit('fitFeatures')
     },
     setFeatureFill({ id, color }) {
       this.$store.dispatch('mapbox/features/setStyle', {
