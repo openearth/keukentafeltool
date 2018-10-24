@@ -1,11 +1,13 @@
 <template>
   <div>
-    <measures-list
-      :measures="measures"
-      :parcels-per-measure="parcelsPerMeasure"
-      @selectMeasure="selectMeasure"
-      @removeSelectedParcel="unassignMeasure"
-    />
+    <no-ssr>
+      <measures-list
+        :measures="measures"
+        :parcels-per-measure="parcelsPerMeasure"
+        @selectMeasure="selectMeasure"
+        @removeSelectedParcel="unassignMeasure"
+      />
+    </no-ssr>
   </div>
 </template>
 
@@ -15,15 +17,19 @@ import { mapGetters, mapState } from 'vuex'
 import initMapState from '../../lib/mixins/init-map-state'
 import layerFactory from '../../lib/_mapbox/layer-factory'
 import parcelColors from '../../lib/_mapbox/parcel-colors'
+import requireFeatures from '../../lib/mixins/require-features'
 import unbindFeatureHandlers from '../../lib/mixins/unbind-feature-handlers'
 
 import { MeasuresList } from '../../components'
 import { FooterBar } from '../../components'
 
 export default {
-  middleware: [ 'require-parcels' ],
   components: { MeasuresList, FooterBar },
-  mixins: [ initMapState, unbindFeatureHandlers ],
+  mixins: [
+    initMapState,
+    requireFeatures,
+    unbindFeatureHandlers
+  ],
   data() {
     return {
       selectedMeasure: undefined,

@@ -1,13 +1,16 @@
 <template>
   <div>
-    <md-button
-      to="/farm"
-      class="md-button"
-      type="button"
+    <md-toolbar
+      md-elevation="0"
+      class="md-dense"
     >
-      Percelen selecteren <md-icon>arrow_left_alt</md-icon>
-    </md-button>
-    <parcels-table :parcels="features" />
+      <div class="md-toolbar-section-end">
+        <md-button to="/farm/">wijzig percelen</md-button>
+      </div>
+    </md-toolbar>
+    <no-ssr>
+      <parcels-table :parcels="features" />
+    </no-ssr>
   </div>
 </template>
 
@@ -15,15 +18,18 @@
 import { mapState } from 'vuex'
 
 import initMapState from '../../lib/mixins/init-map-state'
+import requireFeatures from '../../lib/mixins/require-features'
 import layerFactory from '../../lib/_mapbox/layer-factory'
 import parcelColors from '../../lib/_mapbox/parcel-colors'
 
 import { ParcelsTable } from '../../components'
 
 export default {
-  middleware: [ 'require-parcels' ],
   components: { ParcelsTable },
-  mixins: [ initMapState ],
+  mixins: [
+    initMapState,
+    requireFeatures
+  ],
   data() {
     return {
       contentOpen: false
@@ -52,10 +58,7 @@ export default {
           value: 1
         })
       })
-      this.$store.dispatch('mapbox/addOnceEventHandler', {
-        event: 'resize',
-        handler: () => this.$store.dispatch('mapbox/features/flyToFirstFeature')
-      })
+      this.$emit('fitFeatures')
     },
   }
 }

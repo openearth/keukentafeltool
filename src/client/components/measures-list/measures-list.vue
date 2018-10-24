@@ -1,7 +1,7 @@
 <template>
   <div class="measures-list">
     <template v-if="measures">
-      <div
+      <section
         v-for="(measureGroup, groupIndex) in measures"
         :key="measureGroup.title"
         class="measures-list__group">
@@ -33,7 +33,7 @@
             </md-chip>
           </div>
         </md-card>
-      </div>
+      </section>
     </template>
     <template v-else>
       Geen maatregelen gevonden.
@@ -83,6 +83,9 @@ export default {
 </script>
 
 <style>
+  .measures-list {
+    padding: 20px;
+  }
   .measures-list__group-title {
     color: #666666;
     font-size: 14px;

@@ -5,7 +5,7 @@
     <template v-else>{{ parcelCount }} percelen geselecteerd</template>
     <md-button
       :disabled="parcelCount === 0"
-      to="/farm/parcels"
+      to="/farm/parcels/"
       type="button"
       class="md-raised md-primary"
     >
@@ -52,10 +52,7 @@ export default {
           value: 0.7
         })
       })
-      this.$store.dispatch('mapbox/addOnceEventHandler', {
-        event: 'resize',
-        handler: () => this.$store.dispatch('mapbox/features/flyToFirstFeature')
-      })
+      this.$emit('fitFeatures')
     },
     mapClickHandler({ point, target }) {
       const canvas = target.getCanvas()
