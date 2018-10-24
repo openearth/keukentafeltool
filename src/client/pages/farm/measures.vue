@@ -6,10 +6,6 @@
       @selectMeasure="selectMeasure"
       @removeSelectedParcel="unassignMeasure"
     />
-    <footer-bar>
-      <template v-if="selectedMeasure">Klik op een perceel om deze maatregel toe te voegen</template>
-      <template v-else>Kies een maatregel</template>
-    </footer-bar>
   </div>
 </template>
 
@@ -80,11 +76,13 @@ export default {
         })
       }
 
-      const nextAssignedFeatureIds = this.parcelsPerMeasure[measure.id] || []
+      if(measure) {
+        const nextAssignedFeatureIds = this.parcelsPerMeasure[measure.id] || []
 
-      nextAssignedFeatureIds.forEach(id => {
-        this.setFeatureFill({ id, color: parcelColors() })
-      })
+        nextAssignedFeatureIds.forEach(id => {
+          this.setFeatureFill({ id, color: parcelColors() })
+        })
+      }
 
       this.selectedMeasure = measure
     },

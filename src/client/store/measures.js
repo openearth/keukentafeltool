@@ -19,9 +19,10 @@ export const mutations = {
     }
   },
   unassignMeasure(state, { id, measure }) {
+    const filteredMeasures = state.assignedMeasures[id].filter(currentMeasure => currentMeasure.id !== measure.id)
     state.assignedMeasures = {
       ...state.assignedMeasures,
-      [ id ]: [ ...state.assignedMeasures[id].filter(currentMeasure => currentMeasure.id !== measure.id) ]
+      [ id ]: [ ...filteredMeasures ]
     }
   }
 }

@@ -9,7 +9,7 @@
         <md-card
           v-for="(measure, index) in measureGroup.items"
           :key="measure.title"
-          :class="{ 'measures-list__measure--active': selectedMeasure.id === measure.id }"
+          :class="{ 'measures-list__measure--active': selectedMeasure && selectedMeasure.id === measure.id }"
           class="measures-list__measure"
         >
           <div class="measures-list__measure-header" >
@@ -18,26 +18,22 @@
               class="measures-list__measure-select"
               @click="selectMeasure({groupIndex, index})"
             >
-              {{ selectedMeasure.id === measure.id ? 'Klaar' : 'Kies percelen' }}
+              {{ selectedMeasure && selectedMeasure.id === measure.id ? 'Klaar' : 'Kies percelen' }}
             </md-button>
           </div>
-          <div class="measures-list__selected-parcels">
-            <template v-if="parcelsPerMeasure[measure.id]">
-              <div
-                v-for="parcel in parcelsPerMeasure[measure.id]"
-                :key="parcel"
-                :class="{ 'measures-list__selected-parcel--active': selectedMeasure.id === measure.id }"
-                class="measures-list__selected-parcel"
-              >
-                {{ parcel }}
-                <button
-                  class="measures-list__remove-selected-parcel"
-                  @click="$emit('removeSelectedParcel', { measure, id: parcel })"
-                >
-                  X
-                </button>
-              </div>
-            </template>
+          <div
+            v-if="parcelsPerMeasure[measure.id]"
+            class="measures-list__selected-parcels"
+          >
+            <md-chip
+              v-for="parcelId in parcelsPerMeasure[measure.id]"
+              :key="parcelId"
+              class="measures-list__selected-parcel"
+              md-deletable
+              @md-delete="$emit('removeSelectedParcel', { measure, id: parcelId })"
+            >
+              {{ parcelId }}
+            </md-chip>
           </div>
         </md-card>
       </div>
@@ -63,15 +59,15 @@ export default {
   },
   data() {
     return {
-      selectedMeasure: {},
+      selectedMeasure: undefined,
     }
   },
   methods: {
     selectMeasure({index, groupIndex}) {
       const measure = this.measures[groupIndex].items[index]
 
-      if(this.selectedMeasure.id === measure.id) {
-        this.selectedMeasure = {}
+      if(this.selectedMeasure && this.selectedMeasure.id === measure.id) {
+        this.selectedMeasure = undefined
       } else {
         this.selectedMeasure = measure
       }
@@ -102,14 +98,13 @@ export default {
   }
 
   .measures-list__measure--active {
-    background-color: rgba(253, 106, 2, .2) !important;
+    border-left: 5px solid #FD6A02;
   }
 
   .measures-list__measure-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 1.5rem;
   }
 
   .measures-list__measure-title {
@@ -152,26 +147,19 @@ export default {
     color: transparent;
   }
 
-  .measures-list__selected-parcel {
-    display: inline-block;
-    background-color: #F4F4F4;
-    padding: 0 .5rem;
-    margin-right: 1rem;
-    margin-bottom: .5rem;
-    border: 1px solid #757575;
-    border-radius: 3px;
+  .measures-list__selected-parcels{
+    margin-top: 1.5rem;
   }
 
-  .measures-list__selected-parcel--active {
-    background-color: #FD6A02;
+  /* overwrite default material design styles */
+  .measures-list .md-chip {
+    margin-bottom: 1rem;
+    margin-left: 0 !important;
+    margin-right: 4px !important;
   }
 
-  .measures-list__remove-selected-parcel {
-    cursor: pointer;
-    background: transparent;
-    border: 0;
-    font-size: 14px;
-    padding: 0;
-    margin-left: 1rem;
+  /* overwrite default material design styles */
+  .measures-list .md-chip:first-child {
+    margin-right: 4px !important;
   }
 </style>

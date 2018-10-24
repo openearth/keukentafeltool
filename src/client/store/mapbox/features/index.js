@@ -25,10 +25,12 @@ export const mutations = {
     state.features = state.features.filter(feature => feature.id !== id)
   },
   removeEventHandler(state, { event, featureId }) {
+    const featureEventHandlers = state.eventHandlers[featureId]
+
     state.eventHandlers = {
       ...state.eventHandlers,
       [ featureId ]: {
-        ...state.eventHandlers[featureId],
+        ...featureEventHandlers,
         [ event ]: undefined
       }
     }
