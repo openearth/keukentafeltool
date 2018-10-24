@@ -3,30 +3,32 @@
     v-model="parcelProperties"
     class="parcels-table"
   >
-
     <md-table-row
       slot="md-table-row"
       slot-scope="{ item }"
     >
-      <md-table-cell md-label="Perceel">{{ item.id || 'Onbekend' }}</md-table-cell>
+      <md-table-cell md-label="Perceel">{{ item.id }}</md-table-cell>
       <md-table-cell
         :class="`parcels-table__vegetation--${item.gewascategorie.toLowerCase()}`"
-        class="parcels-table__vegetation"
+        class="parcels-table__vegetation parcels-table__cell--text"
         md-label="Gewas"
-      >
-        {{ item.gewas || '' }}
+      >{{ item.gewas }}
       </md-table-cell>
       <md-table-cell md-label="Maatregelen" />
       <md-table-cell
         md-label="Opp. (ha)"
         md-numeric
-      >{{ item.areaal || '' }}</md-table-cell>
+      >{{ formatNumber(item.areaal) }}</md-table-cell>
       <md-table-cell
         md-label="Grondsoort"
-        class="parcels-table__cell--text">
-        {{ item.bodemgroep.toLowerCase() }}
+        class="parcels-table__cell--text"
+      >{{ item.bodemgroep.toLowerCase() }}
       </md-table-cell>
-      <md-table-cell md-label="Drainage">{{ item.drain ? 'ja' : 'nee' }}</md-table-cell>
+      <md-table-cell
+        md-label="Drainage"
+        class="parcels-table__cell--text"
+      >{{ item.drain ? 'ja' : 'nee' }}
+      </md-table-cell>
       <md-table-cell
         md-label="Kwel (m)"
         md-numeric
@@ -44,6 +46,15 @@
 </template>
 
 <script>
+const toNumber = (value) => {
+  const number = Number(value)
+  return isNaN(number) ? undefined : number
+}
+const isNumber = (value) => {
+  if (typeof valueInCm === undefined || typeof valueInCm === null) return false
+  return !isNaN(Number(value))
+}
+
 export default {
   props: {
     parcels: {
@@ -52,15 +63,26 @@ export default {
       default: () => [],
     }
   },
+  data() {
+    return {
+      locale: 'nl-NL',
+    }
+  },
   computed: {
     parcelProperties() {
       return this.parcels.map(parcel => parcel.properties)
     },
   },
   methods: {
-    formatCmAsMeter(valueInCm) {
-      if (typeof valueInCm === undefined || typeof valueInCm === null) return ''
-      return (valueInCm / 100).toLocaleString('nl-NL', {
+    formatCmAsMeter(value) {
+      if (!isNumber(value)) return ''
+      const valueInCm = toNumber(value)
+      const valueInMeter = valueInCm / 100
+      return this.formatNumber(valueInMeter)
+    },
+    formatNumber(value) {
+      if (!isNumber(value)) return ''
+      return toNumber(value).toLocaleString(this.locale, {
         minimumFractionDigits: 2,
         maximumFractionDigits: 2,
       })
@@ -90,23 +112,18 @@ export default {
     top: calc(50% - 5px);
     border: 1px solid #ccc;
   }
-
   .parcels-table__vegetation--grasland::before {
     background-color: #D1FFB9;
   }
-
   .parcels-table__vegetation--bouwland::before {
     background-color: #FFFFDE;
   }
-
   .parcels-table__vegetation--braakland::before {
     background-color: #EBE0CE;
   }
-
   .parcels-table__vegetation--natuurterrein::before {
     background-color: #9BD37F;
   }
-
   .parcels-table__vegetation--overige::before {
     background-color: #D8D8D8;
   }
