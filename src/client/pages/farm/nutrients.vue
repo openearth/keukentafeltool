@@ -3,7 +3,9 @@
 </template>
 
 <script>
+import requireFeatures from '../../lib/mixins/require-features'
+
 export default {
-  middleware: [ 'require-parcels' ],
+  mixins: [ requireFeatures ]
 }
 </script>

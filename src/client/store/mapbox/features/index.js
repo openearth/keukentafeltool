@@ -1,4 +1,5 @@
-import mapbox from '../../../lib/_mapbox/_mapbox'
+import geojsonExtent from '@mapbox/geojson-extent'
+
 import layerFactory from '../../../lib/_mapbox/layer-factory'
 
 export const state = () => ({
@@ -26,16 +27,20 @@ export const actions = {
       commit('add', feature)
     }
   },
-  flyToFirstFeature({ state, rootGetters }) {
-    if(state.features.length) {
-      const map = rootGetters['mapbox/map']
-      const coordinates = state.features[0].geometry.coordinates[0]
-      const bounds = coordinates.reduce(function(bounds, coord) {
-          return bounds.extend(coord);
-      }, new mapbox.LngLatBounds());
+  fitToFeatures({ state, rootGetters }) {
+    const map = rootGetters['mapbox/map']
+    const { features } = state
 
-      map.fitBounds(bounds, { zoom: 14 })
+    if(!features.length) {
+      return
     }
+
+    const bounds = geojsonExtent({
+      type: 'FeatureCollection',
+      features
+    })
+
+    map.fitBounds(bounds, { padding: 20 })
   },
   resetFeatures({ commit, state, rootGetters }) {
     const map = rootGetters['mapbox/map']
