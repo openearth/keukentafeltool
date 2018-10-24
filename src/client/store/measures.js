@@ -4,45 +4,45 @@ const measures = require('./measures.json')
 
 export const state = () => ({
   measures: measures,
-  assignedMeasures: {}
+  parcelsPerMeasure: {}
 })
 
 export const mutations = {
   assignMeasure(state, { parcelId, measure }) {
-    const parcelIds = state.assignedMeasures[measure.id] || []
+    const parcelIds = state.parcelsPerMeasure[measure.id] || []
 
     if(parcelIds.includes(parcelId)) {
       return
     }
 
-    state.assignedMeasures = {
-      ...state.assignedMeasures,
+    state.parcelsPerMeasure = {
+      ...state.parcelsPerMeasure,
       [ measure.id ]: [ ...parcelIds, parcelId ]
     }
 
   },
   unassignMeasure(state, { parcelId, measure }) {
-    const parcelIds = state.assignedMeasures[measure.id]
+    const parcelIds = state.parcelsPerMeasure[measure.id]
     const filteredParcelIds = parcelIds.filter(currentParcelId => currentParcelId !== parcelId)
 
-    state.assignedMeasures = {
-      ...state.assignedMeasures,
+    state.parcelsPerMeasure = {
+      ...state.parcelsPerMeasure,
       [ measure.id ]: [ ...filteredParcelIds ]
     }
   }
 }
 
 export const getters = {
-  measuresPerPracel({ assignedMeasures }) {
-    return Object.keys(assignedMeasures).reduce((measuresPerPracel, measureId) => {
-      const parcelIds = assignedMeasures[measureId]
+  measuresPerParcel({ parcelsPerMeasure }) {
+    return Object.keys(parcelsPerMeasure).reduce((measuresPerParcel, measureId) => {
+      const parcelIds = parcelsPerMeasure[measureId]
 
       parcelIds.forEach(parcelId => {
-        const parcelMeasures = measuresPerPracel[parcelId] || []
-        measuresPerPracel[parcelId] = [ ...parcelMeasures, measureId ]
+        const parcelMeasures = measuresPerParcel[parcelId] || []
+        measuresPerParcel[parcelId] = [ ...parcelMeasures, measureId ]
       })
 
-      return measuresPerPracel
+      return measuresPerParcel
     }, {})
   },
 }

@@ -9,7 +9,7 @@ export default ({ store }) => {
       key: 'app-state',
       paths: [
         'mapbox.features',
-        'measures.assignedMeasures'
+        'measures.parcelsPerMeasure'
       ],
   })(store)
 }

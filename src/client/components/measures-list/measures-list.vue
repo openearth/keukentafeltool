@@ -14,11 +14,8 @@
         >
           <div class="measures-list__measure-header" >
             <strong class="measures-list__measure-title">{{ measure.title }}</strong>
-            <md-button
-              class="measures-list__measure-select"
-              @click="selectMeasure({groupIndex, index})"
-            >
-              {{ selectedMeasure && selectedMeasure.id === measure.id ? 'Klaar' : 'Kies percelen' }}
+            <md-button @click="selectMeasure({groupIndex, index})">
+              {{ selectedMeasureId === measure.id ? 'Klaar' : 'Kies percelen' }}
             </md-button>
           </div>
           <div
@@ -60,6 +57,13 @@ export default {
   data() {
     return {
       selectedMeasure: undefined,
+    }
+  },
+  computed: {
+    selectedMeasureId() {
+      return this.selectedMeasure
+        ? this.selectedMeasure.id
+        : undefined
     }
   },
   methods: {
@@ -109,42 +113,6 @@ export default {
 
   .measures-list__measure-title {
     width: 60%;
-  }
-
-  .measures-list__select {
-    margin-bottom: 12px;
-    padding: 12px 18px;
-    background: #ffffff;
-    border: 1px solid #ffffff;
-    cursor: pointer;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-  }
-
-  .measures-list__select:hover {
-    border: 1px solid var(--border-light);
-  }
-
-  .measures-list__select:hover .measures-list__select-caption {
-    color: #666666;
-    transition: color ease-in-out 200ms;
-    transition-delay: 100ms;
-  }
-
-  .measures-list__select--selected {
-    border: 1px solid #000000 !important;
-  }
-
-  .measures-list__select-caption {
-    float: right;
-    padding: 0;
-    min-width: 0;
-    margin-right: 0;
-    vertical-align: baseline;
-    font-size: 12px;
-    color: transparent;
   }
 
   .measures-list__selected-parcels{

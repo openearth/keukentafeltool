@@ -2,7 +2,7 @@
   <div>
     <measures-list
       :measures="measures"
-      :parcels-per-measure="assignedMeasures"
+      :parcels-per-measure="parcelsPerMeasure"
       @selectMeasure="selectMeasure"
       @removeSelectedParcel="unassignMeasure"
     />
@@ -31,7 +31,7 @@ export default {
   },
   computed: {
     ...mapState('mapbox/features', ['features']),
-    ...mapState('measures', ['assignedMeasures', 'measures']),
+    ...mapState('measures', ['parcelsPerMeasure', 'measures']),
     ...mapGetters('measures', [ 'measuresPerParcel' ])
   },
   methods: {
@@ -68,7 +68,7 @@ export default {
     },
     selectMeasure(measure) {
       if(this.selectedMeasure) {
-        const assignedFeatureIds = this.assignedMeasures[this.selectedMeasure.id] || []
+        const assignedFeatureIds = this.parcelsPerMeasure[this.selectedMeasure.id] || []
 
         assignedFeatureIds.forEach(assignedId => {
           const feature = this.features.find(feature => feature.id === assignedId)
@@ -77,7 +77,7 @@ export default {
       }
 
       if(measure) {
-        const nextAssignedFeatureIds = this.assignedMeasures[measure.id] || []
+        const nextAssignedFeatureIds = this.parcelsPerMeasure[measure.id] || []
 
         nextAssignedFeatureIds.forEach(id => {
           this.setFeatureFill({ id, color: parcelColors() })
@@ -88,7 +88,7 @@ export default {
     },
     selectParcel({ event, index, id }) {
       if(this.selectedMeasure && this.selectedMeasure.id) {
-        const parcels = this.assignedMeasures[this.selectedMeasure.id]
+        const parcels = this.parcelsPerMeasure[this.selectedMeasure.id]
 
         if(!parcels || !parcels.includes(id)) {
           this.assignMeasure({ id, measure: this.selectedMeasure })
