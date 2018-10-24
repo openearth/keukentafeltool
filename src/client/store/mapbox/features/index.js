@@ -1,6 +1,5 @@
 import geojsonExtent from '@mapbox/geojson-extent'
 
-import mapbox from '../../../lib/_mapbox/_mapbox'
 import layerFactory from '../../../lib/_mapbox/layer-factory'
 
 export const state = () => ({
@@ -37,7 +36,7 @@ export const actions = {
     }
 
     const bounds = geojsonExtent({
-      type: "FeatureCollection",
+      type: 'FeatureCollection',
       features
     })
 

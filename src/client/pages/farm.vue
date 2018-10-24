@@ -5,14 +5,16 @@
   />
   <div
     v-else
-    :class="{ [`farm-page__panel--visible`]: panelContentLoaded, [`farm-page__panel--wide`]: contentIsOpen }"
+    :class="{
+      'farm-page__panel--wide': panelIsOpen,
+      'farm-page__panel--hidden': !hasFeatures
+    }"
     class="farm-page__panel"
   >
     <farm-nav />
     <div class="farm-page__content">
       <nuxt-child
         @fitFeatures="fitFeatures"
-        @hasRequiredFeatures="showContent"
       />
     </div>
     <md-button
@@ -25,33 +27,40 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import { FarmNav } from '../components'
 
 export default {
   components: { FarmNav },
   data() {
     return {
-      contentIsOpen: false,
-      panelContentLoaded: false
+      panelIsOpen: false,
     }
   },
   computed: {
+    ...mapState('mapbox/features', [ 'features' ]),
     isIndex() { return this.$route.name === 'farm' },
+    hasFeatures() {
+      return !!(this.features && this.features.length)
+    },
     toggleIcon() {
-      return this.contentIsOpen ? 'keyboard_arrow_left' : 'keyboard_arrow_right'
+      return this.panelIsOpen ? 'keyboard_arrow_left' : 'keyboard_arrow_right'
     }
+  },
+  mounted() {
+    console.log('MOUNTED FARM')
+    setTimeout(() => {
+        this.hasFeatures = true
+      }, 500)
   },
   methods: {
     fitFeatures() {
       setTimeout(() => {
         this.$store.dispatch('mapbox/features/fitToFeatures')
-      }, 300)
-    },
-    showContent() {
-      this.panelContentLoaded = true
+      }, 500)
     },
     toggleContent() {
-      this.contentIsOpen = !this.contentIsOpen
+      this.panelIsOpen = !this.panelIsOpen
     },
   }
 }
@@ -62,19 +71,18 @@ export default {
 
 .farm-page__panel {
   position: relative;
-  width: 0;
+  width: 100%;
   height: 100%;
   overflow-y: auto;
   background-color: var(--background-light);
-  transition: .5s width cubic-bezier(0.075, 0.82, 0.165, 1);
-}
-
-.farm-page__panel--visible {
-  width: 100%;
 }
 
 .farm-page__panel--wide {
   width: 200%;
+}
+
+.farm-page__panel--hidden {
+  width: 0%;
 }
 
 .farm-page__content {
