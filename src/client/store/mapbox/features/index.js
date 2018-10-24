@@ -12,8 +12,26 @@ export const mutations = {
       state.features = [ ...state.features, feature ]
     }
   },
+  addEventHandler(state, { id, event, handler }) {
+    state.eventHandlers = {
+      ...state.eventHandlers,
+      [ id ]: {
+        ...state.eventHandlers[id],
+        [ event ]: handler
+      }
+    }
+  },
   remove(state, id) {
     state.features = state.features.filter(feature => feature.id !== id)
+  },
+  removeEventHandler(state, { event, featureId }) {
+    state.eventHandlers = {
+      ...state.eventHandlers,
+      [ featureId ]: {
+        ...state.eventHandlers[featureId],
+        [ event ]: undefined
+      }
+    }
   }
 }
 
@@ -25,6 +43,12 @@ export const actions = {
       map.addLayer(layerFactory.parcel({ feature }))
       commit('add', feature)
     }
+  },
+  addEventHandler({ commit, rootGetters }, { id, event, handler }) {
+    const map = rootGetters['mapbox/map']
+
+    map.on(event, id, handler)
+    commit('addEventHandler', { id, event, handler })
   },
   flyToFirstFeature({ state, rootGetters }) {
     if(state.features.length) {
@@ -63,5 +87,11 @@ export const actions = {
       map.removeSource(id)
       commit('remove', id)
     }
+  },
+  removeEventHandler({ commit, rootGetters, state }, { event, featureId }) {
+    const map = rootGetters['mapbox/map']
+
+    map.off(event, featureId, state.eventHandlers[featureId][event])
+    commit('removeEventHandler', { event, featureId })
   }
 }
