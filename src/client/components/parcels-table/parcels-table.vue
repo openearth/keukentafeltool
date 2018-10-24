@@ -4,20 +4,28 @@
   >
     <md-table
       v-model="parcelProperties"
-      md-fixed-header
     >
       <md-table-row
         slot="md-table-row"
         slot-scope="{ item }"
       >
-        <md-table-cell md-label="Perceel">{{ item.id || 'Onbekend' }}</md-table-cell>
+        <md-table-cell md-label="Perceel">
+          {{ item.id || 'Onbekend' }}
+        </md-table-cell>
         <md-table-cell
           :class="`parcels-table__vegetation--${item.gewascategorie.toLowerCase()}`"
           class="parcels-table__vegetation"
           md-label="Gewas"
         >{{ item.gewas }}</md-table-cell>
-        <md-table-cell md-label="Maatregelen"> Onbekend </md-table-cell>
-        <md-table-cell md-label="Oppervlakte (ha)">{{ item.areaal || 'Onbekend' }}</md-table-cell>
+        <md-table-cell md-label="Maatregelen">
+          Onbekend
+        </md-table-cell>
+        <md-table-cell
+          md-label="Oppervlakte (ha)"
+          md-numeric
+        >
+          {{ item.areaal || 'Onbekend' }}
+        </md-table-cell>
         <md-table-cell md-label="Grondsoort">
           <div class="custom-select custom-select--w130">
             <select
@@ -70,9 +78,24 @@
             </select>
           </div>
         </md-table-cell>
-        <md-table-cell md-label="Kwel">{{ item.kwel || 'Onbekend' }}</md-table-cell>
-        <md-table-cell md-label="GHG">{{ item.ghg || 'Onbekend' }}</md-table-cell>
-        <md-table-cell md-label="GLG">{{ item.glg || 'Onbekend' }}</md-table-cell>
+        <md-table-cell
+          md-label="Kwel"
+          md-numeric
+        >
+          {{ item.kwel || 'Onbekend' }}
+        </md-table-cell>
+        <md-table-cell
+          md-label="GHG"
+          md-numeric
+        >
+          {{ item.ghg || 'Onbekend' }}
+        </md-table-cell>
+        <md-table-cell
+          md-label="GLG"
+          md-numeric
+        >
+          {{ item.glg || 'Onbekend' }}
+        </md-table-cell>
       </md-table-row>
     </md-table>
   </form>
@@ -153,6 +176,40 @@ export default {
   }
 
   /*
+  ** Fix for the vue-material fixed header table
+  ** The component is not working with toggleing
+  ** container width.
+  */
+
+  .parcels-table {
+    width: 100%;
+    table-layout: fixed;
+    border-collapse: collapse;
+  }
+
+  .parcels-table .md-table-cell-container,
+  .parcels-table .md-table-head-container {
+    width: 150px;
+  }
+
+  .parcels-table tbody {
+    display:block;
+    width: 100%;
+    overflow: auto;
+    min-height: 51px; /* one row */
+    max-height: 561px; /* 11 rows */
+  }
+
+  .parcels-table thead tr {
+    display: block;
+  }
+
+  .parcels-table th,
+  .parcels-table td {
+    width: 200px;
+  }
+
+  /*
   ** Custom select styling:
   ** Vue material select components
   ** do not work with the Vue material table
@@ -166,6 +223,7 @@ export default {
     height: 40px;
     width: 90px;
     border: 1px solid transparent;
+    margin-left: -10px; // For alignment in the table column
 
     &:after {
       content: '';
@@ -208,8 +266,8 @@ export default {
       width: 100%;
       cursor: pointer;
       outline: none;
-      padding-right: 35px;
-      padding-left: 15px;
+      padding-right: 30px;
+      padding-left: 10px;
 
       // Disable default styling on ff
       -moz-appearance: none;
@@ -246,5 +304,4 @@ export default {
       }
     }
   }
-
 </style>

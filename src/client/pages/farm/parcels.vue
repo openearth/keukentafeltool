@@ -1,12 +1,13 @@
 <template>
   <div>
-    <md-button
-      to="/farm"
-      class="md-button"
-      type="button"
+    <md-toolbar
+      md-elevation="0"
+      class="md-dense"
     >
-      Percelen selecteren <md-icon>arrow_left_alt</md-icon>
-    </md-button>
+      <div class="md-toolbar-section-end">
+        <md-button to="/farm/">wijzig percelen</md-button>
+      </div>
+    </md-toolbar>
     <parcels-table
       :parcels="features"
       @updateProperty="updateProperty"

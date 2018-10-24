@@ -5,7 +5,7 @@
     <template v-else>{{ parcelCount }} percelen geselecteerd</template>
     <md-button
       :disabled="parcelCount === 0"
-      to="/farm/parcels"
+      to="/farm/parcels/"
       type="button"
       class="md-raised md-primary"
     >
