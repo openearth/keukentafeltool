@@ -5,10 +5,7 @@
   />
   <div
     v-else
-    :class="{
-      'farm-page__panel--wide': panelIsOpen,
-      'farm-page__panel--hidden': !hasFeatures
-    }"
+    :class="{ 'farm-page__panel--wide': panelIsOpen }"
     class="farm-page__panel"
   >
     <farm-nav />
@@ -40,18 +37,9 @@ export default {
   computed: {
     ...mapState('mapbox/features', [ 'features' ]),
     isIndex() { return this.$route.name === 'farm' },
-    hasFeatures() {
-      return !!(this.features && this.features.length)
-    },
     toggleIcon() {
       return this.panelIsOpen ? 'keyboard_arrow_left' : 'keyboard_arrow_right'
     }
-  },
-  mounted() {
-    console.log('MOUNTED FARM')
-    setTimeout(() => {
-        this.hasFeatures = true
-      }, 500)
   },
   methods: {
     fitFeatures() {
@@ -79,10 +67,6 @@ export default {
 
 .farm-page__panel--wide {
   width: 200%;
-}
-
-.farm-page__panel--hidden {
-  width: 0%;
 }
 
 .farm-page__content {
