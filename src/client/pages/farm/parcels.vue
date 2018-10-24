@@ -8,7 +8,9 @@
         <md-button to="/farm/">wijzig percelen</md-button>
       </div>
     </md-toolbar>
-    <parcels-table :parcels="features" />
+    <no-ssr>
+      <parcels-table :parcels="features" />
+    </no-ssr>
   </div>
 </template>
 
