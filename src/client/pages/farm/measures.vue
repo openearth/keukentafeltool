@@ -2,7 +2,7 @@
   <div>
     <measures-list
       :measures="measures"
-      :parcels-per-measure="parcelsPerMeasure"
+      :parcels-per-measure="assignedMeasures"
       @selectMeasure="selectMeasure"
       @removeSelectedParcel="unassignMeasure"
     />
@@ -31,8 +31,8 @@ export default {
   },
   computed: {
     ...mapState('mapbox/features', ['features']),
-    ...mapState('measures', ['measures']),
-    ...mapGetters('measures', ['parcelsPerMeasure'])
+    ...mapState('measures', ['assignedMeasures', 'measures']),
+    ...mapGetters('measures', [ 'measuresPerParcel' ])
   },
   methods: {
     initMapState() {
@@ -68,7 +68,7 @@ export default {
     },
     selectMeasure(measure) {
       if(this.selectedMeasure) {
-        const assignedFeatureIds = this.parcelsPerMeasure[this.selectedMeasure.id] || []
+        const assignedFeatureIds = this.assignedMeasures[this.selectedMeasure.id] || []
 
         assignedFeatureIds.forEach(assignedId => {
           const feature = this.features.find(feature => feature.id === assignedId)
@@ -77,7 +77,7 @@ export default {
       }
 
       if(measure) {
-        const nextAssignedFeatureIds = this.parcelsPerMeasure[measure.id] || []
+        const nextAssignedFeatureIds = this.assignedMeasures[measure.id] || []
 
         nextAssignedFeatureIds.forEach(id => {
           this.setFeatureFill({ id, color: parcelColors() })
@@ -88,7 +88,7 @@ export default {
     },
     selectParcel({ event, index, id }) {
       if(this.selectedMeasure && this.selectedMeasure.id) {
-        const parcels = this.parcelsPerMeasure[this.selectedMeasure.id]
+        const parcels = this.assignedMeasures[this.selectedMeasure.id]
 
         if(!parcels || !parcels.includes(id)) {
           this.assignMeasure({ id, measure: this.selectedMeasure })
@@ -99,13 +99,13 @@ export default {
       }
     },
     assignMeasure({ id, measure }) {
-      this.$store.commit('measures/assignMeasure', { id, measure })
+      this.$store.commit('measures/assignMeasure', { parcelId: id, measure })
       this.setFeatureFill({ id, color: parcelColors() })
     },
     unassignMeasure({ id, measure }) {
       const feature = this.features.find(feature => feature.id === id)
 
-      this.$store.commit('measures/unassignMeasure', { id, measure })
+      this.$store.commit('measures/unassignMeasure', { parcelId: id, measure })
       this.setFeatureFill({ id, color: parcelColors(feature.properties.gewascategorie) })
     }
   }

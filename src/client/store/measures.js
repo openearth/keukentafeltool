@@ -1,3 +1,5 @@
+import parcel from '../lib/_mapbox/layer-factory/parcel.js';
+
 const measures = require('./measures.json')
 
 export const state = () => ({
@@ -6,36 +8,41 @@ export const state = () => ({
 })
 
 export const mutations = {
-  assignMeasure(state, { id, measure }) {
-    const measures = state.assignedMeasures[id] || []
+  assignMeasure(state, { parcelId, measure }) {
+    const parcelIds = state.assignedMeasures[measure.id] || []
 
-    if(measures.includes(measure)) {
+    if(parcelIds.includes(parcelId)) {
       return
     }
 
     state.assignedMeasures = {
       ...state.assignedMeasures,
-      [ id ]: [ ...measures, measure ]
+      [ measure.id ]: [ ...parcelIds, parcelId ]
     }
+
   },
-  unassignMeasure(state, { id, measure }) {
-    const filteredMeasures = state.assignedMeasures[id].filter(currentMeasure => currentMeasure.id !== measure.id)
+  unassignMeasure(state, { parcelId, measure }) {
+    const parcelIds = state.assignedMeasures[measure.id]
+    const filteredParcelIds = parcelIds.filter(currentParcelId => currentParcelId !== parcelId)
+
     state.assignedMeasures = {
       ...state.assignedMeasures,
-      [ id ]: [ ...filteredMeasures ]
+      [ measure.id ]: [ ...filteredParcelIds ]
     }
   }
 }
 
 export const getters = {
-  parcelsPerMeasure({ assignedMeasures }) {
-    return Object.keys(assignedMeasures).reduce((parcelsPerMeasure, id) => {
-      const measures = assignedMeasures[id]
-      measures.forEach(measure => {
-        const parcelPerMeasure = parcelsPerMeasure[measure.id] || []
-        parcelsPerMeasure[measure.id] = [ ...parcelPerMeasure, id ]
+  measuresPerPracel({ assignedMeasures }) {
+    return Object.keys(assignedMeasures).reduce((measuresPerPracel, measureId) => {
+      const parcelIds = assignedMeasures[measureId]
+
+      parcelIds.forEach(parcelId => {
+        const parcelMeasures = measuresPerPracel[parcelId] || []
+        measuresPerPracel[parcelId] = [ ...parcelMeasures, measureId ]
       })
-      return parcelsPerMeasure
+
+      return measuresPerPracel
     }, {})
-  }
+  },
 }
