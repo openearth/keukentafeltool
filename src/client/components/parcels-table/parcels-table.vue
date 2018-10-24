@@ -51,7 +51,7 @@ const toNumber = (value) => {
   return isNaN(number) ? undefined : number
 }
 const isNumber = (value) => {
-  if (typeof valueInCm === undefined || typeof valueInCm === null) return false
+  if (typeof value === undefined || typeof value === null) return false
   return !isNaN(Number(value))
 }
 
