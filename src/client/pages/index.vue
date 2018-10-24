@@ -1,6 +1,9 @@
 <template>
   <div>
-    <md-dialog :md-active.sync="showDialog">
+    <md-dialog
+      :md-active.sync="dialogIsOpen"
+      class="home-page__dialog"
+    >
       <md-dialog-title>Welkom</md-dialog-title>
       <md-dialog-content>
         Met de keukentafeltool kunt u snel inzicht krijgen in wat verschillende maatregelen kunnen betekenen voor de nutrienten in uw percelen.
@@ -8,8 +11,8 @@
       <md-dialog-actions>
         <md-button
           class="md-primary"
-          to="/farm"
-          @click="showDialog = false">START
+          to="/farm/"
+          @click="closeDialog">start
         </md-button>
       </md-dialog-actions>
     </md-dialog>
@@ -18,15 +21,21 @@
 
 <script>
   export default {
-    name: 'DialogCustom',
-    data: () => ({
-      showDialog: true
-    })
+    data() {
+      return {
+        dialogIsOpen: true,
+      }
+    },
+    methods: {
+      closeDialog() {
+        this.dialogIsOpen = false
+      }
+    }
   }
 </script>
 
 <style>
-  .md-dialog {
+  .home-page__dialog{
     max-width: 600px;
   }
 </style>

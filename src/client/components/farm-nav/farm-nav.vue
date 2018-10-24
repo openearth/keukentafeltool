@@ -2,7 +2,7 @@
   <md-tabs md-sync-route>
     <md-tab
       id="parcels"
-      md-label="Perceelinformatie"
+      md-label="Percelen"
       to="/farm/parcels/"
     />
     <md-tab
@@ -12,8 +12,8 @@
     />
     <md-tab
       id="output"
-      md-label="Output"
-      to="/farm/output/"
+      md-label="Nutriënten"
+      to="/farm/nutrients/"
     />
   </md-tabs>
 </template>

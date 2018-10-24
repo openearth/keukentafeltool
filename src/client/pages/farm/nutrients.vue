@@ -1,5 +1,5 @@
 <template>
-  <h2>output</h2>
+  <h2>nutrients</h2>
 </template>
 
 <script>

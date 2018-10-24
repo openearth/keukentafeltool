@@ -6,29 +6,25 @@
   <div
     v-else
     :class="{ 'farm-page__panel--wide': panelIsOpen }"
-    class="farm-page__panel"
+    class="farm-page__panel md-elevation-3"
   >
-    <farm-nav />
-    <div class="farm-page__content">
-      <nuxt-child
-        @fitFeatures="fitFeatures"
+    <header class="farm-page__panel-header">
+      <farm-nav />
+      <toggle-panel-button
+        :is-open="panelIsOpen"
+        @toggle="togglePanel"
       />
-    </div>
-    <md-button
-      class="md-button farm-page__toggle-content"
-      @click="toggleContent"
-    >
-      <md-icon>{{ toggleIcon }}</md-icon>
-    </md-button>
+    </header>
+    <nuxt-child @fitFeatures="fitFeatures" />
   </div>
 </template>
 
 <script>
 import { mapState } from 'vuex'
-import { FarmNav } from '../components'
+import { FarmNav, TogglePanelButton } from '../components'
 
 export default {
-  components: { FarmNav },
+  components: { FarmNav, TogglePanelButton },
   data() {
     return {
       panelIsOpen: false,
@@ -37,9 +33,6 @@ export default {
   computed: {
     ...mapState('mapbox/features', [ 'features' ]),
     isIndex() { return this.$route.name === 'farm' },
-    toggleIcon() {
-      return this.panelIsOpen ? 'keyboard_arrow_left' : 'keyboard_arrow_right'
-    }
   },
   methods: {
     fitFeatures() {
@@ -47,10 +40,8 @@ export default {
         this.$store.dispatch('mapbox/features/fitToFeatures')
       }, 500)
     },
-    toggleContent() {
-      this.panelIsOpen = !this.panelIsOpen
-    },
-  }
+    togglePanel() { this.panelIsOpen = !this.panelIsOpen },
+  },
 }
 </script>
 
@@ -64,25 +55,13 @@ export default {
   overflow-y: auto;
   background-color: var(--background-light);
 }
-
 .farm-page__panel--wide {
   width: 200%;
 }
 
-.farm-page__content {
-  padding-top: 20px;
-  padding-bottom: 20px;
-  padding-left: 20px;
-  padding-right: 60px;
-}
-
-.farm-page__toggle-content {
-  position: absolute;
-  top: 50%;
-  right: 10px;
-  width: 40px !important;
-  min-width: 40px !important;
-  padding: 0 !important;
-  margin: 0 !important;
+.farm-page__panel-header {
+  display: flex;
+  justify-content: space-between;
+  background-color: white;
 }
 </style>
