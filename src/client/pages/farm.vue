@@ -1,5 +1,8 @@
 <template>
-  <nuxt-child v-if="isIndex" />
+  <nuxt-child
+    v-if="isIndex"
+    @fitFeatures="fitFeatures"
+  />
   <div
     v-else
     :class="{ 'farm-page__panel--wide': panelIsOpen }"
@@ -12,11 +15,12 @@
         @toggle="togglePanel"
       />
     </header>
-    <nuxt-child />
+    <nuxt-child @fitFeatures="fitFeatures" />
   </div>
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import { FarmNav, TogglePanelButton } from '../components'
 
 export default {
@@ -27,11 +31,17 @@ export default {
     }
   },
   computed: {
+    ...mapState('mapbox/features', [ 'features' ]),
     isIndex() { return this.$route.name === 'farm' },
   },
   methods: {
+    fitFeatures() {
+      setTimeout(() => {
+        this.$store.dispatch('mapbox/features/fitToFeatures')
+      }, 500)
+    },
     togglePanel() { this.panelIsOpen = !this.panelIsOpen },
-  }
+  },
 }
 </script>
 
@@ -40,14 +50,13 @@ export default {
 
 .farm-page__panel {
   position: relative;
-  z-index: 3;
-  min-width: 50%;
+  width: 100%;
   height: 100%;
   overflow-y: auto;
   background-color: var(--background-light);
 }
 .farm-page__panel--wide {
-  min-width: 85%;
+  width: 200%;
 }
 
 .farm-page__panel-header {

@@ -13,12 +13,15 @@
 
 <script>
 import { mapState } from 'vuex'
+
+import requireFeatures from '../../lib/mixins/require-features'
+
 import { MeasuresList } from '../../components'
 import { FooterBar } from '../../components'
 
 export default {
-  middleware: [ 'require-parcels' ],
   components: { MeasuresList, FooterBar },
+  mixins: [ requireFeatures ],
   data() {
     return {
       selectedMeasure: undefined,

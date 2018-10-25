@@ -29,6 +29,7 @@
     "url": "https://github.com/openearth/keukentafeltool/issues"
   },
   "dependencies": {
+    "@mapbox/geojson-extent": "^0.3.2",
     "@mapbox/mapbox-gl-geocoder": "^2.3.0",
     "cross-env": "^5.2.0",
     "fscreen": "^1.0.2",

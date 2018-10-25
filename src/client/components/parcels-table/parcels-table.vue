@@ -27,9 +27,10 @@
           {{ item.areaal || 'Onbekend' }}
         </md-table-cell>
         <md-table-cell md-label="Grondsoort">
+          <form-select />
           <div class="custom-select custom-select--w130">
             <select
-              @input.prevent="updateProperty({index, id: item.id, key: 'gewascategorie', value: $event.target.value})"
+              @input.prevent="updateProperty({id: item.id, key: 'gewascategorie', value: $event.target.value})"
             >
               <option
                 :selected="item.gewascategorie === 'Grasland'"
@@ -61,7 +62,7 @@
         <md-table-cell md-label="Drainage">
           <div class="custom-select">
             <select
-              @input.prevent="updateProperty({index, id: item.id, key: 'drain', value: Number($event.target.value)})"
+              @input.prevent="updateProperty({id: item.id, key: 'drain', value: Number($event.target.value)})"
             >
               <option
                 :selected="item.drain === 1"
@@ -102,7 +103,19 @@
 </template>
 
 <script>
+import { FormSelect } from '../../components'
+
+const toNumber = (value) => {
+  const number = Number(value)
+  return isNaN(number) ? undefined : number
+}
+const isNumber = (value) => {
+  if (typeof value === undefined || typeof value === null) return false
+  return !isNaN(Number(value))
+}
+
 export default {
+  components: { FormSelect },
   props: {
     parcels: {
       type: Array,
@@ -112,8 +125,7 @@ export default {
   },
   data() {
     return {
-      selected: '',
-      index: null
+      locale: 'nl-NL',
     }
   },
   computed: {
@@ -122,6 +134,19 @@ export default {
     },
   },
   methods: {
+    formatCmAsMeter(value) {
+      if (!isNumber(value)) return ''
+      const valueInCm = toNumber(value)
+      const valueInMeter = valueInCm / 100
+      return this.formatNumber(valueInMeter)
+    },
+    formatNumber(value) {
+      if (!isNumber(value)) return ''
+      return toNumber(value).toLocaleString(this.locale, {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+      })
+    },
     parcelColor() {
       return '#FF0000'
     },
@@ -150,23 +175,18 @@ export default {
     top: calc(50% - 5px);
     border: 1px solid #ccc;
   }
-
   .parcels-table__vegetation--grasland::before {
     background-color: #D1FFB9;
   }
-
   .parcels-table__vegetation--bouwland::before {
     background-color: #FFFFDE;
   }
-
   .parcels-table__vegetation--braakland::before {
     background-color: #EBE0CE;
   }
-
   .parcels-table__vegetation--natuurterrein::before {
     background-color: #9BD37F;
   }
-
   .parcels-table__vegetation--overige::before {
     background-color: #D8D8D8;
   }
@@ -292,16 +312,7 @@ export default {
     width: 130px;
   }
 
-  // IE 9 only
-  @media all and (min-width:0\0) and (min-resolution:.001dpcm){
-    .custom-select{
-      select {
-        padding-right: 0;
-      }
-
-      &:after, &:before {
-        display: none;
-      }
-    }
+  .parcels-table__cell--text {
+    text-transform: capitalize;
   }
 </style>
