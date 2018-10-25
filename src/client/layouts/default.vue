@@ -1,6 +1,9 @@
 <template>
   <div class="default-layout">
-    <app-header @refresh="resetFeatures" />
+    <app-header
+      :has-features="hasFeatures"
+      @refresh="resetFeatures"
+    />
     <main class="default-layout__content">
       <nuxt/>
       <div class="default-layout__content-right">
@@ -17,10 +20,15 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import { AppHeader, MapboxMap } from '../components'
 
 export default {
   components: { AppHeader, MapboxMap },
+  computed: {
+    ...mapState('mapbox/features', [ 'features' ]),
+    hasFeatures() { return !!(this.features && this.features.length) }
+  },
   methods: {
     resetFeatures() {
       this.$store.dispatch('mapbox/features/resetFeatures')
