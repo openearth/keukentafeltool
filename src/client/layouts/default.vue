@@ -2,6 +2,7 @@
   <div class="default-layout">
     <app-header
       :has-features="hasFeatures"
+      @panTo="focusOnFeatures"
       @refresh="resetFeatures"
     />
     <main class="default-layout__content">
@@ -30,6 +31,9 @@ export default {
     hasFeatures() { return !!(this.features && this.features.length) }
   },
   methods: {
+    focusOnFeatures() {
+      this.$store.dispatch('mapbox/features/fitToFeatures')
+    },
     resetFeatures() {
       this.$store.dispatch('mapbox/features/resetFeatures')
       this.$store.dispatch('mapbox/addOnceEventHandler', {
