@@ -1,9 +1,8 @@
 <template>
-  <form
-    class="parcels-table"
-  >
+  <form>
     <md-table
       v-model="parcelProperties"
+      class="parcels-table"
     >
       <md-table-row
         slot="md-table-row"
@@ -15,7 +14,7 @@
         <md-table-cell
           :class="`parcels-table__vegetation--${item.gewascategorie.toLowerCase()}`"
           class="parcels-table__vegetation"
-          md-label="Gewas"
+          md-label="Gewascategorie"
         >{{ item.gewas }}</md-table-cell>
         <md-table-cell md-label="Maatregelen">
           Onbekend
@@ -26,11 +25,14 @@
         >
           {{ item.areaal || 'Onbekend' }}
         </md-table-cell>
-        <md-table-cell md-label="Grondsoort">
-          <form-select />
-          <div class="custom-select custom-select--w130">
+        <md-table-cell
+          md-label="Grondsoort">
+          <div class="form-select">
             <select
-              @input.prevent="updateProperty({id: item.id, key: 'gewascategorie', value: $event.target.value})"
+              id="select"
+              name="select"
+              class="form-select__select"
+              @input.prevent="updateProperty({id: item.id, key: 'grondsoort', value: $event.target.value})"
             >
               <option
                 :selected="item.gewascategorie === 'Grasland'"
@@ -60,8 +62,9 @@
           </div>
         </md-table-cell>
         <md-table-cell md-label="Drainage">
-          <div class="custom-select">
+          <div class="form-select form-select--w76">
             <select
+              class="form-select__select"
               @input.prevent="updateProperty({id: item.id, key: 'drain', value: Number($event.target.value)})"
             >
               <option
@@ -125,7 +128,7 @@ export default {
   },
   data() {
     return {
-      locale: 'nl-NL',
+      locale: 'nl-NL'
     }
   },
   computed: {
@@ -157,7 +160,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style>
   .parcel-type {
     width: 5px;
     height: 5px;
@@ -195,6 +198,8 @@ export default {
     border: none;
   }
 
+
+
   /*
   ** Fix for the vue-material fixed header table
   ** The component is not working with toggleing
@@ -227,89 +232,6 @@ export default {
   .parcels-table th,
   .parcels-table td {
     width: 200px;
-  }
-
-  /*
-  ** Custom select styling:
-  ** Vue material select components
-  ** do not work with the Vue material table
-  ** decided together with  the designers that
-  ** this is an oportunity to build a better
-  ** custom solution. Fully css based.
-  */
-
-  .custom-select {
-    position: relative;
-    height: 40px;
-    width: 90px;
-    border: 1px solid transparent;
-    margin-left: -10px; // For alignment in the table column
-
-    &:after {
-      content: '';
-      position: absolute;
-      top: 0;
-      width: 0;
-      height: 0;
-      right: 10px;
-      bottom: 0;
-      margin: auto;
-      border-style: solid;
-      border-width: 5px 5px 0 5px;
-      border-color: #000000 transparent transparent transparent;
-      pointer-events: none;
-    }
-
-    &:before {
-      width: 30px;
-      position: absolute;
-      top: 1px;
-      right: 1px;
-      bottom: 1px;
-      content: '';
-      pointer-events: none;
-    }
-
-    &:hover {
-      transition: all 200ms ease-in-out;
-      border: 1px solid rgba(0,0,0,0.5);
-      background: #ffffff;
-    }
-
-    select {
-      font-size: 14px;
-      border: none;
-      box-shadow: none;
-      border-radius: 0;
-      background: transparent;
-      height: 100%;
-      width: 100%;
-      cursor: pointer;
-      outline: none;
-      padding-right: 30px;
-      padding-left: 10px;
-
-      // Disable default styling on ff
-      -moz-appearance: none;
-
-      // Disable ugly outline on firefox
-      &:-moz-focusring {
-        color: transparent;
-        text-shadow: 0 0 0 #000;
-      }
-
-      // Disable default styling on webkit browsers
-      -webkit-appearance: none;
-
-      // Disable default arrow on IE 11+
-      &::-ms-expand {
-        display: none;
-      }
-    }
-  }
-
-  .custom-select--w130 {
-    width: 130px;
   }
 
   .parcels-table__cell--text {

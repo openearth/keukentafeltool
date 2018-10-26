@@ -5,7 +5,6 @@
       class="md-dense"
     >
       <div class="md-toolbar-section-end">
-        <form-select />
         <md-button to="/farm/">wijzig percelen</md-button>
       </div>
     </md-toolbar>
@@ -27,10 +26,9 @@ import layerFactory from '../../lib/_mapbox/layer-factory'
 import parcelColors from '../../lib/_mapbox/parcel-colors'
 
 import { ParcelsTable } from '../../components'
-import { FormSelect } from '../../components'
 
 export default {
-  components: { ParcelsTable, FormSelect },
+  components: { ParcelsTable },
   mixins: [
     initMapState,
     requireFeatures
