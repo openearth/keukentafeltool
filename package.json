@@ -41,11 +41,9 @@
     "portal-vue": "^1.4.0",
     "proj4": "^2.5.0",
     "query-string": "^6.2.0",
-    "request-promise-native": "^1.0.5",
     "vue-material": "^1.0.0-beta-10.2",
     "vue-resize-directive": "^1.1.4",
-    "vuex-persistedstate": "^2.5.4",
-    "xml2js": "^0.4.19"
+    "vuex-persistedstate": "^2.5.4"
   },
   "devDependencies": {
     "babel-eslint": "^8.2.1",
