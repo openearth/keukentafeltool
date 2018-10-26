@@ -81,9 +81,4 @@
   .form-select__select::-ms-expand {
     display: none;
   }
-
-  /* This system only works with fixed widths */
-  .form-select--w76 {
-    width: 76px;
-  }
 </style>

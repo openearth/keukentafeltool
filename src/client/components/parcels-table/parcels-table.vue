@@ -20,7 +20,7 @@
           Onbekend
         </md-table-cell>
         <md-table-cell
-          md-label="Oppervlakte (ha)"
+          md-label="opp. (ha)"
           md-numeric
         >
           {{ item.areaal || 'Onbekend' }}
@@ -61,8 +61,11 @@
             </select>
           </div>
         </md-table-cell>
-        <md-table-cell md-label="Drainage">
-          <div class="form-select form-select--w76">
+        <md-table-cell
+          md-label="Drainage"
+          numeric
+        >
+          <div class="form-select">
             <select
               class="form-select__select"
               @input.prevent="updateProperty({id: item.id, key: 'drain', value: Number($event.target.value)})"
@@ -237,4 +240,17 @@ export default {
   .parcels-table__cell--text {
     text-transform: capitalize;
   }
+
+  /* Reset for numeric columns */
+  .parcels-table .md-table-head.md-numeric,
+  .parcels-table .md-table-cell.md-numeric {
+    width: 100px;
+  }
+  .parcels-table .md-table-head.md-numeric .md-table-head-container,
+  .parcels-table .md-table-cell.md-numeric .md-table-cell-container {
+    width: 100px;
+  }
+
+
+
 </style>
