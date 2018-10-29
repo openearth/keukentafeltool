@@ -19,7 +19,7 @@
             <th class="md-table-head md-numeric">
               <div class="md-table-head-container">
                 <div class="md-table-head-label">
-                  Nitraat <br>(NO<small>3</small> mg/l)
+                  Nitraat <br>(NO<sub>3</sub> mg/l)
                 </div>
               </div>
             </th>
@@ -91,6 +91,8 @@
 </template>
 
 <script>
+import formatNumber from '~/lib/format-number'
+
 const toNumber = (value) => {
   const number = Number(value)
   return isNaN(number) ? undefined : number
@@ -131,7 +133,9 @@ export default {
     height: 56px;
   }
   /*
-  ** fix for layout we would like to have the parcel id aligned at the top of the cell
+  ** Fix for layout we would like to have the parcel id aligned at the top of the cell
+  ** Can only be done by overriding the fixed height with our own fixed height.
+  ** Twice the row height minus the row padding.
   */
   .nutrients-table .nutrients-table__parcel-id-cell .md-table-cell-container {
     height: 78px;
