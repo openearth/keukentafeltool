@@ -18,8 +18,7 @@ import { NutrientsTable } from '../../components'
 export default {
   components: { NutrientsTable },
   mixins: [ requireFeatures ],
-  middleware: [ 'require-parcels' ],
-    computed: {
+  computed: {
     ...mapState('mapbox/features', [ 'features' ])
   }
 }
