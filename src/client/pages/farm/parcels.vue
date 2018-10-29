@@ -8,7 +8,9 @@
         <md-button to="/farm/">wijzig percelen</md-button>
       </div>
     </md-toolbar>
-    <parcels-table :parcels="features" />
+    <no-ssr>
+      <parcels-table :parcels="features" />
+    </no-ssr>
   </div>
 </template>
 
@@ -16,15 +18,18 @@
 import { mapState } from 'vuex'
 
 import initMapState from '../../lib/mixins/init-map-state'
+import requireFeatures from '../../lib/mixins/require-features'
 import layerFactory from '../../lib/_mapbox/layer-factory'
 import parcelColors from '../../lib/_mapbox/parcel-colors'
 
 import { ParcelsTable } from '../../components'
 
 export default {
-  middleware: [ 'require-parcels' ],
   components: { ParcelsTable },
-  mixins: [ initMapState ],
+  mixins: [
+    initMapState,
+    requireFeatures
+  ],
   data() {
     return {
       contentOpen: false
@@ -38,7 +43,6 @@ export default {
   methods: {
     initMapState() {
       const overlay = layerFactory.parcels()
-      this.$store.dispatch('mapbox/removeEventHandler', { event: 'click' })
       this.$store.dispatch('mapbox/overlays/add', overlay)
       this.$store.dispatch('mapbox/overlays/setOpacity', { id: overlay.id, opacity: 0.3 })
       this.features.forEach(feature => {
@@ -54,10 +58,7 @@ export default {
           value: 1
         })
       })
-      this.$store.dispatch('mapbox/addOnceEventHandler', {
-        event: 'resize',
-        handler: () => this.$store.dispatch('mapbox/features/flyToFirstFeature')
-      })
+      this.$emit('fitFeatures')
     },
   }
 }

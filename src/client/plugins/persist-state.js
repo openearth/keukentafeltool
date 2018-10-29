@@ -7,6 +7,9 @@ import createPersistedState from 'vuex-persistedstate'
 export default ({ store }) => {
   createPersistedState({
       key: 'app-state',
-      paths: [ 'mapbox.features' ],
+      paths: [
+        'mapbox.features',
+        'measures.parcelsPerMeasure'
+      ],
   })(store)
 }

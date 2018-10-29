@@ -21,12 +21,13 @@ import getFeatureInfo from '../../lib/get-feature-info'
 import initMapState from '../../lib/mixins/init-map-state'
 import layerFactory from '../../lib/_mapbox/layer-factory'
 import parcelColors from '../../lib/_mapbox/parcel-colors'
+import unbindMapHandlers from '../../lib/mixins/unbind-map-handlers'
 
 import { FooterBar } from '../../components'
 
 export default {
   components: { FooterBar },
-  mixins: [ initMapState ],
+  mixins: [ initMapState, unbindMapHandlers ],
   computed: {
     ...mapState('mapbox', [ 'mapObject', 'mapIsLoaded' ]),
     ...mapState('mapbox/features', [ 'features' ]),
@@ -51,10 +52,7 @@ export default {
           value: 0.7
         })
       })
-      this.$store.dispatch('mapbox/addOnceEventHandler', {
-        event: 'resize',
-        handler: () => this.$store.dispatch('mapbox/features/flyToFirstFeature')
-      })
+      this.$emit('fitFeatures')
     },
     mapClickHandler({ point, target }) {
       const canvas = target.getCanvas()

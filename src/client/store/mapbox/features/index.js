@@ -1,4 +1,5 @@
-import mapbox from '../../../lib/_mapbox/_mapbox'
+import geojsonExtent from '@mapbox/geojson-extent'
+
 import layerFactory from '../../../lib/_mapbox/layer-factory'
 
 export const state = () => ({
@@ -12,8 +13,28 @@ export const mutations = {
       state.features = [ ...state.features, feature ]
     }
   },
+  addEventHandler(state, { id, event, handler }) {
+    state.eventHandlers = {
+      ...state.eventHandlers,
+      [ id ]: {
+        ...state.eventHandlers[id],
+        [ event ]: handler
+      }
+    }
+  },
   remove(state, id) {
     state.features = state.features.filter(feature => feature.id !== id)
+  },
+  removeEventHandler(state, { event, featureId }) {
+    const featureEventHandlers = state.eventHandlers[featureId]
+
+    state.eventHandlers = {
+      ...state.eventHandlers,
+      [ featureId ]: {
+        ...featureEventHandlers,
+        [ event ]: undefined
+      }
+    }
   }
 }
 
@@ -26,16 +47,26 @@ export const actions = {
       commit('add', feature)
     }
   },
-  flyToFirstFeature({ state, rootGetters }) {
-    if(state.features.length) {
-      const map = rootGetters['mapbox/map']
-      const coordinates = state.features[0].geometry.coordinates[0]
-      const bounds = coordinates.reduce(function(bounds, coord) {
-          return bounds.extend(coord);
-      }, new mapbox.LngLatBounds());
+  addEventHandler({ commit, rootGetters }, { id, event, handler }) {
+    const map = rootGetters['mapbox/map']
 
-      map.fitBounds(bounds, { zoom: 14 })
+    map.on(event, id, handler)
+    commit('addEventHandler', { id, event, handler })
+  },
+  fitToFeatures({ state, rootGetters }) {
+    const map = rootGetters['mapbox/map']
+    const { features } = state
+
+    if(!features.length) {
+      return
     }
+
+    const bounds = geojsonExtent({
+      type: 'FeatureCollection',
+      features
+    })
+
+    map.fitBounds(bounds, { padding: 20 })
   },
   resetFeatures({ commit, state, rootGetters }) {
     const map = rootGetters['mapbox/map']
@@ -63,5 +94,11 @@ export const actions = {
       map.removeSource(id)
       commit('remove', id)
     }
+  },
+  removeEventHandler({ commit, rootGetters, state }, { event, featureId }) {
+    const map = rootGetters['mapbox/map']
+
+    map.off(event, featureId, state.eventHandlers[featureId][event])
+    commit('removeEventHandler', { event, featureId })
   }
 }

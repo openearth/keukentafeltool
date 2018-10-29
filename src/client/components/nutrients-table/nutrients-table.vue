@@ -48,8 +48,8 @@
               class="md-table-row"
             >
               <td
-                class="md-table-cell"
-                rowspan="3"
+                class="md-table-cell nutrients-table__parcel-id-cell"
+                rowspan="2"
               >
                 <div class="md-table-cell-container">{{ nutrient.id }}</div>
               </td>
@@ -67,37 +67,20 @@
               </td>
             </tr>
             <tr
-              :key="nutrient.id"
+              :key="nutrient.id+'row2'"
               class="md-table-row"
             >
               <td class="md-table-cell">
-                <div class="md-table-cell-container">&Delta; door maatregelen</div>
+                <div class="md-table-cell-container"><nobr>&Delta; door maatregelen</nobr></div>
               </td>
               <td class="md-table-cell md-numeric">
-                <div class="md-table-cell-container">xxx</div>
+                <div class="md-table-cell-container">---</div>
               </td>
               <td class="md-table-cell md-numeric">
-                <div class="md-table-cell-container">xxx</div>
+                <div class="md-table-cell-container">---</div>
               </td>
               <td class="md-table-cell md-numeric">
-                <div class="md-table-cell-container">xxx</div>
-              </td>
-            </tr>
-            <tr
-              :key="nutrient.id"
-              class="md-table-row"
-            >
-              <td class="md-table-cell nutrients-table__cell--total">
-                <div class="md-table-cell-container">Totaal</div>
-              </td>
-              <td class="md-table-cell md-numeric nutrients-table__cell--total">
-                <div class="md-table-cell-container ">xxx</div>
-              </td>
-              <td class="md-table-cell md-numeric nutrients-table__cell--total">
-                <div class="md-table-cell-container">xxx</div>
-              </td>
-              <td class="md-table-cell md-numeric nutrients-table__cell--total">
-                <div class="md-table-cell-container">xxx</div>
+                <div class="md-table-cell-container">---</div>
               </td>
             </tr>
           </template>
@@ -121,10 +104,9 @@ export default {
 
 <style>
   .nutrients-table {
-    min-width: 400px;
+    min-width: 500px;
   }
-
-  .nutrients-table__cell--total {
-    background: #f5f5f5;
+  .md-table.nutrients-table .md-table-row:hover:not(.md-header-row) .md-table-cell.nutrients-table__parcel-id-cell {
+    background: #ffffff;
   }
 </style>
