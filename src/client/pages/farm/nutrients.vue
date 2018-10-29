@@ -4,7 +4,7 @@
       md-elevation="0"
       class="md-dense"
     />
-    <nutrients-table :nutrients="features" />
+    <nutrients-table :parcels="features" />
   </div>
 </template>
 

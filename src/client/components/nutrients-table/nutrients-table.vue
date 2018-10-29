@@ -16,24 +16,24 @@
                 <div class="md-table-head-label" />
               </div>
             </th>
-            <th class="md-table-cell md-numeric">
+            <th class="md-table-head md-numeric">
               <div class="md-table-head-container">
                 <div class="md-table-head-label">
-                  NITRAAT (NO<small>3</small>)
+                  Nitraat <br>(NO<small>3</small> mg/l)
                 </div>
               </div>
             </th>
-            <th class="md-table-cell md-numeric">
+            <th class="md-table-head md-numeric">
               <div class="md-table-head-container">
                 <div class="md-table-head-label">
-                  STIKSTOF (N<small>drain</small>)
+                  Stikstof <br>(N<small>drain</small> kg/ha)
                 </div>
               </div>
             </th>
-            <th class="md-table-cell md-numeric">
+            <th class="md-table-head md-numeric">
               <div class="md-table-head-container">
                 <div class="md-table-head-label">
-                  FOSFOR (P<small>drain</small>)
+                  Fosfor <br>(P<small>drain</small> kg/ha)
                 </div>
               </div>
             </th>
@@ -41,46 +41,46 @@
         </thead>
         <tbody>
           <template
-            v-for="nutrient in nutrients"
+            v-for="parcel in parcels"
           >
             <tr
-              :key="nutrient.id"
+              :key="parcel.id"
               class="md-table-row"
             >
               <td
                 class="md-table-cell nutrients-table__parcel-id-cell"
                 rowspan="2"
               >
-                <div class="md-table-cell-container">{{ nutrient.id }}</div>
+                <div class="md-table-cell-container">{{ parcel.id }}</div>
               </td>
               <td class="md-table-cell">
                 <div class="md-table-cell-container">Referentie</div>
               </td>
               <td class="md-table-cell md-numeric">
-                <div class="md-table-cell-container"><strong>{{ nutrient.properties.refno3 }}<small>mg/l</small></strong></div>
+                <div class="md-table-cell-container">{{ formatNumber(parcel.properties.refno3) }}</div>
               </td>
               <td class="md-table-cell md-numeric">
-                <div class="md-table-cell-container"><strong>{{ nutrient.properties.refndrain }}<small>kg/ha</small></strong></div>
+                <div class="md-table-cell-container">{{ formatNumber(parcel.properties.refndrain) }}</div>
               </td>
               <td class="md-table-cell md-numeric">
-                <div class="md-table-cell-container"><strong>{{ nutrient.properties.refpdrain }}<small>kg/ha</small></strong></div>
+                <div class="md-table-cell-container">{{ formatNumber(parcel.properties.refpdrain) }}</div>
               </td>
             </tr>
             <tr
-              :key="nutrient.id+'row2'"
+              :key="parcel.id+'row2'"
               class="md-table-row"
             >
               <td class="md-table-cell">
                 <div class="md-table-cell-container"><nobr>&Delta; door maatregelen</nobr></div>
               </td>
               <td class="md-table-cell md-numeric">
-                <div class="md-table-cell-container">---</div>
+                <div class="md-table-cell-container">&nbsp;</div>
               </td>
               <td class="md-table-cell md-numeric">
-                <div class="md-table-cell-container">---</div>
+                <div class="md-table-cell-container">&nbsp;</div>
               </td>
               <td class="md-table-cell md-numeric">
-                <div class="md-table-cell-container">---</div>
+                <div class="md-table-cell-container">&nbsp;</div>
               </td>
             </tr>
           </template>
@@ -91,12 +91,30 @@
 </template>
 
 <script>
+const toNumber = (value) => {
+  const number = Number(value)
+  return isNaN(number) ? undefined : number
+}
+const isNumber = (value) => {
+  if (typeof value === undefined || typeof value === null) return false
+  return !isNaN(Number(value))
+}
+
 export default {
   props: {
-    nutrients: {
+    parcels: {
       type: Array,
       required: true,
       default: () => [],
+    }
+  },
+  methods: {
+    formatNumber(value) {
+      if (!isNumber(value)) return ''
+      return toNumber(value).toLocaleString(this.locale, {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+      })
     }
   }
 }
@@ -106,6 +124,21 @@ export default {
   .nutrients-table {
     min-width: 500px;
   }
+  .nutrients-table .md-table-head-container {
+    height: 84px;
+  }
+  .nutrients-table .md-table-head-label {
+    height: 56px;
+  }
+  /*
+  ** fix for layout we would like to have the parcel id aligned at the top of the cell
+  */
+  .nutrients-table .nutrients-table__parcel-id-cell .md-table-cell-container {
+    height: 78px;
+  }
+  /*
+  ** fix for funny hover state due to row span
+  */
   .md-table.nutrients-table .md-table-row:hover:not(.md-header-row) .md-table-cell.nutrients-table__parcel-id-cell {
     background: #ffffff;
   }
