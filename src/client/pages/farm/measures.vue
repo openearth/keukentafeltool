@@ -1,39 +1,119 @@
 <template>
   <div>
-    <measures-list
-      :measures="measures"
-      @selectMeasure="selectMeasure"
-    />
-    <footer-bar>
-      <template v-if="selectedMeasure">Klik op een perceel om deze maatregel toe te voegen</template>
-      <template v-else>Kies een maatregel</template>
-    </footer-bar>
+    <no-ssr>
+      <measures-list
+        :measures="measures"
+        :parcels-per-measure="parcelsPerMeasure"
+        @selectMeasure="selectMeasure"
+        @removeSelectedParcel="unassignMeasure"
+      />
+    </no-ssr>
   </div>
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapGetters, mapState } from 'vuex'
 
+import initMapState from '../../lib/mixins/init-map-state'
+import layerFactory from '../../lib/_mapbox/layer-factory'
+import parcelColors from '../../lib/_mapbox/parcel-colors'
 import requireFeatures from '../../lib/mixins/require-features'
+import unbindFeatureHandlers from '../../lib/mixins/unbind-feature-handlers'
 
 import { MeasuresList } from '../../components'
 import { FooterBar } from '../../components'
 
 export default {
   components: { MeasuresList, FooterBar },
-  mixins: [ requireFeatures ],
+  mixins: [
+    initMapState,
+    requireFeatures,
+    unbindFeatureHandlers
+  ],
   data() {
     return {
       selectedMeasure: undefined,
     }
   },
   computed: {
-    ...mapState('measures', ['measures']),
+    ...mapState('mapbox/features', ['features']),
+    ...mapState('measures', ['parcelsPerMeasure', 'measures']),
+    ...mapGetters('measures', [ 'measuresPerParcel' ])
   },
   methods: {
-    selectMeasure (measure) {
+    initMapState() {
+      const overlay = layerFactory.parcels()
+      this.$store.dispatch('mapbox/overlays/add', overlay)
+      this.$store.dispatch('mapbox/overlays/setOpacity', { id: overlay.id, opacity: 0.3 })
+
+      this.features.forEach((feature, index) => {
+        this.$store.dispatch('mapbox/features/add', feature)
+        this.$store.dispatch('mapbox/features/addEventHandler', {
+          id: feature.id,
+          event: 'click',
+          handler: (event) => this.selectParcel({ event, index, id: feature.id })
+        })
+        this.$store.dispatch('mapbox/features/setStyle', {
+          id: feature.id,
+          styleOption: 'fill-color',
+          value: parcelColors(feature.properties.gewascategorie)
+        })
+        this.$store.dispatch('mapbox/features/setStyle', {
+          id: feature.id,
+          styleOption: 'fill-opacity',
+          value: 1
+        })
+      })
+      this.$emit('fitFeatures')
+    },
+    setFeatureFill({ id, color }) {
+      this.$store.dispatch('mapbox/features/setStyle', {
+        id,
+        styleOption: 'fill-color',
+        value: color
+      })
+    },
+    selectMeasure(measure) {
+      if(this.selectedMeasure) {
+        const assignedFeatureIds = this.parcelsPerMeasure[this.selectedMeasure.id] || []
+
+        assignedFeatureIds.forEach(assignedId => {
+          const feature = this.features.find(feature => feature.id === assignedId)
+          this.setFeatureFill({ id: assignedId, color: parcelColors(feature.properties.gewascategorie) })
+        })
+      }
+
+      if(measure) {
+        const nextAssignedFeatureIds = this.parcelsPerMeasure[measure.id] || []
+
+        nextAssignedFeatureIds.forEach(id => {
+          this.setFeatureFill({ id, color: parcelColors() })
+        })
+      }
+
       this.selectedMeasure = measure
-      console.log(measure)
+    },
+    selectParcel({ event, index, id }) {
+      if(this.selectedMeasure && this.selectedMeasure.id) {
+        const parcels = this.parcelsPerMeasure[this.selectedMeasure.id]
+
+        if(!parcels || !parcels.includes(id)) {
+          this.assignMeasure({ id, measure: this.selectedMeasure })
+        } else {
+          this.unassignMeasure({ id, measure: this.selectedMeasure })
+        }
+
+      }
+    },
+    assignMeasure({ id, measure }) {
+      this.$store.commit('measures/assignMeasure', { parcelId: id, measure })
+      this.setFeatureFill({ id, color: parcelColors() })
+    },
+    unassignMeasure({ id, measure }) {
+      const feature = this.features.find(feature => feature.id === id)
+
+      this.$store.commit('measures/unassignMeasure', { parcelId: id, measure })
+      this.setFeatureFill({ id, color: parcelColors(feature.properties.gewascategorie) })
     }
   }
 }

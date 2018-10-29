@@ -14,25 +14,16 @@
         <md-table-cell
           :class="`parcels-table__vegetation--${item.gewascategorie.toLowerCase()}`"
           class="parcels-table__vegetation"
-          md-label="Gewascategorie"
+          md-label="Gewas"
         >{{ item.gewas }}</md-table-cell>
-        <md-table-cell md-label="Maatregelen">
-          Onbekend
-        </md-table-cell>
         <md-table-cell
-          md-label="opp. (ha)"
-          md-numeric
-        >
-          {{ item.areaal || 'Onbekend' }}
-        </md-table-cell>
-        <md-table-cell
-          md-label="Grondsoort">
+          md-label="Gewascategorie">
           <div class="form-select">
             <select
               id="select"
               name="select"
               class="form-select__select"
-              @input.prevent="updateProperty({id: item.id, key: 'grondsoort', value: $event.target.value})"
+              @input.prevent="updateProperty({id: item.id, key: 'gewascategorie', value: $event.target.value})"
             >
               <option
                 :selected="item.gewascategorie === 'Grasland'"
@@ -62,6 +53,17 @@
           </div>
         </md-table-cell>
         <md-table-cell
+          md-label="opp. (ha)"
+          md-numeric
+        >
+          {{ item.areaal || 'Onbekend' }}
+        </md-table-cell>
+        <md-table-cell
+          md-label="Grondsoort"
+          class="parcels-table__cell--text"
+        >{{ item.bodemgroep.toLowerCase() }}
+        </md-table-cell>
+        <md-table-cell
           md-label="Drainage"
           numeric
         >
@@ -71,16 +73,22 @@
               @input.prevent="updateProperty({id: item.id, key: 'drain', value: Number($event.target.value)})"
             >
               <option
+                :selected="item.drain === 2"
+                value="2"
+              >
+                Verbeterd
+              </option>
+              <option
                 :selected="item.drain === 1"
                 value="1"
               >
-                Ja
+                Wel
               </option>
               <option
                 :selected="item.drain === 0"
                 value="0"
               >
-                Nee
+                Geen
               </option>
             </select>
           </div>

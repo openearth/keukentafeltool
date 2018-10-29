@@ -1,4 +1,9 @@
+import { mapState } from 'vuex'
+
 export default {
+  computed: {
+    ...mapState('mapbox', ['mapIsLoaded']),
+  },
   watch: {
     mapIsLoaded(loaded) {
       this.__initMapState()
