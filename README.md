@@ -36,8 +36,9 @@ src/              <- source files
     layouts/      <- base layout for pages
     pages/        <- view per route
     static/       <- public assets
-
-test/             <- end-to-end tests and helpers
+  server/
+    functions/    <- Netlify cloud functions
+    lib/          <- shared cloud function helpers
 
 .env              <- local environment variables
 netlify.toml      <- Netlify build
