@@ -4,7 +4,10 @@
       md-elevation="0"
       class="md-dense"
     />
-    <nutrients-table :parcels="features" />
+    <nutrients-table
+      :parcels="features"
+      :effects="effects"
+    />
   </div>
 </template>
 
@@ -18,6 +21,11 @@ import { NutrientsTable } from '../../components'
 export default {
   components: { NutrientsTable },
   mixins: [ requireFeatures ],
+  data() {
+    return {
+      effects: []
+    }
+  },
   computed: {
     ...mapState('mapbox/features', [ 'features' ]),
     ...mapGetters('measures', [ 'measuresPerParcel' ]),
@@ -32,7 +40,10 @@ export default {
     })
     fetch(`/.netlify/functions/hydrometra-parcel-effects?input=${JSON.stringify(input)}`)
       .then(res => res.json())
-      .then(res => console.log(res.data))
+      .then(res => {
+        console.log('effecten uit API', res.data)
+        this.effects = res.data
+      })
       .catch(err => console.error(err))
   },
 }
