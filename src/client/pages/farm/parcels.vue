@@ -9,7 +9,10 @@
       </div>
     </md-toolbar>
     <no-ssr>
-      <parcels-table :parcels="features" />
+      <parcels-table
+        :parcels="features"
+        @updateProperty="updateProperty"
+      />
     </no-ssr>
   </div>
 </template>
@@ -60,6 +63,9 @@ export default {
       })
       this.$emit('fitFeatures')
     },
+    updateProperty (parcelProperty) {
+      this.$store.commit('mapbox/features/updateParcelProperty', parcelProperty)
+    }
   }
 }
 </script>

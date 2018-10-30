@@ -35,6 +35,10 @@ export const mutations = {
         [ event ]: undefined
       }
     }
+  },
+  updateParcelProperty(state, { id, key, value }) {
+    const featureToUpdate = state.features.find(feature => feature.id === String(id))
+    featureToUpdate.properties[key] = value
   }
 }
 
