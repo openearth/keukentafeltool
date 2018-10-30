@@ -11,15 +11,24 @@
 <script>
 import { mapState } from 'vuex'
 
+import initMapState from '../../lib/mixins/init-map-state'
 import requireFeatures from '../../lib/mixins/require-features'
 import { NutrientsTable } from '../../components'
 
 
 export default {
   components: { NutrientsTable },
-  mixins: [ requireFeatures ],
+  mixins: [
+    initMapState,
+    requireFeatures,
+  ],
   computed: {
     ...mapState('mapbox/features', [ 'features' ])
+  },
+  methods: {
+    initMapState() {
+      this.$emit('fitFeatures')
+    },
   }
 }
 </script>
