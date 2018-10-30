@@ -5,7 +5,7 @@
       class="md-dense"
     />
     <nutrients-table :parcels="features" />
-    <outcome-table />
+    <outcome-panel />
   </div>
 </template>
 
@@ -14,12 +14,12 @@ import { mapState } from 'vuex'
 
 import requireFeatures from '../../lib/mixins/require-features'
 import { NutrientsTable } from '../../components'
-import { OutcomeTable } from '../../components'
+import { OutcomePanel } from '../../components'
 
 
 
 export default {
-  components: { NutrientsTable, OutcomeTable },
+  components: { NutrientsTable, OutcomePanel },
   mixins: [ requireFeatures ],
   computed: {
     ...mapState('mapbox/features', [ 'features' ])

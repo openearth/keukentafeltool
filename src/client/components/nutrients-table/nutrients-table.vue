@@ -4,14 +4,14 @@
       <table>
         <thead>
           <tr>
-            <th class="md-table-head">
+            <th class="md-table-head nutrients-table__parcel-column">
               <div class="md-table-head-container">
                 <div class="md-table-head-label">
                   Perceel
                 </div>
               </div>
             </th>
-            <th class="md-table-head">
+            <th class="md-table-head nutrients-table__labels-column">
               <div class="md-table-head-container">
                 <div class="md-table-head-label" />
               </div>
@@ -128,12 +128,19 @@ export default {
 <style>
   .nutrients-table {
     min-width: 500px;
+    width: 100%;
   }
   .nutrients-table .md-table-head-container {
     height: 84px;
   }
   .nutrients-table .md-table-head-label {
     height: 56px;
+  }
+  .nutrients-table__parcel-column {
+    width: 110px;
+  }
+  .nutrients-table__labels-column {
+    width: 235px;
   }
   /*
   ** Fix for layout we would like to have the parcel id aligned at the top of the cell
@@ -148,5 +155,14 @@ export default {
   */
   .md-table.nutrients-table .md-table-row:hover:not(.md-header-row) .md-table-cell.nutrients-table__parcel-id-cell {
     background: #ffffff;
+  }
+    /* Reset for numeric columns */
+  .nutrients-table .md-table-head.md-numeric,
+  .nutrients-table .md-table-cell.md-numeric {
+    width: 110px;
+  }
+  .nutrients-table .md-table-head.md-numeric .md-table-head-container,
+  .nutrients-table .md-table-cell.md-numeric .md-table-cell-container {
+    width: 100%;
   }
 </style>
