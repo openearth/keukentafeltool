@@ -9,7 +9,10 @@
       </div>
     </md-toolbar>
     <no-ssr>
-      <parcels-table :parcels="features" />
+      <parcels-table
+        :parcels="features"
+        @updateProperty="updateProperty"
+      />
     </no-ssr>
   </div>
 </template>
@@ -43,7 +46,6 @@ export default {
   methods: {
     initMapState() {
       const overlay = layerFactory.parcels()
-      this.$store.dispatch('mapbox/removeEventHandler', { event: 'click' })
       this.$store.dispatch('mapbox/overlays/add', overlay)
       this.$store.dispatch('mapbox/overlays/setOpacity', { id: overlay.id, opacity: 0.3 })
       this.features.forEach(feature => {
@@ -61,6 +63,9 @@ export default {
       })
       this.$emit('fitFeatures')
     },
+    updateProperty (parcelProperty) {
+      this.$store.commit('mapbox/features/updateParcelProperty', parcelProperty)
+    }
   }
 }
 </script>

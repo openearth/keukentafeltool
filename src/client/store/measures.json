@@ -3,7 +3,8 @@
     "title": "Verminderen bodemoverschot",
     "items": [
       {
-        "title":"Verminderen bodemoverschot stikstof"
+        "title":"Verminderen bodemoverschot stikstof",
+        "id": 1
       }
     ]
   },
@@ -11,7 +12,8 @@
     "title": "Precisie bemesting",
     "items": [
       {
-        "title":"Precisie bemesting (juiste hoeveelheid, plaats, tijdstip)"
+        "title":"Precisie bemesting (juiste hoeveelheid, plaats, tijdstip)",
+        "id": 2
       }
     ]
   },
@@ -19,7 +21,8 @@
     "title": "Verbeteren sponswerking bodem",
     "items": [
       {
-        "title":"Precisie bemesting (juiste hoeveelheid, plaats, tijdstip)"
+        "title":"Precisie bemesting (juiste hoeveelheid, plaats, tijdstip)",
+        "id": 3
       }
     ]
   },
@@ -27,10 +30,12 @@
     "title": "Regelbare drainage",
     "items": [
       {
-        "title":"Aanleg regelbare drainage op drainage behoefte bodems (waar nu nog geen drainbuizen liggen)"
+        "title":"Aanleg regelbare drainage op drainage behoefte bodems (waar nu nog geen drainbuizen liggen)",
+        "id": 4
       },
       {
-        "title":"Omzetten traditionele buisdrainage naar regelbare buisdrainage"
+        "title":"Omzetten traditionele buisdrainage naar regelbare buisdrainage",
+        "id": 5
       }
     ]
   },
@@ -38,19 +43,24 @@
     "title": "Verminderen oppervlakkige afstroming",
     "items": [
       {
-        "title":"Droge buffersstroken"
+        "title":"Droge buffersstroken",
+        "id": 6
       },
       {
-        "title":"Natte bufferstroken"
+        "title":"Natte bufferstroken",
+        "id": 7
       },
       {
-        "title":"Afvangen en zuiveren oppervlakkig afstroming"
+        "title":"Afvangen en zuiveren oppervlakkig afstroming",
+        "id": 8
       },
       {
-        "title":"Akkerranden"
+        "title":"Akkerranden",
+        "id": 9
       },
       {
-        "title":"Drempeltjes bij rijenbemesting"
+        "title":"Drempeltjes bij rijenbemesting",
+        "id": 10
       }
     ]
   }

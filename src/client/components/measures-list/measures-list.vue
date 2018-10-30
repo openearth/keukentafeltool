@@ -6,16 +6,33 @@
         :key="measureGroup.title"
         class="measures-list__group">
         <h2 class="measures-list__group-title">{{ measureGroup.title }}</h2>
-        <div
+        <md-card
           v-for="(measure, index) in measureGroup.items"
-          :key="measure.title">
-          <button
-            class="measures-list__select"
-            @click="selectMeasure({groupIndex, index})">
-            <strong>{{ measure.title }}</strong>
-            <span class="measures-list__select-caption">KIES</span>
-          </button>
-        </div>
+          :key="measure.title"
+          :class="{ 'measures-list__measure--active': selectedMeasure && selectedMeasure.id === measure.id }"
+          class="measures-list__measure"
+        >
+          <div class="measures-list__measure-header" >
+            <strong class="measures-list__measure-title">{{ measure.title }}</strong>
+            <md-button @click="selectMeasure({groupIndex, index})">
+              {{ selectedMeasureId === measure.id ? 'Klaar' : 'Kies percelen' }}
+            </md-button>
+          </div>
+          <div
+            v-if="parcelsPerMeasure[measure.id]"
+            class="measures-list__selected-parcels"
+          >
+            <md-chip
+              v-for="parcelId in parcelsPerMeasure[measure.id]"
+              :key="parcelId"
+              class="measures-list__selected-parcel"
+              md-deletable
+              @md-delete="$emit('removeSelectedParcel', { measure, id: parcelId })"
+            >
+              {{ parcelId }}
+            </md-chip>
+          </div>
+        </md-card>
       </section>
     </template>
     <template v-else>
@@ -25,22 +42,41 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
 
 export default {
+  props: {
+    measures: {
+      type: Array,
+      default: () => []
+    },
+    parcelsPerMeasure: {
+      type: Object,
+      default: () => ({})
+    }
+  },
   data() {
     return {
-      selectedMeasure: {},
+      selectedMeasure: undefined,
     }
   },
   computed: {
-    ...mapState('measures', ['measures']),
+    selectedMeasureId() {
+      return this.selectedMeasure
+        ? this.selectedMeasure.id
+        : undefined
+    }
   },
   methods: {
     selectMeasure({index, groupIndex}) {
       const measure = this.measures[groupIndex].items[index]
-      this.$emit('selectMeasure', measure),
-      this.selectedMeasure = measure
+
+      if(this.selectedMeasure && this.selectedMeasure.id === measure.id) {
+        this.selectedMeasure = undefined
+      } else {
+        this.selectedMeasure = measure
+      }
+
+      this.$emit('selectMeasure', this.selectedMeasure)
     }
   }
 }
@@ -55,36 +91,46 @@ export default {
     font-size: 14px;
     margin-top: 24px;
     margin-bottom: 14px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
   }
+
   .measures-list__group:first-child .measures-list__group-title {
     margin-top: 0;
   }
-  .measures-list__select {
-    margin-bottom: 12px;
-    padding: 12px 18px;
-    background: #ffffff;
-    border: 1px solid #ffffff;
-    cursor: pointer;
+
+  .measures-list__measure {
+    padding: .5rem 1rem;
+    margin-bottom: .75rem;
+  }
+
+  .measures-list__measure--active {
+    border-left: 5px solid #FD6A02;
+  }
+
+  .measures-list__measure-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 100%;
   }
-  .measures-list__select:hover {
-    border: 1px solid #000000;
+
+  .measures-list__measure-title {
+    width: 60%;
   }
-  .measures-list__select:hover .measures-list__select-caption {
-    color: #666666;
-    transition: color ease-in-out 400ms;
-    transition-delay: 100ms;
+
+  .measures-list__selected-parcels{
+    margin-top: 1.5rem;
   }
-  .measures-list__select-caption {
-    float: right;
-    padding: 0;
-    min-width: 0;
-    margin-right: 0;
-    vertical-align: baseline;
-    font-size: 12px;
-    color: transparent;
+
+  /* overwrite default material design styles */
+  .measures-list .md-chip {
+    margin-bottom: 1rem;
+    margin-left: 0 !important;
+    margin-right: 4px !important;
+  }
+
+  /* overwrite default material design styles */
+  .measures-list .md-chip:first-child {
+    margin-right: 4px !important;
   }
 </style>

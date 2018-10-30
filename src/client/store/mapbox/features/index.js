@@ -13,8 +13,32 @@ export const mutations = {
       state.features = [ ...state.features, feature ]
     }
   },
+  addEventHandler(state, { id, event, handler }) {
+    state.eventHandlers = {
+      ...state.eventHandlers,
+      [ id ]: {
+        ...state.eventHandlers[id],
+        [ event ]: handler
+      }
+    }
+  },
   remove(state, id) {
     state.features = state.features.filter(feature => feature.id !== id)
+  },
+  removeEventHandler(state, { event, featureId }) {
+    const featureEventHandlers = state.eventHandlers[featureId]
+
+    state.eventHandlers = {
+      ...state.eventHandlers,
+      [ featureId ]: {
+        ...featureEventHandlers,
+        [ event ]: undefined
+      }
+    }
+  },
+  updateParcelProperty(state, { id, key, value }) {
+    const featureToUpdate = state.features.find(feature => feature.id === String(id))
+    featureToUpdate.properties[key] = value
   }
 }
 
@@ -26,6 +50,12 @@ export const actions = {
       map.addLayer(layerFactory.parcel({ feature }))
       commit('add', feature)
     }
+  },
+  addEventHandler({ commit, rootGetters }, { id, event, handler }) {
+    const map = rootGetters['mapbox/map']
+
+    map.on(event, id, handler)
+    commit('addEventHandler', { id, event, handler })
   },
   fitToFeatures({ state, rootGetters }) {
     const map = rootGetters['mapbox/map']
@@ -68,5 +98,11 @@ export const actions = {
       map.removeSource(id)
       commit('remove', id)
     }
+  },
+  removeEventHandler({ commit, rootGetters, state }, { event, featureId }) {
+    const map = rootGetters['mapbox/map']
+
+    map.off(event, featureId, state.eventHandlers[featureId][event])
+    commit('removeEventHandler', { event, featureId })
   }
 }
