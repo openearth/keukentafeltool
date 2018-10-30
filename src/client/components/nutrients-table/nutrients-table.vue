@@ -108,6 +108,11 @@ export default {
       default: () => [],
     }
   },
+  data() {
+    return {
+      locale: 'nl-NL',
+    }
+  },
   methods: {
     formatNumber(value) {
       if (!isNumber(value)) return ''
