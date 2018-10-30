@@ -9,7 +9,7 @@
         slot-scope="{ item }"
       >
         <md-table-cell md-label="Perceel">
-          {{ item.id || 'Onbekend' }}
+          {{ item.id }}
         </md-table-cell>
         <md-table-cell
           :class="`parcels-table__vegetation--${item.gewascategorie.toLowerCase()}`"
@@ -53,13 +53,11 @@
           </div>
         </md-table-cell>
         <md-table-cell
-          md-label="opp. (ha)"
+          md-label="Opp. (ha)"
           md-numeric
-        >
-          {{ item.areaal || 'Onbekend' }}
-        </md-table-cell>
+        >{{ formatNumber(item.areaal) }}</md-table-cell>
         <md-table-cell
-          md-label="Grondsoort"
+          md-label="Grond"
           class="parcels-table__cell--text"
         >{{ item.bodemgroep.toLowerCase() }}
         </md-table-cell>
@@ -94,23 +92,17 @@
           </div>
         </md-table-cell>
         <md-table-cell
-          md-label="Kwel"
+          md-label="Kwel (m)"
           md-numeric
-        >
-          {{ item.kwel || 'Onbekend' }}
-        </md-table-cell>
+        >{{ formatCmAsMeter(item.kwel) }}</md-table-cell>
         <md-table-cell
-          md-label="GHG"
+          md-label="GHG (m)"
           md-numeric
-        >
-          {{ item.ghg || 'Onbekend' }}
-        </md-table-cell>
+        >{{ formatCmAsMeter(item.ghg) }}</md-table-cell>
         <md-table-cell
-          md-label="GLG"
+          md-label="GLG (m)"
           md-numeric
-        >
-          {{ item.glg || 'Onbekend' }}
-        </md-table-cell>
+        >{{ formatCmAsMeter(item.glg) }}</md-table-cell>
       </md-table-row>
     </md-table>
   </form>
