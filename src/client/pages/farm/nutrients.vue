@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapGetters, mapState } from 'vuex'
 
 import requireFeatures from '../../lib/mixins/require-features'
 import { NutrientsTable } from '../../components'
@@ -19,7 +19,21 @@ export default {
   components: { NutrientsTable },
   mixins: [ requireFeatures ],
   computed: {
-    ...mapState('mapbox/features', [ 'features' ])
-  }
+    ...mapState('mapbox/features', [ 'features' ]),
+    ...mapGetters('measures', [ 'measuresPerParcel' ]),
+  },
+  beforeMount () {
+    const { measuresPerParcel } = this
+    const input = Object.keys(measuresPerParcel).map(parcelId => {
+      return {
+        parcelId,
+        measureIds: measuresPerParcel[parcelId],
+      }
+    })
+    fetch(`/.netlify/functions/hydrometra-parcel-effects?input=${JSON.stringify(input)}`)
+      .then(res => res.json())
+      .then(res => console.log(res.data))
+      .catch(err => console.error(err))
+  },
 }
 </script>
