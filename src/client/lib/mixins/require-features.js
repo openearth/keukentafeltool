@@ -1,5 +1,5 @@
 export default {
-  mounted() {
+  beforeMount() {
     const features = this.$store.state.mapbox.features
     if (features && features.features.length) {
       this.$emit('hasRequiredFeatures')

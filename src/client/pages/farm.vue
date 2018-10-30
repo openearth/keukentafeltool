@@ -5,17 +5,23 @@
   />
   <div
     v-else
-    :class="{ 'farm-page__panel--wide': panelIsOpen }"
+    :class="{
+      'farm-page__panel--wide': panelIsOpen,
+      'farm-page__panel--hidden': !panelIsVisible
+    }"
     class="farm-page__panel md-elevation-3"
   >
     <header class="farm-page__panel-header">
-      <farm-nav />
+      <farm-nav/>
       <toggle-panel-button
         :is-open="panelIsOpen"
         @toggle="togglePanel"
       />
     </header>
-    <nuxt-child @fitFeatures="fitFeatures" />
+    <nuxt-child
+      @fitFeatures="fitFeatures"
+      @hasRequiredFeatures="showPanel"
+    />
   </div>
 </template>
 
@@ -28,6 +34,7 @@ export default {
   data() {
     return {
       panelIsOpen: false,
+      panelIsVisible: false
     }
   },
   computed: {
@@ -41,6 +48,7 @@ export default {
       }, 500)
     },
     togglePanel() { this.panelIsOpen = !this.panelIsOpen },
+    showPanel() { this.panelIsVisible = true }
   },
 }
 </script>
@@ -57,6 +65,10 @@ export default {
 }
 .farm-page__panel--wide {
   width: 200%;
+}
+
+.farm-page__panel--hidden {
+  width: 0;
 }
 
 .farm-page__panel-header {
