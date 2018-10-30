@@ -91,8 +91,6 @@
 </template>
 
 <script>
-import formatNumber from '~/lib/format-number'
-
 const toNumber = (value) => {
   const number = Number(value)
   return isNaN(number) ? undefined : number
