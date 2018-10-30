@@ -1,11 +1,25 @@
 <template>
-  <h2>nutrients</h2>
+  <div>
+    <md-toolbar
+      md-elevation="0"
+      class="md-dense"
+    />
+    <nutrients-table :parcels="features" />
+  </div>
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 import requireFeatures from '../../lib/mixins/require-features'
+import { NutrientsTable } from '../../components'
+
 
 export default {
-  mixins: [ requireFeatures ]
+  components: { NutrientsTable },
+  mixins: [ requireFeatures ],
+  computed: {
+    ...mapState('mapbox/features', [ 'features' ])
+  }
 }
 </script>
