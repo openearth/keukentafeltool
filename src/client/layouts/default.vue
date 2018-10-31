@@ -21,6 +21,9 @@ import { AppHeader, MapboxMap } from '../components'
 
 export default {
   components: { AppHeader, MapboxMap },
+  beforeMount() {
+    this.$store.dispatch('measures/getMeasures')
+  },
   methods: {
     resetFeatures() {
       this.$store.dispatch('mapbox/features/resetFeatures')
