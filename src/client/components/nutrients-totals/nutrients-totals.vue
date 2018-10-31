@@ -2,7 +2,7 @@
   <section class="nutrients-totals">
     <div class="nutrients-totals__caption">
       <h2 class="nutrients-totals__title">Totaal</h2>
-      <small class="nutrients-totals__description">Over 6 percelen en 43,00 ha</small>
+      <small class="nutrients-totals__description">6 percelen, 43,00 ha</small>
     </div>
     <div class="nutrients-totals__metric">
       <div class="nutrients-totals__metric-label">
