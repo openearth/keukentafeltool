@@ -13,17 +13,19 @@
 
 <script>
 import { mapGetters, mapState } from 'vuex'
-
+import initMapState from '../../lib/mixins/init-map-state'
 import requireFeatures from '../../lib/mixins/require-features'
 import { NutrientsTable } from '../../components'
 
-
 export default {
   components: { NutrientsTable },
-  mixins: [ requireFeatures ],
+  mixins: [
+    initMapState,
+    requireFeatures,
+  ],
   data() {
     return {
-      effects: []
+      effects: [],
     }
   },
   computed: {
@@ -41,10 +43,14 @@ export default {
     fetch(`/.netlify/functions/hydrometra-parcel-effects?input=${JSON.stringify(input)}`)
       .then(res => res.json())
       .then(res => {
-        console.log('effecten uit API', res.data)
         this.effects = res.data
       })
       .catch(err => console.error(err))
   },
+  methods: {
+    initMapState() {
+      this.$emit('fitFeatures')
+    },
+  }
 }
 </script>

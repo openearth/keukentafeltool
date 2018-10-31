@@ -9,7 +9,7 @@
       type="button"
       class="md-raised md-primary"
     >
-      Volgende <md-icon>arrow_right_alt</md-icon>
+      Volgende <md-icon aria-hidden="true">arrow_right_alt</md-icon>
     </md-button>
   </footer-bar>
 </template>

@@ -1,15 +1,14 @@
 <template>
   <md-button
     :disabled="!supportsFullscreen"
+    :aria-label="text"
     class="md-icon-button"
     @click="toggleFullscreen"
   >
-    <md-icon>{{ isFullscreen ? 'fullscreen_exit' : 'fullscreen ' }}</md-icon>
-    <md-tooltip md-direction="bottom">
-      <template v-if="!supportsFullscreen">volledig scherm wordt niet ondersteund</template>
-      <template v-else-if="isFullscreen">sluit volledig scherm modus</template>
-      <template v-else>open in volledig scherm</template>
-    </md-tooltip>
+    <md-icon aria-hidden="true">
+      {{ isFullscreen ? 'fullscreen_exit' : 'fullscreen ' }}
+    </md-icon>
+    <md-tooltip md-direction="bottom">{{ text }}</md-tooltip>
   </md-button>
 </template>
 
@@ -21,6 +20,15 @@ export default {
     return {
       isFullscreen: false,
       supportsFullscreen: false,
+    }
+  },
+  computed: {
+    text() {
+      return !this.supportsFullscreen
+        ? 'volledig scherm wordt niet ondersteund'
+        : this.isFullscreen
+          ? 'sluit volledig scherm modus'
+          : 'open in volledig scherm'
     }
   },
   mounted() {
