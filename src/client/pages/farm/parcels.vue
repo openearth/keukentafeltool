@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="scroll-area">
     <md-toolbar
       md-elevation="0"
       class="md-dense"

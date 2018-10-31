@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="scroll-area">
     <no-ssr>
       <measures-list
         :measures="measures"

@@ -85,6 +85,7 @@ export default {
 <style>
   .measures-list {
     padding: 20px;
+    overflow-y: scroll;
   }
   .measures-list__group-title {
     color: #666666;

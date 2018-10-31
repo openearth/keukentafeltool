@@ -1,111 +1,109 @@
 <template>
-  <form>
-    <md-table
-      v-model="parcelProperties"
-      class="parcels-table"
+  <md-table
+    v-model="parcelProperties"
+    class="parcels-table"
+  >
+    <md-table-row
+      slot="md-table-row"
+      slot-scope="{ item }"
     >
-      <md-table-row
-        slot="md-table-row"
-        slot-scope="{ item }"
+      <md-table-cell md-label="Perceel">
+        {{ item.id }}
+      </md-table-cell>
+      <md-table-cell
+        :class="`parcels-table__vegetation--${item.gewascategorie.toLowerCase()}`"
+        class="parcels-table__vegetation"
+        md-label="Gewas"
+      >{{ item.gewas }}</md-table-cell>
+      <md-table-cell
+        md-label="Gewascategorie">
+        <div class="form-select">
+          <select
+            id="select"
+            name="select"
+            class="form-select__select"
+            @input.prevent="updateProperty({id: item.id, key: 'gewascategorie', value: $event.target.value})"
+          >
+            <option
+              :selected="item.gewascategorie === 'Grasland'"
+              value="Grasland"
+            >
+              Grasland
+            </option>
+            <option
+              :selected="item.gewascategorie === 'Bouwland'"
+              value="Bouwland"
+            >
+              Bouwland
+            </option>
+            <option
+              :selected="item.gewascategorie === 'Braakland'"
+              value="Braakland"
+            >
+              Braakland
+            </option>
+            <option
+              :selected="item.gewascategorie === 'Natuur'"
+              value="Natuur"
+            >
+              Natuur
+            </option>
+          </select>
+        </div>
+      </md-table-cell>
+      <md-table-cell
+        md-label="Opp. (ha)"
+        md-numeric
+      >{{ formatNumber(item.areaal) }}</md-table-cell>
+      <md-table-cell
+        md-label="Grond"
+        class="parcels-table__cell--text"
+      >{{ item.bodemgroep.toLowerCase() }}
+      </md-table-cell>
+      <md-table-cell
+        md-label="Drainage"
+        numeric
       >
-        <md-table-cell md-label="Perceel">
-          {{ item.id }}
-        </md-table-cell>
-        <md-table-cell
-          :class="`parcels-table__vegetation--${item.gewascategorie.toLowerCase()}`"
-          class="parcels-table__vegetation"
-          md-label="Gewas"
-        >{{ item.gewas }}</md-table-cell>
-        <md-table-cell
-          md-label="Gewascategorie">
-          <div class="form-select">
-            <select
-              id="select"
-              name="select"
-              class="form-select__select"
-              @input.prevent="updateProperty({id: item.id, key: 'gewascategorie', value: $event.target.value})"
+        <div class="form-select">
+          <select
+            class="form-select__select"
+            @input.prevent="updateProperty({id: item.id, key: 'drain', value: Number($event.target.value)})"
+          >
+            <option
+              :selected="item.drain === 2"
+              value="2"
             >
-              <option
-                :selected="item.gewascategorie === 'Grasland'"
-                value="Grasland"
-              >
-                Grasland
-              </option>
-              <option
-                :selected="item.gewascategorie === 'Bouwland'"
-                value="Bouwland"
-              >
-                Bouwland
-              </option>
-              <option
-                :selected="item.gewascategorie === 'Braakland'"
-                value="Braakland"
-              >
-                Braakland
-              </option>
-              <option
-                :selected="item.gewascategorie === 'Natuur'"
-                value="Natuur"
-              >
-                Natuur
-              </option>
-            </select>
-          </div>
-        </md-table-cell>
-        <md-table-cell
-          md-label="Opp. (ha)"
-          md-numeric
-        >{{ formatNumber(item.areaal) }}</md-table-cell>
-        <md-table-cell
-          md-label="Grond"
-          class="parcels-table__cell--text"
-        >{{ item.bodemgroep.toLowerCase() }}
-        </md-table-cell>
-        <md-table-cell
-          md-label="Drainage"
-          numeric
-        >
-          <div class="form-select">
-            <select
-              class="form-select__select"
-              @input.prevent="updateProperty({id: item.id, key: 'drain', value: Number($event.target.value)})"
+              Verbeterd
+            </option>
+            <option
+              :selected="item.drain === 1"
+              value="1"
             >
-              <option
-                :selected="item.drain === 2"
-                value="2"
-              >
-                Verbeterd
-              </option>
-              <option
-                :selected="item.drain === 1"
-                value="1"
-              >
-                Wel
-              </option>
-              <option
-                :selected="item.drain === 0"
-                value="0"
-              >
-                Geen
-              </option>
-            </select>
-          </div>
-        </md-table-cell>
-        <md-table-cell
-          md-label="Kwel (m)"
-          md-numeric
-        >{{ formatCmAsMeter(item.kwel) }}</md-table-cell>
-        <md-table-cell
-          md-label="GHG (m)"
-          md-numeric
-        >{{ formatCmAsMeter(item.ghg) }}</md-table-cell>
-        <md-table-cell
-          md-label="GLG (m)"
-          md-numeric
-        >{{ formatCmAsMeter(item.glg) }}</md-table-cell>
-      </md-table-row>
-    </md-table>
-  </form>
+              Wel
+            </option>
+            <option
+              :selected="item.drain === 0"
+              value="0"
+            >
+              Geen
+            </option>
+          </select>
+        </div>
+      </md-table-cell>
+      <md-table-cell
+        md-label="Kwel (m)"
+        md-numeric
+      >{{ formatCmAsMeter(item.kwel) }}</md-table-cell>
+      <md-table-cell
+        md-label="GHG (m)"
+        md-numeric
+      >{{ formatCmAsMeter(item.ghg) }}</md-table-cell>
+      <md-table-cell
+        md-label="GLG (m)"
+        md-numeric
+      >{{ formatCmAsMeter(item.glg) }}</md-table-cell>
+    </md-table-row>
+  </md-table>
 </template>
 
 <script>
@@ -201,8 +199,6 @@ export default {
     border: none;
   }
 
-
-
   /*
   ** Fix for the vue-material fixed header table
   ** The component is not working with toggleing
@@ -225,7 +221,6 @@ export default {
     width: 100%;
     overflow: auto;
     min-height: 51px; /* one row */
-    max-height: 561px; /* 11 rows */
   }
 
   .parcels-table thead tr {
