@@ -4,14 +4,14 @@
       <table>
         <thead>
           <tr>
-            <th class="md-table-head nutrients-table__parcel-column">
+            <th class="md-table-head nutrients-table__column--parcels">
               <div class="md-table-head-container">
                 <div class="md-table-head-label">
                   Perceel
                 </div>
               </div>
             </th>
-            <th class="md-table-head nutrients-table__labels-column">
+            <th class="md-table-head nutrients-table__column--labels">
               <div class="md-table-head-container">
                 <div class="md-table-head-label" />
               </div>
@@ -136,10 +136,10 @@ export default {
   .nutrients-table .md-table-head-label {
     height: 56px;
   }
-  .nutrients-table__parcel-column {
+  .nutrients-table__column--parcels {
     width: 110px;
   }
-  .nutrients-table__labels-column {
+  .nutrients-table__column--labels {
     width: 235px;
   }
   /*
