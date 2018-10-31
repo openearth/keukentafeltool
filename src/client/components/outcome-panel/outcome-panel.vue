@@ -25,13 +25,6 @@
   </div>
 </template>
 
-<script>
-export default {
-
-}
-</script>
-
-
 <style>
   .outcome-panel {
     width: 100%;
