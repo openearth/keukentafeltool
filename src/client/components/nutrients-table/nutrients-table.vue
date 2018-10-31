@@ -4,14 +4,14 @@
       <table>
         <thead>
           <tr>
-            <th class="md-table-head">
+            <th class="md-table-head nutrients-table__column--parcels">
               <div class="md-table-head-container">
                 <div class="md-table-head-label">
                   Perceel
                 </div>
               </div>
             </th>
-            <th class="md-table-head">
+            <th class="md-table-head nutrients-table__column--labels">
               <div class="md-table-head-container">
                 <div class="md-table-head-label" />
               </div>
@@ -154,6 +154,7 @@ export default {
 <style>
   .nutrients-table {
     min-width: 500px;
+    width: 100%;
   }
   .nutrients-table .md-table-head-container {
     height: 84px;
@@ -161,7 +162,12 @@ export default {
   .nutrients-table .md-table-head-label {
     height: 56px;
   }
-
+  .nutrients-table__column--parcels {
+    width: 110px;
+  }
+  .nutrients-table__column--labels {
+    width: 235px;
+  }
   .nutrients-table__skeleton-value {
     width: 2.5em;
   }
@@ -179,5 +185,14 @@ export default {
   */
   .md-table.nutrients-table .md-table-row:hover:not(.md-header-row) .md-table-cell.nutrients-table__parcel-id-cell {
     background: #ffffff;
+  }
+    /* Reset for numeric columns */
+  .nutrients-table .md-table-head.md-numeric,
+  .nutrients-table .md-table-cell.md-numeric {
+    width: 110px;
+  }
+  .nutrients-table .md-table-head.md-numeric .md-table-head-container,
+  .nutrients-table .md-table-cell.md-numeric .md-table-cell-container {
+    width: 100%;
   }
 </style>

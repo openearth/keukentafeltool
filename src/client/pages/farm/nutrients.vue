@@ -8,6 +8,7 @@
       :parcels="features"
       :effects="effects"
     />
+    <nutrients-totals />
   </div>
 </template>
 
@@ -15,10 +16,10 @@
 import { mapGetters, mapState } from 'vuex'
 import initMapState from '../../lib/mixins/init-map-state'
 import requireFeatures from '../../lib/mixins/require-features'
-import { NutrientsTable } from '../../components'
+import { NutrientsTable, NutrientsTotals } from '../../components'
 
 export default {
-  components: { NutrientsTable },
+  components: { NutrientsTable, NutrientsTotals },
   mixins: [
     initMapState,
     requireFeatures,
