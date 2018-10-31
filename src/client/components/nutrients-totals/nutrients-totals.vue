@@ -2,25 +2,25 @@
   <section class="nutrients-totals">
     <div class="nutrients-totals__caption">
       <h2 class="nutrients-totals__title">Totaal</h2>
-      <small class="nutrients-totals__description">6 percelen, 43,00 ha</small>
+      <small class="nutrients-totals__description">X percelen, XX,XX ha</small>
     </div>
     <div class="nutrients-totals__metric">
       <div class="nutrients-totals__metric-label">
         Nitraat (NO<sub>3</sub>)
       </div>
-      <strong class="nutrients-totals__metric-value"><nobr>23,20 mg/l</nobr></strong>
+      <strong class="nutrients-totals__metric-value">XX,XX mg/l</strong>
     </div>
     <div class="nutrients-totals__metric">
       <div class="nutrients-totals__metric-label">
         Stikstof (N<small>drain</small>)
       </div>
-      <strong class="nutrients-totals__metric-value"><nobr>-100,00 kg</nobr></strong>
+      <strong class="nutrients-totals__metric-value">-XX,XX kg</strong>
     </div>
     <div class="nutrients-totals__metric">
       <div class="nutrients-totals__metric-label">
         Fosfor (P<small>drain</small>)
       </div>
-      <strong class="nutrients-totals__metric-value"><nobr>100,00 kg</nobr></strong>
+      <strong class="nutrients-totals__metric-value">XX,XX kg</strong>
     </div>
   </section>
 </template>
@@ -61,6 +61,9 @@
     min-height: 24px;
     margin-bottom: 4px;
     color: var(--md-theme-default-text-accent-on-background, rgba(0, 0, 0, 0.54));
+  }
+  .nutrients-totals__metric-value {
+    white-space: nowrap;
   }
   @media only screen and (min-width: 1200px) {
     .nutrients-totals {
