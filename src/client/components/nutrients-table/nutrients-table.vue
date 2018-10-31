@@ -98,15 +98,7 @@
 
 <script>
 import SkeletonValue from '../skeleton-value'
-
-const toNumber = (value) => {
-  const number = Number(value)
-  return isNaN(number) ? undefined : number
-}
-const isNumber = (value) => {
-  if (typeof value === undefined || typeof value === null) return false
-  return !isNaN(Number(value))
-}
+import formatNumber from '../../lib/format-number'
 
 export default {
   components: { SkeletonValue },
@@ -124,7 +116,6 @@ export default {
   },
   data() {
     return {
-      locale: 'nl-NL',
       metrics: ['no3', 'ndrain', 'pdrain'],
     }
   },
@@ -138,14 +129,10 @@ export default {
         .filter(effect => String(effect.pid) === String(parcelId))
         .map(effect => effect[`eff${metric}`])
         .reduce((total, value) => total + value, 0)
-      return this.formatNumber(value)
+      return formatNumber({ value })
     },
     formatNumber(value) {
-      if (!isNumber(value)) return ''
-      return toNumber(value).toLocaleString(this.locale, {
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2,
-      })
+      return formatNumber({ value })
     },
   }
 }

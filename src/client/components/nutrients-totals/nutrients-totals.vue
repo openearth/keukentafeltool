@@ -2,28 +2,86 @@
   <section class="nutrients-totals">
     <div class="nutrients-totals__caption">
       <h2 class="nutrients-totals__title">Totaal</h2>
-      <small class="nutrients-totals__description">X percelen, XX,XX ha</small>
+      <small class="nutrients-totals__description">
+        <template v-if="parcelsTotal === 1">1 perceel,</template>
+        <template v-else>{{ parcelsTotal }} percelen,</template>
+        {{ formatNumber(areaTotal) }} ha
+      </small>
     </div>
     <div class="nutrients-totals__metric">
       <div class="nutrients-totals__metric-label">
         Nitraat (NO<sub>3</sub>)
       </div>
-      <strong class="nutrients-totals__metric-value">XX,XX mg/l</strong>
+      <strong class="nutrients-totals__metric-value">
+        {{ formatNumber(no3Total) }} mg/l
+      </strong>
     </div>
     <div class="nutrients-totals__metric">
       <div class="nutrients-totals__metric-label">
         Stikstof (N<small>drain</small>)
       </div>
-      <strong class="nutrients-totals__metric-value">-XX,XX kg</strong>
+      <strong class="nutrients-totals__metric-value">
+        {{ formatNumber(ndrainTotal) }} kg
+      </strong>
     </div>
     <div class="nutrients-totals__metric">
       <div class="nutrients-totals__metric-label">
         Fosfor (P<small>drain</small>)
       </div>
-      <strong class="nutrients-totals__metric-value">XX,XX kg</strong>
+      <strong class="nutrients-totals__metric-value">
+        {{ formatNumber(pdrainTotal) }}  kg
+      </strong>
     </div>
   </section>
 </template>
+
+<script>
+import formatNumber, { isNumber, toNumber } from '../../lib/format-number'
+
+export default {
+  props: {
+    effects: {
+      type: Array,
+      required: true,
+      default: () => [],
+    },
+    parcels: {
+      type: Array,
+      required: true,
+      default: () => [],
+    }
+  },
+  computed: {
+    areaTotal() {
+      return this.parcels
+        .map(parcel => toNumber(parcel.properties.areaal))
+        .filter(isNumber)
+        .reduce((total, value) => total + value, 0)
+    },
+    ndrainTotal() { return this.calculateDrainTotal({ metric: 'ndrain' }) },
+    no3Total() { return this.calculateDrainTotal({ metric: 'no3' }) / this.areaTotal },
+    parcelsTotal() { return this.parcels.length },
+    pdrainTotal() { return this.calculateDrainTotal({ metric: 'pdrain' }) },
+  },
+  methods: {
+    calculateDrainTotal({ metric }) {
+      const { effects, parcels } = this
+      return parcels.reduce((total, parcel) => {
+        const area = toNumber(parcel.properties.areaal)
+        const refValue = parcel.properties[`ref${metric}`]
+        const deltaValue = effects
+          .filter(effect => String(effect.pid) === String(parcel.id))
+          .map(effect => effect[`eff${metric}`])
+          .reduce((total, value) => total + value, 0)
+        return total += area * (refValue + deltaValue)
+      }, 0)
+    },
+    formatNumber(value) {
+      return formatNumber({ value })
+    },
+  }
+}
+</script>
 
 <style>
   .nutrients-totals {
