@@ -12,6 +12,7 @@
     "build:client": "nuxt generate",
     "build:server": "netlify-lambda build src/server/functions/",
     "precommit": "npm run lint",
+    "predev": "rimraf dist/",
     "dev": "run-p dev:*",
     "dev:client": "PORT=2637 nuxt",
     "dev:server": "netlify-lambda serve src/server/functions/",
