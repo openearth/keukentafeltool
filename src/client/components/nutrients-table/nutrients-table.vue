@@ -79,7 +79,13 @@
                 class="md-table-cell md-numeric"
               >
                 <div class="md-table-cell-container">
-                  {{ effect({ parcelId: parcel.id, metric }) }}
+                  <template v-if="isLoaded">
+                    {{ effect({ parcelId: parcel.id, metric }) }}
+                  </template>
+                  <skeleton-value
+                    v-else
+                    class="nutrients-table__skeleton-value"
+                  />
                 </div>
               </td>
             </tr>
@@ -91,6 +97,8 @@
 </template>
 
 <script>
+import SkeletonValue from '../skeleton-value'
+
 const toNumber = (value) => {
   const number = Number(value)
   return isNaN(number) ? undefined : number
@@ -101,6 +109,7 @@ const isNumber = (value) => {
 }
 
 export default {
+  components: { SkeletonValue },
   props: {
     effects: {
       type: Array,
@@ -118,6 +127,9 @@ export default {
       locale: 'nl-NL',
       metrics: ['no3', 'ndrain', 'pdrain'],
     }
+  },
+  computed: {
+    isLoaded() { return this.effects.length > 0 },
   },
   methods: {
     effect({ parcelId, metric }) {
@@ -149,6 +161,11 @@ export default {
   .nutrients-table .md-table-head-label {
     height: 56px;
   }
+
+  .nutrients-table__skeleton-value {
+    width: 2.5em;
+  }
+
   /*
   ** Fix for layout we would like to have the parcel id aligned at the top of the cell
   ** Can only be done by overriding the fixed height with our own fixed height.
