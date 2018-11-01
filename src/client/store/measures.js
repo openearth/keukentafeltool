@@ -1,11 +1,22 @@
-import parcel from '../lib/_mapbox/layer-factory/parcel.js';
+import getMeasures from '../lib/get-measures'
 
-const measures = require('./measures.json')
+let gettingMeasures
 
 export const state = () => ({
-  measures: measures,
-  parcelsPerMeasure: {}
+  measures: [],
+  parcelsPerMeasure: {},
 })
+
+export const actions = {
+  getMeasures({ state, commit }) {
+    if (gettingMeasures) return
+    gettingMeasures = getMeasures()
+      .then(measures => commit('setMeasures', measures))
+      .catch(err => {
+        gettingMeasures = undefined
+      })
+  }
+}
 
 export const mutations = {
   assignMeasure(state, { parcelId, measure }) {
@@ -20,6 +31,12 @@ export const mutations = {
       [ measure.id ]: [ ...parcelIds, parcelId ]
     }
 
+  },
+  setMeasures(state, measures) {
+    state.measures = measures
+  },
+  unassignAllMeasures (state) {
+    state.parcelsPerMeasure = {}
   },
   unassignMeasure(state, { parcelId, measure }) {
     const parcelIds = state.parcelsPerMeasure[measure.id]
