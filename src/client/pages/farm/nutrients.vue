@@ -8,7 +8,10 @@
       :parcels="features"
       :effects="effects"
     />
-    <nutrients-totals />
+    <nutrients-totals
+      :parcels="features"
+      :effects="effects"
+    />
   </div>
 </template>
 
