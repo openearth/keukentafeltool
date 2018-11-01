@@ -110,15 +110,7 @@
 
 <script>
 import { FormSelect } from '../../components'
-
-const toNumber = (value) => {
-  const number = Number(value)
-  return isNaN(number) ? undefined : number
-}
-const isNumber = (value) => {
-  if (typeof value === undefined || typeof value === null) return false
-  return !isNaN(Number(value))
-}
+import formatNumber, { isNumber, toNumber } from '../../lib/format-number'
 
 export default {
   components: { FormSelect },
@@ -127,11 +119,6 @@ export default {
       type: Array,
       required: true,
       default: () => [],
-    }
-  },
-  data() {
-    return {
-      locale: 'nl-NL'
     }
   },
   computed: {
@@ -146,13 +133,7 @@ export default {
       const valueInMeter = valueInCm / 100
       return this.formatNumber(valueInMeter)
     },
-    formatNumber(value) {
-      if (!isNumber(value)) return ''
-      return toNumber(value).toLocaleString(this.locale, {
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2,
-      })
-    },
+    formatNumber(value) { return formatNumber({ value }) },
     parcelColor() {
       return '#FF0000'
     },
