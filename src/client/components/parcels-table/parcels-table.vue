@@ -190,6 +190,7 @@ export default {
     width: 100%;
     table-layout: fixed;
     border-collapse: collapse;
+    flex: 1 1 auto;
   }
 
   .parcels-table .md-table-cell-container,

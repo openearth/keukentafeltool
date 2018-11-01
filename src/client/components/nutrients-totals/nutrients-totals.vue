@@ -1,36 +1,38 @@
 <template>
   <section class="nutrients-totals">
-    <div class="nutrients-totals__caption">
-      <h2 class="nutrients-totals__title">Totaal</h2>
-      <small class="nutrients-totals__description">
-        <template v-if="parcelsTotal === 1">1 perceel,</template>
-        <template v-else>{{ parcelsTotal }} percelen,</template>
-        {{ formatNumber(areaTotal) }} ha
-      </small>
-    </div>
-    <div class="nutrients-totals__metric">
-      <div class="nutrients-totals__metric-label">
-        Nitraat (NO<sub>3</sub>)
+    <div class="nutrients-totals__wrapper">
+      <div class="nutrients-totals__caption">
+        <h2 class="nutrients-totals__title">Totaal</h2>
+        <small class="nutrients-totals__description">
+          <template v-if="parcelsTotal === 1">1 perceel,</template>
+          <template v-else>{{ parcelsTotal }} percelen,</template>
+          {{ formatNumber(areaTotal) }} ha
+        </small>
       </div>
-      <strong class="nutrients-totals__metric-value">
-        {{ formatNumber(no3Total) }} mg/l
-      </strong>
-    </div>
-    <div class="nutrients-totals__metric">
-      <div class="nutrients-totals__metric-label">
-        Stikstof (N<small>drain</small>)
+      <div class="nutrients-totals__metric">
+        <div class="nutrients-totals__metric-label">
+          Nitraat (NO<sub>3</sub>)
+        </div>
+        <strong class="nutrients-totals__metric-value">
+          {{ formatNumber(no3Total) }} mg/l
+        </strong>
       </div>
-      <strong class="nutrients-totals__metric-value">
-        {{ formatNumber(ndrainTotal) }} kg
-      </strong>
-    </div>
-    <div class="nutrients-totals__metric">
-      <div class="nutrients-totals__metric-label">
-        Fosfor (P<small>drain</small>)
+      <div class="nutrients-totals__metric">
+        <div class="nutrients-totals__metric-label">
+          Stikstof (N<small>drain</small>)
+        </div>
+        <strong class="nutrients-totals__metric-value">
+          {{ formatNumber(ndrainTotal) }} kg
+        </strong>
       </div>
-      <strong class="nutrients-totals__metric-value">
-        {{ formatNumber(pdrainTotal) }}  kg
-      </strong>
+      <div class="nutrients-totals__metric">
+        <div class="nutrients-totals__metric-label">
+          Fosfor (P<small>drain</small>)
+        </div>
+        <strong class="nutrients-totals__metric-value">
+          {{ formatNumber(pdrainTotal) }}  kg
+        </strong>
+      </div>
     </div>
   </section>
 </template>
@@ -86,13 +88,13 @@ export default {
 <style>
   .nutrients-totals {
     width: 100%;
-    position: absolute;
-    bottom: 0;
-    left: 0;
     padding: 12px 16px 12px 24px;
     background: #ffffff;
     /* custom boxshadow based on md elevation 4 but vertically reversed (seems that there are some strange light sources at play) */
     box-shadow: 0 -2px 4px -1px rgba(0,0,0,.2), 0 -4px 5px 0 rgba(0,0,0,.14), 0 -1px 10px 0 rgba(0,0,0,.12);
+    border-top: 2px solid rgba(0,0,0,.35);
+  }
+  .nutrients-totals__wrapper {
     display: flex;
     justify-content: flex-end;
   }

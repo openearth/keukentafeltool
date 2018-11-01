@@ -142,6 +142,7 @@ export default {
   .nutrients-table {
     min-width: 500px;
     width: 100%;
+    flex: 1 1 auto;
   }
   .nutrients-table .md-table-head-container {
     height: 84px;
