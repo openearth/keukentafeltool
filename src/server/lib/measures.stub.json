@@ -1,0 +1,86 @@
+[
+  {
+    "id": 1,
+    "title": "Verminderen bodemoverschot stikstof",
+    "items": [
+      {
+        "id": 1,
+        "title": "Verminderen bodemoverschot stikstof"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "title": "Precisie bemesting",
+    "items": [
+      {
+        "id": 2,
+        "title": "Precicie bemesting"
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "title": "Verbeteren sponswerking bodem",
+    "items": [
+      {
+        "id": 3,
+        "title": "Verbeteren sponswerking bodem"
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "title": "Regelbare drainage",
+    "items": [
+      {
+        "id": 4,
+        "title": "Aanleg regelbare drainage op drainagebehoefte bodems (waar nu nog geen drainage ligt)"
+      },
+      {
+        "id": 5,
+        "title": "Omzetten tradionele buisdrainage naar regelbare buisdrainage"
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "title": "Verminderen oppervlakkige afstroming",
+    "items": [
+      {
+        "id": 6,
+        "title": "Droge bufferstroken"
+      },
+      {
+        "id": 7,
+        "title": "Natte bufferstroken"
+      },
+      {
+        "id": 8,
+        "title": "Afvangen en zuiveren oppervlakkige afstroming"
+      },
+      {
+        "id": 9,
+        "title": "Akkerranden"
+      },
+      {
+        "id": 10,
+        "title": "Drempeltjes bij rijenbemesting"
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "title": "Veranderen landgebruik",
+    "items": [
+      {
+        "id": 11,
+        "title": "Uitsluiten uitspoelingsgevoelige gewassen op uitspoelingsgevoelige bodems"
+      },
+      {
+        "id": 12,
+        "title": "Bouwplan extensiveren"
+      }
+    ]
+  }
+]

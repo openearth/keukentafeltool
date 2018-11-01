@@ -4,14 +4,14 @@
       <table>
         <thead>
           <tr>
-            <th class="md-table-head">
+            <th class="md-table-head nutrients-table__column--parcels">
               <div class="md-table-head-container">
                 <div class="md-table-head-label">
                   Perceel
                 </div>
               </div>
             </th>
-            <th class="md-table-head">
+            <th class="md-table-head nutrients-table__column--labels">
               <div class="md-table-head-container">
                 <div class="md-table-head-label" />
               </div>
@@ -56,14 +56,14 @@
               <td class="md-table-cell">
                 <div class="md-table-cell-container">Referentie</div>
               </td>
-              <td class="md-table-cell md-numeric">
-                <div class="md-table-cell-container">{{ formatNumber(parcel.properties.refno3) }}</div>
-              </td>
-              <td class="md-table-cell md-numeric">
-                <div class="md-table-cell-container">{{ formatNumber(parcel.properties.refndrain) }}</div>
-              </td>
-              <td class="md-table-cell md-numeric">
-                <div class="md-table-cell-container">{{ formatNumber(parcel.properties.refpdrain) }}</div>
+              <td
+                v-for="metric in metrics"
+                :key="metric"
+                class="md-table-cell md-numeric"
+              >
+                <div class="md-table-cell-container">
+                  {{ formatNumber(parcel.properties[`ref${metric}`]) }}
+                </div>
               </td>
             </tr>
             <tr
@@ -73,14 +73,20 @@
               <td class="md-table-cell">
                 <div class="md-table-cell-container"><nobr>&Delta; door maatregelen</nobr></div>
               </td>
-              <td class="md-table-cell md-numeric">
-                <div class="md-table-cell-container">&nbsp;</div>
-              </td>
-              <td class="md-table-cell md-numeric">
-                <div class="md-table-cell-container">&nbsp;</div>
-              </td>
-              <td class="md-table-cell md-numeric">
-                <div class="md-table-cell-container">&nbsp;</div>
+              <td
+                v-for="metric in metrics"
+                :key="metric"
+                class="md-table-cell md-numeric"
+              >
+                <div class="md-table-cell-container">
+                  <template v-if="isLoaded">
+                    {{ effect({ parcelId: parcel.id, metric }) }}
+                  </template>
+                  <skeleton-value
+                    v-else
+                    class="nutrients-table__skeleton-value"
+                  />
+                </div>
               </td>
             </tr>
           </template>
@@ -91,6 +97,8 @@
 </template>
 
 <script>
+import SkeletonValue from '../skeleton-value'
+
 const toNumber = (value) => {
   const number = Number(value)
   return isNaN(number) ? undefined : number
@@ -101,7 +109,13 @@ const isNumber = (value) => {
 }
 
 export default {
+  components: { SkeletonValue },
   props: {
+    effects: {
+      type: Array,
+      required: true,
+      default: () => [],
+    },
     parcels: {
       type: Array,
       required: true,
@@ -111,16 +125,28 @@ export default {
   data() {
     return {
       locale: 'nl-NL',
+      metrics: ['no3', 'ndrain', 'pdrain'],
     }
   },
+  computed: {
+    isLoaded() { return this.effects.length > 0 },
+  },
   methods: {
+    effect({ parcelId, metric }) {
+      if (!this.effects.length) return ''
+      const value = this.effects
+        .filter(effect => String(effect.pid) === String(parcelId))
+        .map(effect => effect[`eff${metric}`])
+        .reduce((total, value) => total + value, 0)
+      return this.formatNumber(value)
+    },
     formatNumber(value) {
       if (!isNumber(value)) return ''
       return toNumber(value).toLocaleString(this.locale, {
         minimumFractionDigits: 2,
         maximumFractionDigits: 2,
       })
-    }
+    },
   }
 }
 </script>
@@ -128,6 +154,7 @@ export default {
 <style>
   .nutrients-table {
     min-width: 500px;
+    width: 100%;
   }
   .nutrients-table .md-table-head-container {
     height: 84px;
@@ -135,6 +162,16 @@ export default {
   .nutrients-table .md-table-head-label {
     height: 56px;
   }
+  .nutrients-table__column--parcels {
+    width: 110px;
+  }
+  .nutrients-table__column--labels {
+    width: 235px;
+  }
+  .nutrients-table__skeleton-value {
+    width: 2.5em;
+  }
+
   /*
   ** Fix for layout we would like to have the parcel id aligned at the top of the cell
   ** Can only be done by overriding the fixed height with our own fixed height.
@@ -148,5 +185,14 @@ export default {
   */
   .md-table.nutrients-table .md-table-row:hover:not(.md-header-row) .md-table-cell.nutrients-table__parcel-id-cell {
     background: #ffffff;
+  }
+    /* Reset for numeric columns */
+  .nutrients-table .md-table-head.md-numeric,
+  .nutrients-table .md-table-cell.md-numeric {
+    width: 110px;
+  }
+  .nutrients-table .md-table-head.md-numeric .md-table-head-container,
+  .nutrients-table .md-table-cell.md-numeric .md-table-cell-container {
+    width: 100%;
   }
 </style>
