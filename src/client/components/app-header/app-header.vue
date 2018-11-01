@@ -5,12 +5,7 @@
         <h1 class="md-title">Keukentafeltool</h1>
       </nuxt-link>
       <div class="md-toolbar-section-end">
-        <md-button
-          class="md-icon-button"
-          @click="$emit('refresh')"
-        >
-          <md-icon aria-hidden="true">refresh</md-icon>
-        </md-button>
+        <restart-button @click="$emit('restart')" />
         <fullscreen-button/>
       </div>
     </md-toolbar>
@@ -19,8 +14,9 @@
 
 <script>
 import FullscreenButton from '../fullscreen-button'
+import RestartButton from '../restart-button'
 
 export default {
-  components: { FullscreenButton },
+  components: { FullscreenButton, RestartButton },
 }
 </script>

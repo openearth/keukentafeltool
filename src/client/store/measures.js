@@ -35,6 +35,9 @@ export const mutations = {
   setMeasures(state, measures) {
     state.measures = measures
   },
+  unassignAllMeasures (state) {
+    state.parcelsPerMeasure = {}
+  },
   unassignMeasure(state, { parcelId, measure }) {
     const parcelIds = state.parcelsPerMeasure[measure.id]
     const filteredParcelIds = parcelIds.filter(currentParcelId => currentParcelId !== parcelId)
