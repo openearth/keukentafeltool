@@ -1,6 +1,6 @@
 <template>
   <div class="default-layout">
-    <app-header @refresh="resetFeatures" />
+    <app-header @restart="restart" />
     <main class="default-layout__content">
       <nuxt/>
       <div class="default-layout__content-right">
@@ -25,7 +25,8 @@ export default {
     this.$store.dispatch('measures/getMeasures')
   },
   methods: {
-    resetFeatures() {
+    restart() {
+      this.$store.commit('measures/unassignAllMeasures')
       this.$store.dispatch('mapbox/features/resetFeatures')
       this.$store.dispatch('mapbox/addOnceEventHandler', {
         event: 'resize',
