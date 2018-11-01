@@ -91,17 +91,17 @@
         </div>
       </md-table-cell>
       <md-table-cell
-        md-label="Kwel (m)"
+        md-label="Kwel (mm/jaar)"
         md-numeric
-      >{{ formatCmAsMeter(item.kwel) }}</md-table-cell>
+      >{{ item.kwel }}</md-table-cell>
       <md-table-cell
-        md-label="GHG (m)"
+        md-label="GHG (cm-mv)"
         md-numeric
-      >{{ formatCmAsMeter(item.ghg) }}</md-table-cell>
+      >{{ item.ghg }}</md-table-cell>
       <md-table-cell
-        md-label="GLG (m)"
+        md-label="GLG (cm-mv)"
         md-numeric
-      >{{ formatCmAsMeter(item.glg) }}</md-table-cell>
+      >{{ item.glg }}</md-table-cell>
     </md-table-row>
   </md-table>
 </template>
@@ -221,11 +221,11 @@ export default {
   /* Reset for numeric columns */
   .parcels-table .md-table-head.md-numeric,
   .parcels-table .md-table-cell.md-numeric {
-    width: 100px;
+    width: 120px;
   }
   .parcels-table .md-table-head.md-numeric .md-table-head-container,
   .parcels-table .md-table-cell.md-numeric .md-table-cell-container {
-    width: 100px;
+    width: 120px;
   }
 
 

@@ -26,14 +26,14 @@
             <th class="md-table-head md-numeric">
               <div class="md-table-head-container">
                 <div class="md-table-head-label">
-                  Stikstof <br>(N<small>drain</small> kg/ha)
+                  Stikstof <br>(Vracht N kg/ha)
                 </div>
               </div>
             </th>
             <th class="md-table-head md-numeric">
               <div class="md-table-head-container">
                 <div class="md-table-head-label">
-                  Fosfor <br>(P<small>drain</small> kg/ha)
+                  Fosfor <br>(Vracht P kg/ha)
                 </div>
               </div>
             </th>

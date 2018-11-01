@@ -19,7 +19,7 @@
       </div>
       <div class="nutrients-totals__metric">
         <div class="nutrients-totals__metric-label">
-          Stikstof (N<small>drain</small>)
+          Vracht N
         </div>
         <strong class="nutrients-totals__metric-value">
           {{ formatNumber(ndrainTotal) }} kg
@@ -27,7 +27,7 @@
       </div>
       <div class="nutrients-totals__metric">
         <div class="nutrients-totals__metric-label">
-          Fosfor (P<small>drain</small>)
+          Vracht P
         </div>
         <strong class="nutrients-totals__metric-value">
           {{ formatNumber(pdrainTotal) }}  kg
