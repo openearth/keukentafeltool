@@ -91,15 +91,15 @@
         </div>
       </md-table-cell>
       <md-table-cell
-        md-label="Kwel (m)"
+        md-label="Kwel (mm/jaar)"
         md-numeric
       >{{ formatCmAsMeter(item.kwel) }}</md-table-cell>
       <md-table-cell
-        md-label="GHG (m)"
+        md-label="GHG (cm-mv)"
         md-numeric
       >{{ formatCmAsMeter(item.ghg) }}</md-table-cell>
       <md-table-cell
-        md-label="GLG (m)"
+        md-label="GLG (cm-mv)"
         md-numeric
       >{{ formatCmAsMeter(item.glg) }}</md-table-cell>
     </md-table-row>
@@ -188,24 +188,12 @@ export default {
 
   .parcels-table {
     width: 100%;
-    table-layout: fixed;
-    border-collapse: collapse;
+    flex: 1 1 auto;
   }
 
   .parcels-table .md-table-cell-container,
   .parcels-table .md-table-head-container {
     width: 150px;
-  }
-
-  .parcels-table tbody {
-    display:block;
-    width: 100%;
-    overflow: auto;
-    min-height: 51px; /* one row */
-  }
-
-  .parcels-table thead tr {
-    display: block;
   }
 
   .parcels-table th,
@@ -220,11 +208,11 @@ export default {
   /* Reset for numeric columns */
   .parcels-table .md-table-head.md-numeric,
   .parcels-table .md-table-cell.md-numeric {
-    width: 100px;
+    width: 120px;
   }
   .parcels-table .md-table-head.md-numeric .md-table-head-container,
   .parcels-table .md-table-cell.md-numeric .md-table-cell-container {
-    width: 100px;
+    width: 100%;
   }
 
 

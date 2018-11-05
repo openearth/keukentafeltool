@@ -26,14 +26,14 @@
             <th class="md-table-head md-numeric">
               <div class="md-table-head-container">
                 <div class="md-table-head-label">
-                  Stikstof <br>(N<small>drain</small> kg/ha)
+                  Stikstof <br>(Vracht N kg/ha)
                 </div>
               </div>
             </th>
             <th class="md-table-head md-numeric">
               <div class="md-table-head-container">
                 <div class="md-table-head-label">
-                  Fosfor <br>(P<small>drain</small> kg/ha)
+                  Fosfor <br>(Vracht P kg/ha)
                 </div>
               </div>
             </th>
@@ -71,7 +71,7 @@
               class="md-table-row"
             >
               <td class="md-table-cell">
-                <div class="md-table-cell-container"><nobr>&Delta; door maatregelen</nobr></div>
+                <div class="md-table-cell-container"><nobr>Na maatregelen</nobr></div>
               </td>
               <td
                 v-for="metric in metrics"
@@ -140,15 +140,19 @@ export default {
 
 <style>
   .nutrients-table {
-    min-width: 500px;
     width: 100%;
+    flex: 1 1 auto;
   }
+
+  /* double lineheight header */
   .nutrients-table .md-table-head-container {
     height: 84px;
   }
   .nutrients-table .md-table-head-label {
     height: 56px;
   }
+
+  /* fixed column widths */
   .nutrients-table__column--parcels {
     width: 110px;
   }
@@ -173,7 +177,8 @@ export default {
   .md-table.nutrients-table .md-table-row:hover:not(.md-header-row) .md-table-cell.nutrients-table__parcel-id-cell {
     background: #ffffff;
   }
-    /* Reset for numeric columns */
+
+  /* Reset for numeric columns */
   .nutrients-table .md-table-head.md-numeric,
   .nutrients-table .md-table-cell.md-numeric {
     width: 110px;
