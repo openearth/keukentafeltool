@@ -1,5 +1,5 @@
 <template>
-  <div class="scroll-area">
+  <div class="farm-page__panel-content">
     <no-ssr>
       <measures-list
         :measures="measures"
@@ -8,6 +8,26 @@
         @removeSelectedParcel="unassignMeasure"
       />
     </no-ssr>
+    <portal
+      to="footer-bar"
+      slim
+    >
+      <div class="footer-bar">
+        <md-button
+          type="button"
+          to="/farm/parcels/"
+        >
+          <md-icon aria-hidden="true">navigate_before</md-icon> Perceel informatie
+        </md-button>
+        <md-button
+          type="button"
+          class="md-raised md-primary"
+          to="/farm/nutrients/"
+        >
+          Bekijk effect <md-icon aria-hidden="true">navigate_next</md-icon>
+        </md-button>
+      </div>
+    </portal>
   </div>
 </template>
 

@@ -1,9 +1,5 @@
 <template>
-  <div class="scroll-area">
-    <md-toolbar
-      md-elevation="0"
-      class="md-dense"
-    />
+  <div class="farm-page__panel-content">
     <nutrients-table
       :parcels="features"
       :effects="effects"
@@ -12,6 +8,26 @@
       :parcels="features"
       :effects="effects"
     />
+    <portal
+      to="footer-bar"
+      slim
+    >
+      <div class="footer-bar">
+        <md-button
+          type="button"
+          to="/farm/measures/"
+        >
+          <md-icon aria-hidden="true">navigate_before</md-icon> wijzig maatregelen
+        </md-button>
+        <md-button
+          type="button"
+          class="md-raised"
+          to="#"
+        >
+          Naar rapport <md-icon aria-hidden="true">description</md-icon>
+        </md-button>
+      </div>
+    </portal>
   </div>
 </template>
 

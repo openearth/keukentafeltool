@@ -1,19 +1,31 @@
 <template>
-  <div class="scroll-area">
-    <md-toolbar
-      md-elevation="0"
-      class="md-dense"
-    >
-      <div class="md-toolbar-section-end">
-        <md-button to="/farm/">wijzig percelen</md-button>
-      </div>
-    </md-toolbar>
+  <div class="farm-page__panel-content">
     <no-ssr>
       <parcels-table
         :parcels="features"
         @updateProperty="updateProperty"
       />
     </no-ssr>
+    <portal
+      to="footer-bar"
+      slim
+    >
+      <div class="footer-bar">
+        <md-button
+          type="button"
+          to="/farm/"
+        >
+          <md-icon aria-hidden="true">navigate_before</md-icon> wijzig percelen
+        </md-button>
+        <md-button
+          type="button"
+          class="md-raised md-primary"
+          to="/farm/measures/"
+        >
+          Selecteer maatregelen <md-icon aria-hidden="true">navigate_next</md-icon>
+        </md-button>
+      </div>
+    </portal>
   </div>
 </template>
 

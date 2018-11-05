@@ -60,10 +60,7 @@ export default {
   position: relative;
   width: 100%;
   height: 100%;
-  /* overflow-y: auto; */
   background-color: var(--background-light);
-
-  /* test flex for scroll */
   overflow: hidden;
   display: flex;
   flex-direction: column
@@ -77,10 +74,6 @@ export default {
 }
 
 .farm-page__panel-header {
-  /*
-  display: flex;
-  justify-content: space-between;
-  */
   background-color: white;
 }
 .toggle-panel-button {
@@ -89,8 +82,7 @@ export default {
   right: 0;
 }
 
-/* todo refactor as slot */
-.scroll-area {
+.farm-page__panel-content {
   display: flex;
   flex-wrap: nowrap;
   overflow-y: auto;

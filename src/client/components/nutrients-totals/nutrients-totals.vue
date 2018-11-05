@@ -11,26 +11,29 @@
       </div>
       <div class="nutrients-totals__metric">
         <div class="nutrients-totals__metric-label">
-          Nitraat (NO<sub>3</sub>)
+          Nitraat <br>
+          (NO<sub>3</sub> mg/l)
         </div>
         <strong class="nutrients-totals__metric-value">
-          {{ formatNumber(no3Total) }} mg/l
+          {{ formatNumber(no3Total) }}
         </strong>
       </div>
       <div class="nutrients-totals__metric">
         <div class="nutrients-totals__metric-label">
-          Stikstof (Vracht N)
+          Stikstof <br>
+          (Vracht N kg)
         </div>
         <strong class="nutrients-totals__metric-value">
-          {{ formatNumber(ndrainTotal) }} kg
+          {{ formatNumber(ndrainTotal) }}
         </strong>
       </div>
       <div class="nutrients-totals__metric">
         <div class="nutrients-totals__metric-label">
-          Fosfor (Vracht P)
+          Fosfor <br>
+          (Vracht P kg)
         </div>
         <strong class="nutrients-totals__metric-value">
-          {{ formatNumber(pdrainTotal) }}  kg
+          {{ formatNumber(pdrainTotal) }}
         </strong>
       </div>
     </div>
@@ -87,18 +90,20 @@ export default {
 
 <style>
   .nutrients-totals {
-    padding: 12px 16px 12px 24px;
+    padding: 10px;
     background: #ffffff;
-    border-top: 2px solid rgba(0,0,0,.35);
+    z-index: 1;
     /* custom boxshadow based on md elevation 4 but vertically reversed (seems that there are some strange light sources at play) */
     box-shadow: 0 -2px 4px -1px rgba(0,0,0,.2), 0 -4px 5px 0 rgba(0,0,0,.14), 0 -1px 10px 0 rgba(0,0,0,.12);
   }
   .nutrients-totals__container {
     display: flex;
     justify-content: flex-end;
+    max-width: 634px;
   }
   .nutrients-totals__caption {
-    margin-right: auto
+    margin-right: auto;
+    padding-left: 5px;
   }
   .nutrients-totals__title {
     margin-top: 4px;
@@ -110,14 +115,16 @@ export default {
   }
   .nutrients-totals__metric {
     min-height: 50px;
-    margin: 0 8px;
+    padding: 0 8px;
+    text-align: right;
+    width: 99px;
   }
   .nutrients-totals__metric:last-child {
     margin-right: 0;
   }
   .nutrients-totals__metric-label {
     font-size: 12px;
-    min-height: 24px;
+    min-height: 44px;
     margin-bottom: 4px;
     color: var(--md-theme-default-text-accent-on-background, rgba(0, 0, 0, 0.54));
   }
@@ -125,14 +132,11 @@ export default {
     white-space: nowrap;
   }
   @media only screen and (min-width: 1200px) {
-    .nutrients-totals {
-      padding: 16px;
+    .nutrients-totals__metric {
+      width: 146px;
     }
     .nutrients-totals__metric-label {
       font-size: 14px;
-    }
-    .nutrients-totals__metric {
-      margin: 0 18px;
     }
     .nutrients-totals__metric-value {
       font-size: 18px;

@@ -14,10 +14,9 @@
 
   .form-select {
     position: relative;
-    height: 40px;
-    width: 130px;
+    /* height: 24px; */
+    width: 100%;
     border: 1px solid transparent;
-    margin-left: -10px; /* For alignment in the table column */
   }
 
   .form-select:after {
