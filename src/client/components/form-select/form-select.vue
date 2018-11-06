@@ -14,7 +14,6 @@
 
   .form-select {
     position: relative;
-    /* height: 24px; */
     width: 100%;
     border: 1px solid transparent;
   }

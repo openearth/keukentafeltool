@@ -68,38 +68,40 @@
                 </div>
               </td>
               <td class="data-table__cell">
-                <div class="data-table__content data-table__content--w125 form-select">
-                  <select
-                    id="select"
-                    name="select"
-                    class="form-select__select"
-                    @input.prevent="updateProperty({id: parcel.id, key: 'gewascategorie', value: $event.target.value})"
-                  >
-                    <option
-                      :selected="parcel.gewascategorie === 'Grasland'"
-                      value="Grasland"
+                <div class="data-table__content data-table__content--w125">
+                  <div class="form-select">
+                    <select
+                      id="select"
+                      name="select"
+                      class="form-select__select"
+                      @input.prevent="updateProperty({id: parcel.id, key: 'gewascategorie', value: $event.target.value})"
                     >
-                      Grasland
-                    </option>
-                    <option
-                      :selected="parcel.gewascategorie === 'Bouwland'"
-                      value="Bouwland"
-                    >
-                      Bouwland
-                    </option>
-                    <option
-                      :selected="parcel.gewascategorie === 'Braakland'"
-                      value="Braakland"
-                    >
-                      Braakland
-                    </option>
-                    <option
-                      :selected="parcel.gewascategorie === 'Natuur'"
-                      value="Natuur"
-                    >
-                      Natuur
-                    </option>
-                  </select>
+                      <option
+                        :selected="parcel.gewascategorie === 'Grasland'"
+                        value="Grasland"
+                      >
+                        Grasland
+                      </option>
+                      <option
+                        :selected="parcel.gewascategorie === 'Bouwland'"
+                        value="Bouwland"
+                      >
+                        Bouwland
+                      </option>
+                      <option
+                        :selected="parcel.gewascategorie === 'Braakland'"
+                        value="Braakland"
+                      >
+                        Braakland
+                      </option>
+                      <option
+                        :selected="parcel.gewascategorie === 'Natuur'"
+                        value="Natuur"
+                      >
+                        Natuur
+                      </option>
+                    </select>
+                  </div>
                 </div>
               </td>
               <td class="data-table__cell">
