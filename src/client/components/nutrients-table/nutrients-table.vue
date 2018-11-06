@@ -54,7 +54,7 @@
                 <div class="md-table-cell-container">{{ parcel.id }}</div>
               </td>
               <td class="md-table-cell">
-                <div class="md-table-cell-container">Referentie</div>
+                <div class="md-table-cell-container">voor</div>
               </td>
               <td
                 v-for="metric in metrics"
@@ -71,7 +71,7 @@
               class="md-table-row"
             >
               <td class="md-table-cell">
-                <div class="md-table-cell-container"><nobr>Na maatregelen</nobr></div>
+                <div class="md-table-cell-container"><nobr>na</nobr></div>
               </td>
               <td
                 v-for="metric in metrics"
@@ -80,7 +80,7 @@
               >
                 <div class="md-table-cell-container">
                   <template v-if="isLoaded">
-                    {{ formattedEffect({ parcel, metric }) }}
+                    <span v-html="formattedEffect({ parcel, metric })" />
                   </template>
                   <skeleton-value
                     v-else
@@ -98,10 +98,11 @@
 
 <script>
 import SkeletonValue from '../skeleton-value'
+import TrendValue from '../trend-value'
 import formatNumber from '../../lib/format-number'
 
 export default {
-  components: { SkeletonValue },
+  components: { SkeletonValue, TrendValue },
   props: {
     effects: {
       type: Array,
@@ -132,17 +133,20 @@ export default {
       return value
     },
     formatNumber(value) {
-      return formatNumber({ value })
+      return formatNumber({ value, digits: 1 })
     },
     formattedEffect({ parcel, metric }) {
       const referenceValue = this.referenceValue({ parcel, metric })
       const newValue = this.effect({ parcelId: parcel.id, metric })
       const percentageEffect = this.percentageEffect({ referenceValue, newValue })
+      const isUp = (newValue > referenceValue)
 
-      // debugger
       return newValue === 0
         ? this.formatNumber(referenceValue)
-        : `${this.formatNumber(newValue)} (${this.formatNumber(percentageEffect)} %)`
+        : `${this.formatNumber(newValue)}
+          <span class="nutrients-table__trend nutrients-table__trend--${ isUp ? 'up' : 'down' }">
+            ${this.formatNumber(percentageEffect)}%
+          </span>`
     },
     percentageEffect({ referenceValue, newValue }) {
       return Number(newValue) / Number(referenceValue) * 100 - 100
@@ -173,6 +177,27 @@ export default {
   }
   .nutrients-table__skeleton-value {
     width: 2.5em;
+  }
+
+  .nutrients-table__trend {
+    display: block;
+    font-size: .8em;
+    white-space: nowrap;
+  }
+  .nutrients-table__trend--down::after {
+    display: inline-block;
+  }
+  .nutrients-table__trend--down {
+    color: #0f9d58;
+  }
+  .nutrients-table__trend--down::after {
+    content: "▼";
+  }
+  .nutrients-table__trend--up {
+    color: #d23f31;
+  }
+  .nutrients-table__trend--up::after {
+    content: "▲";
   }
 
   /*
