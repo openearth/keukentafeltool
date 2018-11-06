@@ -1,32 +1,32 @@
 <template>
-  <div class="ktt-table nutrients-table">
-    <div class="ktt-table__container">
-      <div class="ktt-table__static-header">
-        <table>
+  <div class="data-table nutrients-table">
+    <div class="data-table__container">
+      <div class="data-table__static-header">
+        <table class="data-table__table">
           <thead>
-            <tr>
-              <th>
-                <div class="ktt-table__cell ktt-table__cell--w60">
+            <tr class="data-table__table-head__row">
+              <th class="data-table__header-cell data-table__cell--no-border">
+                <div class="data-table__content data-table__content--w60">
                   Perceel
                 </div>
               </th>
-              <th>
-                <div class="ktt-table__cell ktt-table__cell--w105" />
+              <th class="data-table__header-cell">
+                <div class="data-table__content data-table__content--w105" />
               </th>
-              <th>
-                <div class="ktt-table__cell ktt-table__cell--numeric nutrients-table__cell--nutrient">
+              <th class="data-table__header-cell">
+                <div class="data-table__content data-table__content--numeric nutrients-table__content--nutrient">
                   Nitraat <br>
                   <small>(NO<sub>3</sub> mg/l)</small>
                 </div>
               </th>
-              <th>
-                <div class="ktt-table__cell ktt-table__cell--numeric nutrients-table__cell--nutrient">
+              <th class="data-table__header-cell">
+                <div class="data-table__content data-table__content--numeric nutrients-table__content--nutrient">
                   Stikstof <br>
                   <small>(Vracht N kg/ha)</small>
                 </div>
               </th>
-              <th>
-                <div class="ktt-table__cell ktt-table__cell--numeric nutrients-table__cell--nutrient">
+              <th class="data-table__header-cell">
+                <div class="data-table__content data-table__content--numeric nutrients-table__content--nutrient">
                   Fosfor <br>
                   <small>(Vracht P kg/ha)</small>
                 </div>
@@ -35,8 +35,8 @@
           </thead>
         </table>
       </div>
-      <div class="ktt-table__slide--vertical">
-        <table>
+      <div class="data-table__scroll-vertical">
+        <table class="data-table__table">
           <tbody>
             <template
               v-for="parcel in parcels"
@@ -44,17 +44,21 @@
               <tr
                 :key="parcel.id"
               >
-                <td rowspan="2">
-                  <div class="ktt-table__cell ktt-table__cell--w60">{{ parcel.id }}</div>
+                <td
+                  class="data-table__cell data-table__cell--no-border"
+                  rowspan="2"
+                >
+                  <div class="data-table__content data-table__content--w60">{{ parcel.id }}</div>
                 </td>
-                <td>
-                  <div class="ktt-table__cell ktt-table__cell--w105">Referentie</div>
+                <td class="data-table__cell">
+                  <div class="data-table__content data-table__content--w105">Referentie</div>
                 </td>
                 <td
                   v-for="metric in metrics"
                   :key="metric"
+                  class="data-table__cell"
                 >
-                  <div class="ktt-table__cell ktt-table__cell--numeric nutrients-table__cell--nutrient">
+                  <div class="data-table__content data-table__content--numeric nutrients-table__content--nutrient">
                     {{ formatNumber(parcel.properties[`ref${metric}`]) }}
                   </div>
                 </td>
@@ -62,14 +66,15 @@
               <tr
                 :key="parcel.id+'row2'"
               >
-                <td>
-                  <div class="ktt-table__cell ktt-table__cell--w105"><nobr>Na maatregelen</nobr></div>
+                <td class="data-table__cell data-table__cell--no-border">
+                  <div class="data-table__content data-table__content--w105"><nobr>Na maatregelen</nobr></div>
                 </td>
                 <td
                   v-for="metric in metrics"
                   :key="metric"
+                  class="data-table__cell"
                 >
-                  <div class="ktt-table__cell ktt-table__cell--numeric nutrients-table__cell--nutrient">
+                  <div class="data-table__content data-table__content--numeric nutrients-table__content--nutrient">
                     <template v-if="isLoaded">
                       {{ effect({ parcelId: parcel.id, metric }) }}
                     </template>
@@ -132,9 +137,9 @@ export default {
 
 <style>
   .nutrients-table,
-  .nutrients-table .ktt-table__static-header,
-  .nutrients-table .ktt-table__slide--vertical,
-  .nutrients-table .ktt-table__slide--horizontal {
+  .nutrients-table .data-table__static-header,
+  .nutrients-table .data-table__scroll-vertical,
+  .nutrients-table .data-table__scroll-horizontal {
     width: 512px;
   }
   .nutrients-table
@@ -147,7 +152,7 @@ export default {
   .nutrients-table td:first-child {
     border-bottom: 1px solid rgba(102, 102, 102, 0.1);
   }
-  .ktt-table__cell.nutrients-table__cell--nutrient {
+  .data-table__content.nutrients-table__content--nutrient {
     width: 83px;
   }
   .nutrients-table tr:nth-child(even) {
@@ -155,12 +160,12 @@ export default {
   }
   @media only screen and (min-width: 1200px) {
     .nutrients-table,
-    .nutrients-table .ktt-table__static-header,
-    .nutrients-table .ktt-table__slide--vertical,
-    .nutrients-table .ktt-table__slide--horizontal {
+    .nutrients-table .data-table__static-header,
+    .nutrients-table .data-table__scroll-vertical,
+    .nutrients-table .data-table__scroll-horizontal {
       width: 670px;
     }
-    .ktt-table__cell.nutrients-table__cell--nutrient {
+    .data-table__content.nutrients-table__content--nutrient {
       width: 135px;
     }
   }

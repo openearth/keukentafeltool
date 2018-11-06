@@ -1,84 +1,88 @@
-.ktt-table table {
+.data-table {
+  flex: 1 1 auto;
+  overflow: hidden;
+  display: flex;
+}
+.data-table__table {
   border-collapse: collapse;
   width: 100%;
   background: #ffffff;
   display: block;
   border: none;
 }
-.ktt-table thead tr {
+.data-table__header-row {
   border-bottom-color: rgba(146, 182, 199, 0.5);
 }
-.ktt-table th {
+.data-table__header-cell {
   color: #008FC5;
   background: rgba(146, 182, 199, 0.5);
   font-size: 13px;
-  padding-top: 15px;
+  padding: 15px 10px 5px 10px;
   line-height: 15px;
-  padding-bottom: 5px;
+  text-align: left;
+  vertical-align: top;
 }
-.ktt-table td, th {
+.data-table__cell {
   text-align: left;
   vertical-align: top;
   padding: 10px;
 }
-.ktt-table td:first-child,
-.ktt-table th:first-child {
+.data-table__cell--no-border {
   border-left: none;
 }
-.ktt-table tr:nth-child(even) {
+.data-table tr:nth-child(even) {
   background-color: rgba(102, 102, 102, 0.05);
 }
-.ktt-table {
-  flex: 1 1 auto;
-  overflow: hidden;
-  display: flex;
-}
-.ktt-table__static-header,
-.ktt-table__slide--vertical,
-.ktt-table__slide--horizontal {
+.data-table__static-header,
+.data-table__scroll-vertical,
+.data-table__scroll-horizontal {
   width: 900px;
 }
-.ktt-table__static-header {
+.data-table__static-header {
   flex: 0 0 auto;
   z-index: 1;
 }
-.ktt-table__container {
+.data-table__container {
   position: relative;
   display: flex;
   flex-direction: column;
 }
-.ktt-table__slide--vertical {
+.data-table__scroll-vertical {
   overflow-y: scroll;
   overflow-x: hidden;
 }
-.ktt-table__slide--horizontal {
+.data-table__scroll-horizontal {
   overflow-y: hidden;
   overflow-x: scroll;
 }
-.ktt-table__cell {
+.data-table__content {
   width: 100px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
-.ktt-table__cell--label-select {
+.data-table__label-select {
   padding-left: 10px;
 }
-.ktt-table__cell--w60 {
+.data-table__content--w60 {
   width: 60px;
 }
-.ktt-table__cell--w70 {
+.data-table__content--w70 {
   width: 70px;
 }
-.ktt-table__cell--w80 {
+.data-table__content--w80 {
   width: 80px;
 }
-.ktt-table__cell--w105 {
+.data-table__content--w105 {
   width: 105px;
 }
-.ktt-table__cell--w125 {
+.data-table__content--w125 {
   width: 125px;
 }
-.ktt-table__cell--numeric {
+.data-table__content--numeric {
   text-align: right;
 }
+.data-table__content--capatilize {
+  text-transform: capitalize;
+}
+

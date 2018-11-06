@@ -102,7 +102,7 @@ export default {
   .measures-list__measure {
     padding: 10px;
     margin-bottom: 10px;
-    border-left: 5px solid transparent
+    border-left: 5px solid transparent;
   }
 
   .measures-list__measure--active {

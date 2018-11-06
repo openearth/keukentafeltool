@@ -1,45 +1,45 @@
 <template>
-  <div class="ktt-table parcels-table">
-    <div class="ktt-table__container ktt-table__slide--horizontal">
-      <div class="ktt-table__static-header">
-        <table>
+  <div class="data-table parcels-table">
+    <div class="data-table__container data-table__scroll-horizontal">
+      <div class="data-table__static-header">
+        <table class="data-table__table">
           <thead>
-            <tr>
-              <th>
-                <div class="ktt-table__cell ktt-table__cell--w60">Perceel</div>
+            <tr class="data-table__header-row">
+              <th class="data-table__header-cell data-table__cell--no-border">
+                <div class="data-table__content data-table__content--w60">Perceel</div>
               </th>
-              <th>
-                <div class="ktt-table__cell ktt-table__cell--w125">Gewas</div>
+              <th class="data-table__header-cell">
+                <div class="data-table__content data-table__content--w125">Gewas</div>
               </th>
-              <th>
-                <div class="ktt-table__cell ktt-table__cell--w125 ktt-table__cell--label-select">Gewascategorie</div>
+              <th class="data-table__header-cell">
+                <div class="data-table__content data-table__content--w125 data-table__label-select">Gewascategorie</div>
               </th>
-              <th>
-                <div class="ktt-table__cell ktt-table__cell--w60 ktt-table__cell--numeric">
+              <th class="data-table__header-cell">
+                <div class="data-table__content data-table__content--w60 data-table__content--numeric">
                   Opp.<br>
                   <small>(ha)</small>
                 </div>
               </th>
-              <th>
-                <div class="ktt-table__cell ktt-table__cell--w70">Grond</div>
+              <th class="data-table__header-cell">
+                <div class="data-table__content data-table__content--w70">Grond</div>
               </th>
-              <th>
-                <div class="ktt-table__cell ktt-table__cell--label-select">Drainage</div>
+              <th class="data-table__header-cell">
+                <div class="data-table__content data-table__label-select">Drainage</div>
               </th>
-              <th>
-                <div class="ktt-table__cell ktt-table__cell--w60 ktt-table__cell--numeric">
+              <th class="data-table__header-cell">
+                <div class="data-table__content data-table__content--w60 data-table__content--numeric">
                   Kwel<br>
                   <small>(mm/jaar)</small>
                 </div>
               </th>
-              <th>
-                <div class="ktt-table__cell ktt-table__cell--w60 ktt-table__cell--numeric">
+              <th class="data-table__header-cell">
+                <div class="data-table__content data-table__content--w60 data-table__content--numeric">
                   GHG<br>
                   <small>(cm-mv)</small>
                 </div>
               </th>
-              <th>
-                <div class="ktt-table__cell ktt-table__cell--w60 ktt-table__cell--numeric">
+              <th class="data-table__header-cell">
+                <div class="data-table__content data-table__content--w60 data-table__content--numeric">
                   GLG<br>
                   <small>(cm-mv)</small>
                 </div>
@@ -48,26 +48,27 @@
           </thead>
         </table>
       </div>
-      <div class="ktt-table__slide--vertical">
-        <table>
+      <div class="data-table__scroll-vertical">
+        <table class="data-table__table">
           <tbody>
             <tr
               v-for="parcel in parcelProperties"
-              :key="parcel.id">
-              <td>
-                <div class="ktt-table__cell ktt-table__cell--w60">{{ parcel.id }}</div>
+              :key="parcel.id"
+            >
+              <td class="data-table__cell data-table__cell--no-border">
+                <div class="data-table__content data-table__content--w60">{{ parcel.id }}</div>
               </td>
-              <td>
+              <td class="data-table__cell">
                 <div
                   :class="`parcels-table__vegetation--${parcel.gewascategorie.toLowerCase()}`"
-                  class="ktt-table__cell ktt-table__cell--w125 parcels-table__vegetation"
+                  class="data-table__content data-table__content--w125 parcels-table__vegetation"
                 >
                   {{ parcel.gewas }}
                   <md-tooltip md-direction="right">{{ parcel.gewas }}</md-tooltip>
                 </div>
               </td>
-              <td>
-                <div class="ktt-table__cell ktt-table__cell--w125 form-select">
+              <td class="data-table__cell">
+                <div class="data-table__content data-table__content--w125 form-select">
                   <select
                     id="select"
                     name="select"
@@ -101,16 +102,16 @@
                   </select>
                 </div>
               </td>
-              <td>
-                <div class="ktt-table__cell ktt-table__cell--w60 ktt-table__cell--numeric">{{ formatNumber(parcel.areaal) }}</div>
+              <td class="data-table__cell">
+                <div class="data-table__content data-table__content--w60 data-table__content--numeric">{{ formatNumber(parcel.areaal) }}</div>
               </td>
-              <td>
-                <div class="ktt-table__cell ktt-table__cell--w70">
-                  {{ capitalizeFirstLetter(parcel.bodemgroep.toLowerCase()) }}
+              <td class="data-table__cell">
+                <div class="data-table__content data-table__content--w70 data-table__content--capatilize">
+                  {{ parcel.bodemgroep.toLowerCase() }}
                 </div>
               </td>
-              <td>
-                <div class="ktt-table__cell form-select">
+              <td class="data-table__cell">
+                <div class="data-table__content form-select">
                   <select
                     class="form-select__select"
                     @input.prevent="updateProperty({id: parcel.id, key: 'drain', value: Number($event.target.value)})"
@@ -136,14 +137,14 @@
                   </select>
                 </div>
               </td>
-              <td>
-                <div class="ktt-table__cell ktt-table__cell--w60 ktt-table__cell--numeric">{{ formatNumber(parcel.kwel) }}</div>
+              <td class="data-table__cell">
+                <div class="data-table__content data-table__content--w60 data-table__content--numeric">{{ formatNumber(parcel.kwel) }}</div>
               </td>
-              <td>
-                <div class="ktt-table__cell ktt-table__cell--w60 ktt-table__cell--numeric">{{ formatNumber(parcel.ghg) }}</div>
+              <td class="data-table__cell">
+                <div class="data-table__content data-table__content--w60 data-table__content--numeric">{{ formatNumber(parcel.ghg) }}</div>
               </td>
-              <td>
-                <div class="ktt-table__cell ktt-table__cell--w60 ktt-table__cell--numeric">{{ formatNumber(parcel.glg) }}</div>
+              <td class="data-table__cell">
+                <div class="data-table__content data-table__content--w60 data-table__content--numeric">{{ formatNumber(parcel.glg) }}</div>
               </td>
             </tr>
           </tbody>
@@ -190,11 +191,6 @@ export default {
   .parcel-type {
     width: 5px;
     height: 5px;
-  }
-  .parcels-table .ktt-table__static-header,
-  .parcels-table .ktt-table__slide--vertical,
-  .parcels-table .ktt-table__slide--horizontal {
-    width: 900px;
   }
   .parcels-table__vegetation {
     position: relative;
