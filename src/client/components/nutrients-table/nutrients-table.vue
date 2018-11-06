@@ -1,97 +1,94 @@
 <template>
-  <div class="md-content md-table nutrients-table md-theme-default">
-    <div class="md-content md-table-content md-scrollbar md-theme-default">
-      <table>
-        <thead>
-          <tr>
-            <th class="md-table-head nutrients-table__column--parcels">
-              <div class="md-table-head-container">
-                <div class="md-table-head-label">
+  <div class="data-table nutrients-table">
+    <div class="data-table__container">
+      <div class="data-table__static-header">
+        <table class="data-table__table">
+          <thead>
+            <tr class="data-table__table-head__row">
+              <th class="data-table__header-cell data-table__cell--no-border">
+                <div class="data-table__content data-table__content--w60">
                   Perceel
                 </div>
-              </div>
-            </th>
-            <th class="md-table-head nutrients-table__column--labels">
-              <div class="md-table-head-container">
-                <div class="md-table-head-label" />
-              </div>
-            </th>
-            <th class="md-table-head md-numeric">
-              <div class="md-table-head-container">
-                <div class="md-table-head-label">
-                  Nitraat <br>(NO<sub>3</sub> mg/l)
+              </th>
+              <th class="data-table__header-cell">
+                <div class="data-table__content data-table__content--w105" />
+              </th>
+              <th class="data-table__header-cell">
+                <div class="data-table__content data-table__content--numeric nutrients-table__content--nutrient">
+                  Nitraat <br>
+                  <small>(NO<sub>3</sub> mg/l)</small>
                 </div>
-              </div>
-            </th>
-            <th class="md-table-head md-numeric">
-              <div class="md-table-head-container">
-                <div class="md-table-head-label">
-                  Stikstof <br>(N<small>drain</small> kg/ha)
+              </th>
+              <th class="data-table__header-cell">
+                <div class="data-table__content data-table__content--numeric nutrients-table__content--nutrient">
+                  Stikstof <br>
+                  <small>(Vracht N kg/ha)</small>
                 </div>
-              </div>
-            </th>
-            <th class="md-table-head md-numeric">
-              <div class="md-table-head-container">
-                <div class="md-table-head-label">
-                  Fosfor <br>(P<small>drain</small> kg/ha)
+              </th>
+              <th class="data-table__header-cell">
+                <div class="data-table__content data-table__content--numeric nutrients-table__content--nutrient">
+                  Fosfor <br>
+                  <small>(Vracht P kg/ha)</small>
                 </div>
-              </div>
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          <template
-            v-for="parcel in parcels"
-          >
-            <tr
-              :key="parcel.id"
-              class="md-table-row"
-            >
-              <td
-                class="md-table-cell nutrients-table__parcel-id-cell"
-                rowspan="2"
-              >
-                <div class="md-table-cell-container">{{ parcel.id }}</div>
-              </td>
-              <td class="md-table-cell">
-                <div class="md-table-cell-container">Referentie</div>
-              </td>
-              <td
-                v-for="metric in metrics"
-                :key="metric"
-                class="md-table-cell md-numeric"
-              >
-                <div class="md-table-cell-container">
-                  {{ formatNumber(parcel.properties[`ref${metric}`]) }}
-                </div>
-              </td>
+              </th>
             </tr>
-            <tr
-              :key="parcel.id+'row2'"
-              class="md-table-row"
+          </thead>
+        </table>
+      </div>
+      <div class="data-table__scroll-vertical">
+        <table class="data-table__table">
+          <tbody>
+            <template
+              v-for="parcel in parcels"
             >
-              <td class="md-table-cell">
-                <div class="md-table-cell-container"><nobr>&Delta; door maatregelen</nobr></div>
-              </td>
-              <td
-                v-for="metric in metrics"
-                :key="metric"
-                class="md-table-cell md-numeric"
+              <tr
+                :key="parcel.id"
               >
-                <div class="md-table-cell-container">
-                  <template v-if="isLoaded">
-                    {{ effect({ parcelId: parcel.id, metric }) }}
-                  </template>
-                  <skeleton-value
-                    v-else
-                    class="nutrients-table__skeleton-value"
-                  />
-                </div>
-              </td>
-            </tr>
-          </template>
-        </tbody>
-      </table>
+                <td
+                  class="data-table__cell data-table__cell--no-border"
+                  rowspan="2"
+                >
+                  <div class="data-table__content data-table__content--w60">{{ parcel.id }}</div>
+                </td>
+                <td class="data-table__cell">
+                  <div class="data-table__content data-table__content--w105">Referentie</div>
+                </td>
+                <td
+                  v-for="metric in metrics"
+                  :key="metric"
+                  class="data-table__cell"
+                >
+                  <div class="data-table__content data-table__content--numeric nutrients-table__content--nutrient">
+                    {{ formatNumber(parcel.properties[`ref${metric}`]) }}
+                  </div>
+                </td>
+              </tr>
+              <tr
+                :key="parcel.id+'row2'"
+              >
+                <td class="data-table__cell data-table__cell--no-border">
+                  <div class="data-table__content data-table__content--w105"><nobr>Na maatregelen</nobr></div>
+                </td>
+                <td
+                  v-for="metric in metrics"
+                  :key="metric"
+                  class="data-table__cell"
+                >
+                  <div class="data-table__content data-table__content--numeric nutrients-table__content--nutrient">
+                    <template v-if="isLoaded">
+                      {{ effect({ parcelId: parcel.id, metric }) }}
+                    </template>
+                    <skeleton-value
+                      v-else
+                      class="nutrients-table__skeleton-value"
+                    />
+                  </div>
+                </td>
+              </tr>
+            </template>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 </template>
@@ -139,47 +136,37 @@ export default {
 </script>
 
 <style>
-  .nutrients-table {
-    min-width: 500px;
-    width: 100%;
+  .nutrients-table,
+  .nutrients-table .data-table__static-header,
+  .nutrients-table .data-table__scroll-vertical,
+  .nutrients-table .data-table__scroll-horizontal {
+    width: 512px;
   }
-  .nutrients-table .md-table-head-container {
-    height: 84px;
-  }
-  .nutrients-table .md-table-head-label {
-    height: 56px;
-  }
-  .nutrients-table__column--parcels {
-    width: 110px;
-  }
-  .nutrients-table__column--labels {
-    width: 235px;
-  }
+  .nutrients-table
   .nutrients-table__skeleton-value {
     width: 2.5em;
   }
-
-  /*
-  ** Fix for layout we would like to have the parcel id aligned at the top of the cell
-  ** Can only be done by overriding the fixed height with our own fixed height.
-  ** Twice the row height minus the row padding.
-  */
-  .nutrients-table .nutrients-table__parcel-id-cell .md-table-cell-container {
-    height: 78px;
+  .nutrients-table td:first-child {
+    vertical-align: middle;
   }
-  /*
-  ** fix for funny hover state due to row span
-  */
-  .md-table.nutrients-table .md-table-row:hover:not(.md-header-row) .md-table-cell.nutrients-table__parcel-id-cell {
-    background: #ffffff;
+  .nutrients-table td:first-child {
+    border-bottom: 1px solid rgba(102, 102, 102, 0.1);
   }
-    /* Reset for numeric columns */
-  .nutrients-table .md-table-head.md-numeric,
-  .nutrients-table .md-table-cell.md-numeric {
-    width: 110px;
+  .data-table__content.nutrients-table__content--nutrient {
+    width: 83px;
   }
-  .nutrients-table .md-table-head.md-numeric .md-table-head-container,
-  .nutrients-table .md-table-cell.md-numeric .md-table-cell-container {
-    width: 100%;
+  .nutrients-table tr:nth-child(even) {
+    border-bottom: 1px solid rgba(102, 102, 102, 0.1);
+  }
+  @media only screen and (min-width: 1200px) {
+    .nutrients-table,
+    .nutrients-table .data-table__static-header,
+    .nutrients-table .data-table__scroll-vertical,
+    .nutrients-table .data-table__scroll-horizontal {
+      width: 670px;
+    }
+    .data-table__content.nutrients-table__content--nutrient {
+      width: 135px;
+    }
   }
 </style>
