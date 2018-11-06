@@ -84,15 +84,14 @@ export default {
 
 <style>
   .measures-list {
-    padding: 20px;
+    padding: 10px;
     overflow-y: scroll;
   }
   .measures-list__group-title {
     color: #666666;
     font-size: 14px;
-    margin-top: 24px;
-    margin-bottom: 14px;
-    text-transform: uppercase;
+    margin-top: 15px;
+    margin-bottom: 10px;
     letter-spacing: 1px;
   }
 
@@ -101,8 +100,9 @@ export default {
   }
 
   .measures-list__measure {
-    padding: .5rem 1rem;
-    margin-bottom: .75rem;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-left: 5px solid transparent
   }
 
   .measures-list__measure--active {
@@ -120,18 +120,20 @@ export default {
   }
 
   .measures-list__selected-parcels{
-    margin-top: 1.5rem;
+    margin-top: 10px;
+    /* correction for the bottom margin of the chips */
+    margin-bottom: -5px;
   }
 
   /* overwrite default material design styles */
   .measures-list .md-chip {
-    margin-bottom: 1rem;
+    margin-bottom: 5px;
     margin-left: 0 !important;
-    margin-right: 4px !important;
+    margin-right: 5px !important;
   }
 
   /* overwrite default material design styles */
   .measures-list .md-chip:first-child {
-    margin-right: 4px !important;
+    margin-right: 5px !important;
   }
 </style>

@@ -9,7 +9,7 @@
       'farm-page__panel--wide': panelIsOpen,
       'farm-page__panel--hidden': !panelIsVisible
     }"
-    class="farm-page__panel md-elevation-3"
+    class="farm-page__panel md-elevation-4"
   >
     <header class="farm-page__panel-header">
       <farm-nav/>
@@ -63,7 +63,8 @@ export default {
   background-color: var(--background-light);
   overflow: hidden;
   display: flex;
-  flex-direction: column
+  flex-direction: column;
+  z-index: 1;
 }
 .farm-page__panel--wide {
   width: 200%;

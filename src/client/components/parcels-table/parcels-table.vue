@@ -1,36 +1,48 @@
 <template>
   <div class="ktt-table parcels-table">
     <div class="ktt-table__container ktt-table__slide--horizontal">
-      <div class="ktt-table__static-header md-elevation-3">
+      <div class="ktt-table__static-header">
         <table>
           <thead>
             <tr>
               <th>
-                <div class="ktt-table__cell ktt-table__cell--w70">Perceel</div>
+                <div class="ktt-table__cell ktt-table__cell--w60">Perceel</div>
               </th>
               <th>
                 <div class="ktt-table__cell ktt-table__cell--w125">Gewas</div>
               </th>
               <th>
-                <div class="ktt-table__cell ktt-table__cell--w125">Gewascategorie</div>
+                <div class="ktt-table__cell ktt-table__cell--w125 ktt-table__cell--label-select">Gewascategorie</div>
               </th>
               <th>
-                <div class="ktt-table__cell ktt-table__cell--w70"><nobr>Opp. (ha)</nobr></div>
+                <div class="ktt-table__cell ktt-table__cell--w60 ktt-table__cell--numeric">
+                  Opp.<br>
+                  <small>(ha)</small>
+                </div>
               </th>
               <th>
                 <div class="ktt-table__cell ktt-table__cell--w70">Grond</div>
               </th>
               <th>
-                <div class="ktt-table__cell">Drainage</div>
+                <div class="ktt-table__cell ktt-table__cell--label-select">Drainage</div>
               </th>
               <th>
-                <div class="ktt-table__cell ktt-table__cell--w110 ktt-table__cell--numeric"><nobr>Kwel (mm/jaar)</nobr></div>
+                <div class="ktt-table__cell ktt-table__cell--w60 ktt-table__cell--numeric">
+                  Kwel<br>
+                  <small>(mm/jaar)</small>
+                </div>
               </th>
               <th>
-                <div class="ktt-table__cell ktt-table__cell--numeric"><nobr>GHG (cm-mv)</nobr></div>
+                <div class="ktt-table__cell ktt-table__cell--w60 ktt-table__cell--numeric">
+                  GHG<br>
+                  <small>(cm-mv)</small>
+                </div>
               </th>
               <th>
-                <div class="ktt-table__cell ktt-table__cell--numeric"><nobr>GLG (cm-mv)</nobr></div>
+                <div class="ktt-table__cell ktt-table__cell--w60 ktt-table__cell--numeric">
+                  GLG<br>
+                  <small>(cm-mv)</small>
+                </div>
               </th>
             </tr>
           </thead>
@@ -43,7 +55,7 @@
               v-for="parcel in parcelProperties"
               :key="parcel.id">
               <td>
-                <div class="ktt-table__cell ktt-table__cell--w70">{{ parcel.id }}</div>
+                <div class="ktt-table__cell ktt-table__cell--w60">{{ parcel.id }}</div>
               </td>
               <td>
                 <div
@@ -90,10 +102,12 @@
                 </div>
               </td>
               <td>
-                <div class="ktt-table__cell ktt-table__cell--w70 ktt-table__cell--numeric">{{ formatNumber(parcel.areaal) }}</div>
+                <div class="ktt-table__cell ktt-table__cell--w60 ktt-table__cell--numeric">{{ formatNumber(parcel.areaal) }}</div>
               </td>
               <td>
-                <div class="ktt-table__cell ktt-table__cell--w70">{{ parcel.bodemgroep.toLowerCase() }}</div>
+                <div class="ktt-table__cell ktt-table__cell--w70">
+                  {{ capitalizeFirstLetter(parcel.bodemgroep.toLowerCase()) }}
+                </div>
               </td>
               <td>
                 <div class="ktt-table__cell form-select">
@@ -123,13 +137,13 @@
                 </div>
               </td>
               <td>
-                <div class="ktt-table__cell ktt-table__cell--w110 ktt-table__cell--numeric">{{ formatNumber(parcel.kwel) }}</div>
+                <div class="ktt-table__cell ktt-table__cell--w60 ktt-table__cell--numeric">{{ formatNumber(parcel.kwel) }}</div>
               </td>
               <td>
-                <div class="ktt-table__cell ktt-table__cell--numeric">{{ formatNumber(parcel.ghg) }}</div>
+                <div class="ktt-table__cell ktt-table__cell--w60 ktt-table__cell--numeric">{{ formatNumber(parcel.ghg) }}</div>
               </td>
               <td>
-                <div class="ktt-table__cell ktt-table__cell--numeric">{{ formatNumber(parcel.glg) }}</div>
+                <div class="ktt-table__cell ktt-table__cell--w60 ktt-table__cell--numeric">{{ formatNumber(parcel.glg) }}</div>
               </td>
             </tr>
           </tbody>
@@ -162,6 +176,9 @@ export default {
     parcelColor() {
       return '#FF0000'
     },
+    capitalizeFirstLetter(string) {
+    return string[0].toUpperCase() + string.slice(1);
+    },
     updateProperty(valueProperty) {
       this.$emit('updateProperty', valueProperty)
     }
@@ -174,12 +191,15 @@ export default {
     width: 5px;
     height: 5px;
   }
-
+  .parcels-table .ktt-table__static-header,
+  .parcels-table .ktt-table__slide--vertical,
+  .parcels-table .ktt-table__slide--horizontal {
+    width: 900px;
+  }
   .parcels-table__vegetation {
     position: relative;
     padding-left: 20px;
   }
-
   .parcels-table__vegetation::before {
     content: "";
     width: 10px;

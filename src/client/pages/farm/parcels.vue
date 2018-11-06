@@ -8,7 +8,6 @@
     </no-ssr>
     <portal
       to="footer-bar"
-      slim
     >
       <div class="footer-bar">
         <md-button
@@ -22,7 +21,7 @@
           class="md-raised md-primary"
           to="/farm/measures/"
         >
-          Selecteer maatregelen <md-icon aria-hidden="true">navigate_next</md-icon>
+          Maatregelen <md-icon aria-hidden="true">navigate_next</md-icon>
         </md-button>
       </div>
     </portal>

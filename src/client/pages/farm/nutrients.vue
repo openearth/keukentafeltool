@@ -10,7 +10,6 @@
     />
     <portal
       to="footer-bar"
-      slim
     >
       <div class="footer-bar">
         <md-button
@@ -21,10 +20,10 @@
         </md-button>
         <md-button
           type="button"
-          class="md-raised"
+          class="md-raised md-primary"
           to="#"
         >
-          Naar rapport <md-icon aria-hidden="true">description</md-icon>
+          <md-icon aria-hidden="true">description</md-icon> Rapport
         </md-button>
       </div>
     </portal>

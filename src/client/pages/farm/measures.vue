@@ -10,14 +10,13 @@
     </no-ssr>
     <portal
       to="footer-bar"
-      slim
     >
       <div class="footer-bar">
         <md-button
           type="button"
           to="/farm/parcels/"
         >
-          <md-icon aria-hidden="true">navigate_before</md-icon> Perceel informatie
+          <md-icon aria-hidden="true">navigate_before</md-icon> Percelen
         </md-button>
         <md-button
           type="button"

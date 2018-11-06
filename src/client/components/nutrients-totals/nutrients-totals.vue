@@ -12,7 +12,7 @@
       <div class="nutrients-totals__metric">
         <div class="nutrients-totals__metric-label">
           Nitraat <br>
-          (NO<sub>3</sub> mg/l)
+          <small>(NO<sub>3</sub> mg/l)</small>
         </div>
         <strong class="nutrients-totals__metric-value">
           {{ formatNumber(no3Total) }}
@@ -21,7 +21,7 @@
       <div class="nutrients-totals__metric">
         <div class="nutrients-totals__metric-label">
           Stikstof <br>
-          (Vracht N kg)
+          <small>(Vracht N kg/ha)</small>
         </div>
         <strong class="nutrients-totals__metric-value">
           {{ formatNumber(ndrainTotal) }}
@@ -30,7 +30,7 @@
       <div class="nutrients-totals__metric">
         <div class="nutrients-totals__metric-label">
           Fosfor <br>
-          (Vracht P kg)
+          <small>(Vracht P kg/ha)</small>
         </div>
         <strong class="nutrients-totals__metric-value">
           {{ formatNumber(pdrainTotal) }}
@@ -90,20 +90,19 @@ export default {
 
 <style>
   .nutrients-totals {
-    padding: 10px;
     background: #ffffff;
     z-index: 1;
-    /* custom boxshadow based on md elevation 4 but vertically reversed (seems that there are some strange light sources at play) */
-    box-shadow: 0 -2px 4px -1px rgba(0,0,0,.2), 0 -4px 5px 0 rgba(0,0,0,.14), 0 -1px 10px 0 rgba(0,0,0,.12);
+    /* custom boxshadow based on md elevation 2 but vertically reversed (seems that there are some strange light sources at play) */
+    box-shadow: 0 -3px 1px -2px rgba(0,0,0,.2), 0 -2px 2px 0 rgba(0,0,0,.14), 0 -1px 5px 0 rgba(0,0,0,.12);
   }
   .nutrients-totals__container {
+    padding: 10px 0 10px 10px;
     display: flex;
     justify-content: flex-end;
-    max-width: 634px;
+    width: 512px;
   }
   .nutrients-totals__caption {
     margin-right: auto;
-    padding-left: 5px;
   }
   .nutrients-totals__title {
     margin-top: 4px;
@@ -115,9 +114,9 @@ export default {
   }
   .nutrients-totals__metric {
     min-height: 50px;
-    padding: 0 8px;
+    padding: 0 10px;
     text-align: right;
-    width: 99px;
+    width: 103px;
   }
   .nutrients-totals__metric:last-child {
     margin-right: 0;
@@ -132,6 +131,9 @@ export default {
     white-space: nowrap;
   }
   @media only screen and (min-width: 1200px) {
+    .nutrients-totals__container {
+      width: 670px;
+    }
     .nutrients-totals__metric {
       width: 146px;
     }
