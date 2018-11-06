@@ -98,11 +98,10 @@
 
 <script>
 import SkeletonValue from '../skeleton-value'
-import TrendValue from '../trend-value'
 import formatNumber from '../../lib/format-number'
 
 export default {
-  components: { SkeletonValue, TrendValue },
+  components: { SkeletonValue },
   props: {
     effects: {
       type: Array,
