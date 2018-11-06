@@ -9,9 +9,10 @@
 <style>
 .footer-bar {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   padding: 10px;
+  min-height: 64px;
 }
 .footer-bar .md-button {
   border-radius: 100px !important;
