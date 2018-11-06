@@ -62,7 +62,7 @@
                 class="md-table-cell md-numeric"
               >
                 <div class="md-table-cell-container">
-                  {{ formatNumber(parcel.properties[`ref${metric}`]) }}
+                  {{ formatNumber(referenceValue({ parcel, metric })) }}
                 </div>
               </td>
             </tr>
@@ -71,7 +71,7 @@
               class="md-table-row"
             >
               <td class="md-table-cell">
-                <div class="md-table-cell-container"><nobr>&Delta; door maatregelen</nobr></div>
+                <div class="md-table-cell-container"><nobr>Na maatregelen</nobr></div>
               </td>
               <td
                 v-for="metric in metrics"
@@ -80,7 +80,7 @@
               >
                 <div class="md-table-cell-container">
                   <template v-if="isLoaded">
-                    {{ effect({ parcelId: parcel.id, metric }) }}
+                    {{ formattedEffect({ parcel, metric }) }}
                   </template>
                   <skeleton-value
                     v-else
@@ -129,11 +129,27 @@ export default {
         .filter(effect => String(effect.pid) === String(parcelId))
         .map(effect => effect[`eff${metric}`])
         .reduce((total, value) => total + value, 0)
-      return formatNumber({ value })
+      return value
     },
     formatNumber(value) {
       return formatNumber({ value })
     },
+    formattedEffect({ parcel, metric }) {
+      const referenceValue = this.referenceValue({ parcel, metric })
+      const newValue = this.effect({ parcelId: parcel.id, metric })
+      const percentageEffect = this.percentageEffect({ referenceValue, newValue })
+
+      // debugger
+      return newValue === 0
+        ? this.formatNumber(referenceValue)
+        : `${this.formatNumber(newValue)} (${this.formatNumber(percentageEffect)} %)`
+    },
+    percentageEffect({ referenceValue, newValue }) {
+      return Number(newValue) / Number(referenceValue) * 100 - 100
+    },
+    referenceValue({ parcel, metric }) {
+      return parcel.properties[`ref${metric}`]
+    }
   }
 }
 </script>
