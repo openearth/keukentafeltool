@@ -1,15 +1,22 @@
 <template>
   <div
     v-resize:debounce="resize"
-    ref="mapboxMap"
     class="mapbox-map"
-  />
+  >
+    <div
+      ref="mapboxMap"
+      class="mapbox-map__canvas"
+    />
+    <zoom-controls class="mapbox-map__zoom-controls" />
+  </div>
 </template>
 
 <script>
-import mapFactory from '~/lib/_mapbox/map-factory'
+import ZoomControls from '../zoom-controls'
+import mapFactory from '../../lib/_mapbox/map-factory'
 
 export default {
+  components: { ZoomControls },
   props: {
     listenersTransformFunction: {
       type: Function,
@@ -40,8 +47,18 @@ export default {
 </script>
 
 <style>
-  .mapbox-map {
+  .mapbox-map,
+  .mapbox-map__canvas {
     width: 100%;
     height: 100%;
+  }
+  .mapbox-map {
+    position: relative;
+  }
+
+  .mapbox-map__zoom-controls {
+    position: absolute;
+    bottom: 10px;
+    left: 5px;
   }
 </style>

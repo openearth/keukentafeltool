@@ -8,7 +8,6 @@ import GeocoderControl from './geocoder-control'
 export function addDefaultControlsToMap(map) {
   map.addControl(GeocoderControl(), 'top-right')
   map.addControl(createBaseLayerControl(), 'bottom-right')
-  map.addControl(new mapboxgl.NavigationControl(), 'bottom-right')
 }
 
 function createBaseLayerControl() {
