@@ -64,6 +64,9 @@
 .data-table__label-select {
   padding-left: 10px;
 }
+.data-table__content--w40 {
+  width: 40px;
+}
 .data-table__content--w60 {
   width: 60px;
 }
@@ -78,6 +81,9 @@
 }
 .data-table__content--w125 {
   width: 125px;
+}
+.data-table__content--center {
+  text-align: center;
 }
 .data-table__content--numeric {
   text-align: right;
