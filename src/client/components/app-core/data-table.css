@@ -36,7 +36,7 @@
 .data-table__static-header,
 .data-table__scroll-vertical,
 .data-table__scroll-horizontal {
-  width: 900px;
+  width: 905px;
 }
 .data-table__static-header {
   flex: 0 0 auto;

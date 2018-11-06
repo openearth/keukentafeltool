@@ -24,7 +24,7 @@
                 <div class="data-table__content data-table__content--w70">Grond</div>
               </th>
               <th class="data-table__header-cell">
-                <div class="data-table__content data-table__label-select">Drainage</div>
+                <div class="data-table__content data-table__label-select data-table__content--w105">Drainage</div>
               </th>
               <th class="data-table__header-cell">
                 <div class="data-table__content data-table__content--w60 data-table__content--numeric">
@@ -77,28 +77,12 @@
                       @input.prevent="updateProperty({id: parcel.id, key: 'gewascategorie', value: $event.target.value})"
                     >
                       <option
-                        :selected="parcel.gewascategorie === 'Grasland'"
-                        value="Grasland"
+                        v-for="value in categoryOptions"
+                        :key="value"
+                        :selected="parcel.gewascategorie === value"
+                        :value="value"
                       >
-                        Grasland
-                      </option>
-                      <option
-                        :selected="parcel.gewascategorie === 'Bouwland'"
-                        value="Bouwland"
-                      >
-                        Bouwland
-                      </option>
-                      <option
-                        :selected="parcel.gewascategorie === 'Braakland'"
-                        value="Braakland"
-                      >
-                        Braakland
-                      </option>
-                      <option
-                        :selected="parcel.gewascategorie === 'Natuur'"
-                        value="Natuur"
-                      >
-                        Natuur
+                        {{ value }}
                       </option>
                     </select>
                   </div>
@@ -113,30 +97,22 @@
                 </div>
               </td>
               <td class="data-table__cell">
-                <div class="data-table__content form-select">
-                  <select
-                    class="form-select__select"
-                    @input.prevent="updateProperty({id: parcel.id, key: 'drain', value: Number($event.target.value)})"
-                  >
-                    <option
-                      :selected="parcel.drain === 2"
-                      value="2"
+                <div class="data-table__content data-table__content--w105">
+                  <div class="form-select">
+                    <select
+                      class="form-select__select"
+                      @input.prevent="updateProperty({id: parcel.id, key: 'drain', value: Number($event.target.value)})"
                     >
-                      Verbeterd
-                    </option>
-                    <option
-                      :selected="parcel.drain === 1"
-                      value="1"
-                    >
-                      Wel
-                    </option>
-                    <option
-                      :selected="parcel.drain === 0"
-                      value="0"
-                    >
-                      Geen
-                    </option>
-                  </select>
+                      <option
+                        v-for="option in drainOptions"
+                        :key="option.value"
+                        :selected="parcel.drain === option.value"
+                        :value="option.value"
+                      >
+                        {{ option.label }}
+                      </option>
+                    </select>
+                  </div>
                 </div>
               </td>
               <td class="data-table__cell">
@@ -167,6 +143,16 @@ export default {
       type: Array,
       required: true,
       default: () => [],
+    }
+  },
+  data() {
+    return {
+      categoryOptions: ['Grasland', 'Bouwland', 'Braakland', 'Natuur'],
+      drainOptions: [
+        { value: 2, label: 'Verbeterd' },
+        { value: 1, label: 'Wel' },
+        { value: 0, label: 'Geen' },
+      ],
     }
   },
   computed: {
