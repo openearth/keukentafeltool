@@ -27,6 +27,12 @@
   vertical-align: top;
   padding: 10px;
 }
+.data-table__cell--wAuto {
+  width: auto;
+}
+.data-table__cell--w33pct {
+  width: 33%;
+}
 .data-table__cell--no-border {
   border-left: none;
 }
@@ -46,6 +52,7 @@
   position: relative;
   display: flex;
   flex-direction: column;
+  width: 100%;
 }
 .data-table__scroll-vertical {
   overflow-y: scroll;

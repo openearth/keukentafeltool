@@ -5,27 +5,27 @@
         <table class="data-table__table">
           <thead>
             <tr class="data-table__table-head__row">
-              <th class="data-table__header-cell data-table__cell--no-border">
+              <th class="data-table__header-cell data-table__cell--no-border data-table__cell--wAuto">
                 <div class="data-table__content data-table__content--w60">
                   Perceel
                 </div>
               </th>
               <th class="data-table__header-cell">
-                <div class="data-table__content data-table__content--w40" />
+                <div class="data-table__content data-table__content--w40 data-table__cell--wAuto" />
               </th>
-              <th class="data-table__header-cell">
+              <th class="data-table__header-cell data-table__cell--w33pct">
                 <div class="data-table__content data-table__content--center effects-table__content--nutrient">
                   Nitraat <br>
                   <small>(NO<sub>3</sub> mg/l)</small>
                 </div>
               </th>
-              <th class="data-table__header-cell">
+              <th class="data-table__header-cell data-table__cell--w33pct">
                 <div class="data-table__content data-table__content--center effects-table__content--nutrient">
                   Stikstof <br>
                   <small>(Vracht N kg/ha)</small>
                 </div>
               </th>
-              <th class="data-table__header-cell">
+              <th class="data-table__header-cell data-table__cell--w33pct">
                 <div class="data-table__content data-table__content--center effects-table__content--nutrient">
                   Fosfor <br>
                   <small>(Vracht P kg/ha)</small>
@@ -56,7 +56,7 @@
                 <td
                   v-for="metric in metrics"
                   :key="metric"
-                  class="data-table__cell"
+                  class="data-table__cell data-table__cell--w33pct"
                 >
                   <div class="data-table__content data-table__content--numeric effects-table__content--nutrient">
                     {{ formatNumber(referenceValue({ parcel, metric })) }}
@@ -73,7 +73,7 @@
                 <td
                   v-for="metric in metrics"
                   :key="metric"
-                  class="data-table__cell"
+                  class="data-table__cell data-table__cell--w33pct"
                 >
                   <div class="data-table__content data-table__content--numeric effects-table__content--nutrient">
                     <template v-if="isLoaded">
@@ -160,13 +160,12 @@ export default {
   .effects-table .data-table__static-header,
   .effects-table .data-table__scroll-vertical,
   .effects-table .data-table__scroll-horizontal {
-    width: 512px;
+    width: 100%;
   }
   .effects-table
   .effects-table__skeleton-value {
     width: 2.5em;
   }
-
   .effects-table__trend {
     display: inline-block;
     width: 55px;
@@ -187,7 +186,6 @@ export default {
   .effects-table__trend--up::after {
     content: "▲";
   }
-
   .effects-table td:first-child {
     vertical-align: middle;
   }
