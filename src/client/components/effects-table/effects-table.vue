@@ -1,5 +1,5 @@
 <template>
-  <div class="data-table nutrients-table">
+  <div class="data-table effects-table">
     <div class="data-table__container">
       <div class="data-table__static-header">
         <table class="data-table__table">
@@ -14,19 +14,19 @@
                 <div class="data-table__content data-table__content--w40" />
               </th>
               <th class="data-table__header-cell">
-                <div class="data-table__content data-table__content--center nutrients-table__content--nutrient">
+                <div class="data-table__content data-table__content--center effects-table__content--nutrient">
                   Nitraat <br>
                   <small>(NO<sub>3</sub> mg/l)</small>
                 </div>
               </th>
               <th class="data-table__header-cell">
-                <div class="data-table__content data-table__content--center nutrients-table__content--nutrient">
+                <div class="data-table__content data-table__content--center effects-table__content--nutrient">
                   Stikstof <br>
                   <small>(Vracht N kg/ha)</small>
                 </div>
               </th>
               <th class="data-table__header-cell">
-                <div class="data-table__content data-table__content--center nutrients-table__content--nutrient">
+                <div class="data-table__content data-table__content--center effects-table__content--nutrient">
                   Fosfor <br>
                   <small>(Vracht P kg/ha)</small>
                 </div>
@@ -58,9 +58,9 @@
                   :key="metric"
                   class="data-table__cell"
                 >
-                  <div class="data-table__content data-table__content--numeric nutrients-table__content--nutrient">
+                  <div class="data-table__content data-table__content--numeric effects-table__content--nutrient">
                     {{ formatNumber(referenceValue({ parcel, metric })) }}
-                    <span class="nutrients-table__trend" />
+                    <span class="effects-table__trend" />
                   </div>
                 </td>
               </tr>
@@ -75,13 +75,13 @@
                   :key="metric"
                   class="data-table__cell"
                 >
-                  <div class="data-table__content data-table__content--numeric nutrients-table__content--nutrient">
+                  <div class="data-table__content data-table__content--numeric effects-table__content--nutrient">
                     <template v-if="isLoaded">
                       <span v-html="formattedEffect({ parcel, metric })" />
                     </template>
                     <template v-else>
-                      <skeleton-value class="nutrients-table__skeleton-value" />
-                      <span class="nutrients-table__trend" />
+                      <skeleton-value class="effects-table__skeleton-value" />
+                      <span class="effects-table__trend" />
                     </template>
                   </div>
                 </td>
@@ -139,9 +139,9 @@ export default {
       const isUp = (newValue > referenceValue)
 
       return newValue === 0
-        ? `<strong>${this.formatNumber(referenceValue)}</strong> <span class="nutrients-table__trend" />`
+        ? `<strong>${this.formatNumber(referenceValue)}</strong> <span class="effects-table__trend" />`
         : `<strong>${this.formatNumber(newValue)}</strong>
-          <span class="nutrients-table__trend nutrients-table__trend--${ isUp ? 'up' : 'down' }">
+          <span class="effects-table__trend effects-table__trend--${ isUp ? 'up' : 'down' }">
             ${this.formatNumber(percentageEffect)}%
           </span>`
     },
@@ -156,48 +156,48 @@ export default {
 </script>
 
 <style>
-  .nutrients-table,
-  .nutrients-table .data-table__static-header,
-  .nutrients-table .data-table__scroll-vertical,
-  .nutrients-table .data-table__scroll-horizontal {
+  .effects-table,
+  .effects-table .data-table__static-header,
+  .effects-table .data-table__scroll-vertical,
+  .effects-table .data-table__scroll-horizontal {
     width: 512px;
   }
-  .nutrients-table
-  .nutrients-table__skeleton-value {
+  .effects-table
+  .effects-table__skeleton-value {
     width: 2.5em;
   }
 
-  .nutrients-table__trend {
+  .effects-table__trend {
     display: inline-block;
     width: 55px;
     font-size: .8em;
   }
-  .nutrients-table__trend--down::after {
+  .effects-table__trend--down::after {
     display: inline-block;
   }
-  .nutrients-table__trend--down {
+  .effects-table__trend--down {
     color: #0f9d58;
   }
-  .nutrients-table__trend--down::after {
+  .effects-table__trend--down::after {
     content: "▼";
   }
-  .nutrients-table__trend--up {
+  .effects-table__trend--up {
     color: #d23f31;
   }
-  .nutrients-table__trend--up::after {
+  .effects-table__trend--up::after {
     content: "▲";
   }
 
-  .nutrients-table td:first-child {
+  .effects-table td:first-child {
     vertical-align: middle;
   }
-  .nutrients-table td:first-child {
+  .effects-table td:first-child {
     border-bottom: 1px solid rgba(102, 102, 102, 0.1);
   }
-  .data-table__content.nutrients-table__content--nutrient {
+  .data-table__content.effects-table__content--nutrient {
     width: 104px;
   }
-  .nutrients-table tr:nth-child(even) {
+  .effects-table tr:nth-child(even) {
     border-bottom: 1px solid rgba(102, 102, 102, 0.1);
   }
 </style>

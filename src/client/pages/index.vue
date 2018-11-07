@@ -10,7 +10,7 @@
       <md-dialog-content>
         Met de keukentafeltool kunt u snel inzicht krijgen in wat verschillende maatregelen kunnen betekenen voor de nutrienten in uw percelen.
         <div class="home-page__logos-container">
-          <md-subheading class="home-page__logos-title">Mogelijk gemaakt door:</md-subheading>
+          <span class="md-subheading home-page__logos-title">Mogelijk gemaakt door:</span>
           <img
             src="../assets/images/logos/deltares_logo--color.png"
             class="home-page__logo"

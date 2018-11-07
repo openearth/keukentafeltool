@@ -14,7 +14,18 @@
         >
           <div class="measures-list__measure-header" >
             <strong class="measures-list__measure-title">{{ measure.title }}</strong>
-            <md-button @click="selectMeasure({groupIndex, index})">
+            <md-button
+              v-if="measure.link.length > 0"
+              :href="measure.link"
+              target="_blank"
+              rel="noopener"
+            >
+              Info
+            </md-button>
+            <md-button
+              class="md-primary"
+              @click="selectMeasure({groupIndex, index})"
+            >
               {{ selectedMeasureId === measure.id ? 'Klaar' : 'Kies percelen' }}
             </md-button>
           </div>

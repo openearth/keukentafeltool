@@ -8,7 +8,7 @@
         :disabled="parcelCount === 0"
         to="/farm/parcels/"
         type="button"
-        class="md-raised md-primary"
+        class="md-dense md-raised md-primary"
       >
         Volgende <md-icon aria-hidden="true">navigate_next</md-icon>
       </md-button>

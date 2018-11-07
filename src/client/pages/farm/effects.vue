@@ -1,10 +1,10 @@
 <template>
   <div class="farm-page__panel-content">
-    <nutrients-table
+    <effects-table
       :parcels="features"
       :effects="effects"
     />
-    <nutrients-totals
+    <effects-totals
       :parcels="features"
       :effects="effects"
     />
@@ -16,12 +16,13 @@
           <md-button
             type="button"
             to="/farm/measures/"
+            class="md-dense"
           >
             <md-icon aria-hidden="true">navigate_before</md-icon> wijzig maatregelen
           </md-button>
           <md-button
             type="button"
-            class="md-raised md-primary"
+            class="md-dense md-raised md-primary"
             to="#"
           >
             <md-icon aria-hidden="true">description</md-icon> Rapport
@@ -40,10 +41,10 @@ import layerFactory from '../../lib/_mapbox/layer-factory'
 import parcelColors from '../../lib/_mapbox/parcel-colors'
 import requireFeatures from '../../lib/mixins/require-features'
 
-import { NutrientsTable, NutrientsTotals } from '../../components'
+import { effectsTable, effectsTotals } from '../../components'
 
 export default {
-  components: { NutrientsTable, NutrientsTotals },
+  components: { effectsTable, effectsTotals },
   mixins: [
     initMapState,
     requireFeatures,

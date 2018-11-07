@@ -16,13 +16,15 @@
           <md-button
             type="button"
             to="/farm/parcels/"
+            class="md-dense"
           >
             <md-icon aria-hidden="true">navigate_before</md-icon> Percelen
           </md-button>
           <md-button
+            :disabled="!hasAssignedMeasures"
             type="button"
-            class="md-raised md-primary"
-            to="/farm/nutrients/"
+            class="md-dense md-raised md-primary"
+            to="/farm/effects/"
           >
             Bekijk effect <md-icon aria-hidden="true">navigate_next</md-icon>
           </md-button>
@@ -59,7 +61,8 @@ export default {
   computed: {
     ...mapState('mapbox/features', ['features']),
     ...mapState('measures', ['parcelsPerMeasure', 'measures']),
-    ...mapGetters('measures', [ 'measuresPerParcel' ])
+    ...mapGetters('measures', [ 'measuresPerParcel' ]),
+    hasAssignedMeasures() { return Object.keys(this.parcelsPerMeasure).length > 0 },
   },
   methods: {
     initMapState() {

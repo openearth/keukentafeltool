@@ -51,6 +51,7 @@ function groupMeasures (measures) {
       .reduce((groups, measure) => {
         groups[measure.gid].items.push({
           id: measure.mid,
+          link: measure.hlink,
           title: measure.midText,
         })
         return groups

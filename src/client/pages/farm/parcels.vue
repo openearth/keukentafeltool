@@ -14,12 +14,13 @@
           <md-button
             type="button"
             to="/farm/"
+            class="md-dense"
           >
             <md-icon aria-hidden="true">navigate_before</md-icon> wijzig percelen
           </md-button>
           <md-button
             type="button"
-            class="md-raised md-primary"
+            class="md-dense md-raised md-primary"
             to="/farm/measures/"
           >
             Maatregelen <md-icon aria-hidden="true">navigate_next</md-icon>
