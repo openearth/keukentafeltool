@@ -16,6 +16,7 @@
         </div>
         <strong class="nutrients-totals__metric-value">
           {{ formatNumber(no3Total) }}
+          <span class="nutrients-totals__trend" />
         </strong>
       </div>
       <div class="nutrients-totals__metric">
@@ -25,6 +26,7 @@
         </div>
         <strong class="nutrients-totals__metric-value">
           {{ formatNumber(ndrainTotal) }}
+          <span class="nutrients-totals__trend" />
         </strong>
       </div>
       <div class="nutrients-totals__metric">
@@ -34,6 +36,7 @@
         </div>
         <strong class="nutrients-totals__metric-value">
           {{ formatNumber(pdrainTotal) }}
+          <span class="nutrients-totals__trend" />
         </strong>
       </div>
     </div>
@@ -82,7 +85,7 @@ export default {
       }, 0)
     },
     formatNumber(value) {
-      return formatNumber({ value })
+      return formatNumber({ value, digits: 1 })
     },
   }
 }
@@ -94,7 +97,8 @@ export default {
     z-index: 1;
     /* custom boxshadow based on md elevation 2 but vertically reversed (seems that there are some strange light sources at play) */
     box-shadow: 0 -3px 1px -2px rgba(0,0,0,.2), 0 -2px 2px 0 rgba(0,0,0,.14), 0 -1px 5px 0 rgba(0,0,0,.12);
-    width: 512px;
+    width: 100%;
+    min-width: 512px;
   }
   .nutrients-totals__container {
     padding: 10px 0 10px 10px;
@@ -117,13 +121,15 @@ export default {
     min-height: 50px;
     padding: 0 10px;
     text-align: right;
-    width: 103px;
+    width: 124px;
   }
   .nutrients-totals__metric:last-child {
     margin-right: 0;
   }
   .nutrients-totals__metric-label {
-    font-size: 12px;
+    font-size: 13px;
+    font-weight: bold;
+    text-align: center;
     min-height: 44px;
     margin-bottom: 4px;
     color: var(--md-theme-default-text-accent-on-background, rgba(0, 0, 0, 0.54));
@@ -131,23 +137,9 @@ export default {
   .nutrients-totals__metric-value {
     white-space: nowrap;
   }
-  @media only screen and (min-width: 1024px) {
-    .nutrients-totals {
-      width: 100%;
-    }
-  }
-  @media only screen and (min-width: 1200px) {
-    .nutrients-totals__container {
-      width: 670px;
-    }
-    .nutrients-totals__metric {
-      width: 146px;
-    }
-    .nutrients-totals__metric-label {
-      font-size: 14px;
-    }
-    .nutrients-totals__metric-value {
-      font-size: 18px;
-    }
-  }
+  .nutrients-totals__trend {
+    display: inline-block;
+    width: 55px;
+    font-size: .8em;
+}
 </style>

@@ -200,15 +200,4 @@ export default {
   .nutrients-table tr:nth-child(even) {
     border-bottom: 1px solid rgba(102, 102, 102, 0.1);
   }
-  @media only screen and (min-width: 1200px) {
-    .nutrients-table,
-    .nutrients-table .data-table__static-header,
-    .nutrients-table .data-table__scroll-vertical,
-    .nutrients-table .data-table__scroll-horizontal {
-      width: 670px;
-    }
-    .data-table__content.nutrients-table__content--nutrient {
-      width: 135px;
-    }
-  }
 </style>
