@@ -14,6 +14,10 @@
           Nitraat <br>
           <small>(NO<sub>3</sub> mg/l)</small>
         </div>
+        <div class="nutrients-totals__metric-value">
+          {{ formatNumber(no3Total) }}
+          <span class="nutrients-totals__trend" />
+        </div>
         <strong class="nutrients-totals__metric-value">
           {{ formatNumber(no3Total) }}
           <span class="nutrients-totals__trend" />
@@ -24,6 +28,10 @@
           Stikstof <br>
           <small>(Vracht N kg/ha)</small>
         </div>
+        <div class="nutrients-totals__metric-value">
+          {{ formatNumber(ndrainTotal) }}
+          <span class="nutrients-totals__trend" />
+        </div>
         <strong class="nutrients-totals__metric-value">
           {{ formatNumber(ndrainTotal) }}
           <span class="nutrients-totals__trend" />
@@ -33,6 +41,10 @@
         <div class="nutrients-totals__metric-label">
           Fosfor <br>
           <small>(Vracht P kg/ha)</small>
+        </div>
+        <div class="nutrients-totals__metric-value">
+          {{ formatNumber(pdrainTotal) }}
+          <span class="nutrients-totals__trend" />
         </div>
         <strong class="nutrients-totals__metric-value">
           {{ formatNumber(pdrainTotal) }}
@@ -66,10 +78,10 @@ export default {
         .filter(isNumber)
         .reduce((total, value) => total + value, 0)
     },
-    ndrainTotal() { return this.calculateDrainTotal({ metric: 'ndrain' }) },
+    ndrainTotal() { return this.calculateDrainTotal({ metric: 'ndrain' }) / this.areaTotal },
     no3Total() { return this.calculateDrainTotal({ metric: 'no3' }) / this.areaTotal },
     parcelsTotal() { return this.parcels.length },
-    pdrainTotal() { return this.calculateDrainTotal({ metric: 'pdrain' }) },
+    pdrainTotal() { return this.calculateDrainTotal({ metric: 'pdrain' }) / this.areaTotal },
   },
   methods: {
     calculateDrainTotal({ metric }) {

@@ -5,8 +5,15 @@
 @import "~vue-material/dist/theme/engine"; // Import the theme engine
 
 @include md-register-theme("default", (
-  primary: #008FC5, // The primary color of your brand
+  primary: #0A99DB, // The primary color of your brand
   accent: #709DB1 // The secondary color of your brand
 ));
 
 @import "~vue-material/dist/theme/all"; // Apply the theme
+
+/**
+ * Text is not perfectly vertically aligned within a button with an icon ... below fix gives the content a lineheight same as the fixed button height
+ */
+.md-button {
+  line-height: 36px;
+}

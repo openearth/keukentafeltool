@@ -12,19 +12,21 @@
       to="footer-bar"
     >
       <div class="footer-bar">
-        <md-button
-          type="button"
-          to="/farm/parcels/"
-        >
-          <md-icon aria-hidden="true">navigate_before</md-icon> Percelen
-        </md-button>
-        <md-button
-          type="button"
-          class="md-raised md-primary"
-          to="/farm/nutrients/"
-        >
-          Bekijk effect <md-icon aria-hidden="true">navigate_next</md-icon>
-        </md-button>
+        <div class="footer-bar__align footer-bar__align--space-between">
+          <md-button
+            type="button"
+            to="/farm/parcels/"
+          >
+            <md-icon aria-hidden="true">navigate_before</md-icon> Percelen
+          </md-button>
+          <md-button
+            type="button"
+            class="md-raised md-primary"
+            to="/farm/nutrients/"
+          >
+            Bekijk effect <md-icon aria-hidden="true">navigate_next</md-icon>
+          </md-button>
+        </div>
       </div>
     </portal>
   </div>
