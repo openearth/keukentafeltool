@@ -5,7 +5,10 @@
       <nuxt/>
       <div class="default-layout__content-right">
         <no-ssr>
-          <mapbox-map @mapCreated="setMap" />
+          <mapbox-map
+            @autoFocus="autoFocus"
+            @mapCreated="setMap"
+          />
         </no-ssr>
         <portal-target
           name="footer-bar"
@@ -25,6 +28,9 @@ export default {
     this.$store.dispatch('measures/getMeasures')
   },
   methods: {
+    autoFocus() {
+      this.$store.dispatch('mapbox/features/fitToFeatures')
+    },
     restart() {
       this.$store.commit('measures/unassignAllMeasures')
       this.$store.dispatch('mapbox/features/resetFeatures')

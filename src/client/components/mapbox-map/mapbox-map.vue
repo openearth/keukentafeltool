@@ -7,7 +7,12 @@
       ref="mapboxMap"
       class="mapbox-map__canvas"
     />
-    <zoom-controls class="mapbox-map__zoom-controls" />
+    <zoom-controls
+      class="mapbox-map__zoom-controls"
+      @auto-focus="$emit('autoFocus')"
+      @zoom-in="zoomIn"
+      @zoom-out="zoomOut"
+    />
   </div>
 </template>
 
@@ -41,6 +46,12 @@ export default {
           .forEach(key => map.on(key.replace('_', '/'), this.$listeners[key]))
       }
 
+    },
+    zoomIn() {
+      this.map.zoomIn()
+    },
+    zoomOut() {
+      this.map.zoomOut()
     }
   }
 }

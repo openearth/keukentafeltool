@@ -52,7 +52,7 @@ export const actions = {
       state.mapObject.map.off(event, handler)
       commit('removeEventHandler', event)
     }
-  },
+  }
 }
 
 export const getters = {
