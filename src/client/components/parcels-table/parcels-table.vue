@@ -149,7 +149,6 @@ export default {
     return {
       categoryOptions: ['Grasland', 'Bouwland', 'Braakland', 'Natuur'],
       drainOptions: [
-        { value: 2, label: 'Verbeterd' },
         { value: 1, label: 'Wel' },
         { value: 0, label: 'Geen' },
       ],
