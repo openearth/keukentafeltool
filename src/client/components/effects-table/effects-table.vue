@@ -77,11 +77,10 @@
                 >
                   <div class="data-table__content data-table__content--numeric effects-table__content--nutrient">
                     <template v-if="isLoaded">
-                      <span v-html="formattedEffect({ parcel, metric })" />
+                      <effect-change :effect="effect({ parcelId: parcel.id, metric })" />
                     </template>
                     <template v-else>
                       <skeleton-value class="effects-table__skeleton-value" />
-                      <span class="effects-table__trend" />
                     </template>
                   </div>
                 </td>
@@ -95,16 +94,20 @@
 </template>
 
 <script>
+import EffectChange from '../effect-change'
 import SkeletonValue from '../skeleton-value'
 import formatNumber from '../../lib/format-number'
 
 export default {
-  components: { SkeletonValue },
+  components: {
+    EffectChange,
+    SkeletonValue
+  },
   props: {
     effects: {
-      type: Array,
+      type: Object,
       required: true,
-      default: () => [],
+      default: () => ({}),
     },
     parcels: {
       type: Array,
@@ -118,16 +121,14 @@ export default {
     }
   },
   computed: {
-    isLoaded() { return this.effects.length > 0 },
+    isLoaded() { return Object.keys(this.effects).length > 0 },
   },
   methods: {
     effect({ parcelId, metric }) {
-      if (!this.effects.length) return ''
-      const value = this.effects
-        .filter(effect => String(effect.pid) === String(parcelId))
-        .map(effect => effect[`eff${metric}`])
-        .reduce((total, value) => total + value, 0)
-      return value
+      const effect = this.effects[parcelId]
+      return effect
+        ? { delta: effect.effect[metric], deltaPercentage: effect.delta[metric] }
+        : undefined
     },
     formatNumber(value) {
       return formatNumber({ value, digits: 1 })
