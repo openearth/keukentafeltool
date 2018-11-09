@@ -1,11 +1,13 @@
 <template>
   <div class="farm-page__panel-content">
-    <no-ssr>
-      <parcels-table
-        :parcels="features"
-        @updateProperty="updateProperty"
-      />
-    </no-ssr>
+    <effects-table
+      :parcels="features"
+      :effects="effects"
+    />
+    <effects-totals
+      :parcels="features"
+      :effects="effects"
+    />
     <portal
       to="footer-bar"
     >
@@ -13,17 +15,17 @@
         <div class="footer-bar__align footer-bar__align--space-between">
           <md-button
             type="button"
-            to="/farm/"
+            to="/farm/measures/"
             class="md-dense"
           >
-            <md-icon aria-hidden="true">navigate_before</md-icon> wijzig percelen
+            <md-icon aria-hidden="true">navigate_before</md-icon> wijzig maatregelen
           </md-button>
           <md-button
             type="button"
             class="md-dense md-raised md-primary"
-            to="/farm/measures/"
+            to="#"
           >
-            Maatregelen <md-icon aria-hidden="true">navigate_next</md-icon>
+            <md-icon aria-hidden="true">description</md-icon> Rapport
           </md-button>
         </div>
       </div>
@@ -32,37 +34,52 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapGetters, mapState } from 'vuex'
 
 import initMapState from '../../lib/mixins/init-map-state'
-import requireFeatures from '../../lib/mixins/require-features'
 import layerFactory from '../../lib/_mapbox/layer-factory'
 import parcelColors from '../../lib/_mapbox/parcel-colors'
+import requireFeatures from '../../lib/mixins/require-features'
 
-import { ParcelsTable } from '../../components'
+import { effectsTable, effectsTotals } from '../../components'
 
 export default {
-  components: { ParcelsTable },
+  components: { effectsTable, effectsTotals },
   mixins: [
     initMapState,
-    requireFeatures
+    requireFeatures,
   ],
   data() {
     return {
-      contentOpen: false
+      effects: [],
     }
   },
   computed: {
-    ...mapState('mapbox', [ 'mapIsLoaded' ]),
     ...mapState('mapbox/features', [ 'features' ]),
-    toggleIcon() { return this.contentOpen ? '<' : '>' }
+    ...mapGetters('measures', [ 'measuresPerParcel' ]),
+  },
+  beforeMount () {
+    const { measuresPerParcel } = this
+    const input = Object.keys(measuresPerParcel).map(parcelId => {
+      return {
+        parcelId,
+        measureIds: measuresPerParcel[parcelId],
+      }
+    })
+    fetch(`/.netlify/functions/hydrometra-parcel-effects?input=${JSON.stringify(input)}`)
+      .then(res => res.json())
+      .then(res => {
+        this.effects = res.data
+      })
+      .catch(err => console.error(err))
   },
   methods: {
     initMapState() {
       const overlay = layerFactory.parcels()
       this.$store.dispatch('mapbox/overlays/add', overlay)
       this.$store.dispatch('mapbox/overlays/setOpacity', { id: overlay.id, opacity: 0.3 })
-      this.features.forEach(feature => {
+
+      this.features.forEach((feature, index) => {
         this.$store.dispatch('mapbox/features/add', feature)
         this.$store.dispatch('mapbox/features/setStyle', {
           id: feature.id,
@@ -75,11 +92,10 @@ export default {
           value: 1
         })
       })
+
       this.$emit('fitFeatures')
     },
-    updateProperty (parcelProperty) {
-      this.$store.commit('mapbox/features/updateParcelProperty', parcelProperty)
-    }
   }
 }
 </script>
+

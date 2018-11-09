@@ -1,16 +1,18 @@
 <template>
   <footer-bar>
-    <template v-if="parcelCount === 0">Selecteer percelen</template>
-    <template v-else-if="parcelCount === 1">1 perceel geselecteerd</template>
-    <template v-else>{{ parcelCount }} percelen geselecteerd</template>
-    <md-button
-      :disabled="parcelCount === 0"
-      to="/farm/parcels/"
-      type="button"
-      class="md-raised md-primary"
-    >
-      Volgende <md-icon aria-hidden="true">navigate_next</md-icon>
-    </md-button>
+    <div class="footer-bar__align footer-bar__align--center">
+      <template v-if="parcelCount === 0">Selecteer percelen</template>
+      <template v-else-if="parcelCount === 1">1 perceel geselecteerd</template>
+      <template v-else>{{ parcelCount }} percelen geselecteerd</template>
+      <md-button
+        :disabled="parcelCount === 0"
+        to="/farm/parcels/"
+        type="button"
+        class="md-dense md-raised md-primary"
+      >
+        Volgende <md-icon aria-hidden="true">navigate_next</md-icon>
+      </md-button>
+    </div>
   </footer-bar>
 </template>
 

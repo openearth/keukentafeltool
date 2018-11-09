@@ -12,19 +12,23 @@
       to="footer-bar"
     >
       <div class="footer-bar">
-        <md-button
-          type="button"
-          to="/farm/parcels/"
-        >
-          <md-icon aria-hidden="true">navigate_before</md-icon> Percelen
-        </md-button>
-        <md-button
-          type="button"
-          class="md-raised md-primary"
-          to="/farm/nutrients/"
-        >
-          Bekijk effect <md-icon aria-hidden="true">navigate_next</md-icon>
-        </md-button>
+        <div class="footer-bar__align footer-bar__align--space-between">
+          <md-button
+            type="button"
+            to="/farm/parcels/"
+            class="md-dense"
+          >
+            <md-icon aria-hidden="true">navigate_before</md-icon> Percelen
+          </md-button>
+          <md-button
+            :disabled="!hasAssignedMeasures"
+            type="button"
+            class="md-dense md-raised md-primary"
+            to="/farm/effects/"
+          >
+            Bekijk effect <md-icon aria-hidden="true">navigate_next</md-icon>
+          </md-button>
+        </div>
       </div>
     </portal>
   </div>
@@ -57,7 +61,8 @@ export default {
   computed: {
     ...mapState('mapbox/features', ['features']),
     ...mapState('measures', ['parcelsPerMeasure', 'measures']),
-    ...mapGetters('measures', [ 'measuresPerParcel' ])
+    ...mapGetters('measures', [ 'measuresPerParcel' ]),
+    hasAssignedMeasures() { return Object.keys(this.parcelsPerMeasure).length > 0 },
   },
   methods: {
     initMapState() {

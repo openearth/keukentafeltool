@@ -7,10 +7,12 @@
         <no-ssr>
           <mapbox-map @mapCreated="setMap" />
         </no-ssr>
-        <portal-target
-          name="footer-bar"
-          slim
-        />
+        <div class="default-layout__portal-placeholder">
+          <portal-target
+            name="footer-bar"
+            slim
+          />
+        </div>
       </div>
     </main>
   </div>
@@ -62,5 +64,12 @@ export default {
   width: 100%;
   display: flex;
   flex-direction: column;
+}
+/*
+** Below fixes a strange resize in the map ... hopefully we can remove this in the next version.
+*/
+.default-layout__portal-placeholder {
+  height: 64px;
+  overflow: hidden;
 }
 </style>

@@ -8,7 +8,7 @@
     vertical-align: middle;
     height: 1em;
     border-radius: .5em;
-    background-color: #F5F5F5;
+    background-color: rgb(230, 230, 230);
     animation: skeleton-value-pulse 2s infinite;
   }
 

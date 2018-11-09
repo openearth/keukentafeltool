@@ -12,8 +12,8 @@
     />
     <md-tab
       id="output"
-      md-label="Nutriënten"
-      to="/farm/nutrients/"
+      md-label="Effecten"
+      to="/farm/effects/"
     />
   </md-tabs>
 </template>
