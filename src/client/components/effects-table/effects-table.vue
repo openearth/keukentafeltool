@@ -81,6 +81,7 @@
                     </template>
                     <template v-else>
                       <skeleton-value class="effects-table__skeleton-value" />
+                      <span class="effects-table__trend" />
                     </template>
                   </div>
                 </td>
@@ -171,21 +172,6 @@ export default {
     display: inline-block;
     width: 55px;
     font-size: .8em;
-  }
-  .effects-table__trend--down::after {
-    display: inline-block;
-  }
-  .effects-table__trend--down {
-    color: #0f9d58;
-  }
-  .effects-table__trend--down::after {
-    content: "▼";
-  }
-  .effects-table__trend--up {
-    color: #d23f31;
-  }
-  .effects-table__trend--up::after {
-    content: "▲";
   }
   .effects-table td:first-child {
     vertical-align: middle;
