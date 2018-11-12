@@ -48,32 +48,17 @@
           </td>
           <td class="data-table__cell data-table__cell--w33pct">
             <div class="data-table__content data-table__content--numeric effects-table__content--nutrient">
-              <strong class="effects-totals__metric-value">
-                {{ formatNumber(no3AverageEffect) }}
-                <span class="effects-totals__trend">
-                  {{ formatNumber(no3Trend) }}%
-                </span>
-              </strong>
+              <percentage-change :effect="{ effect: no3AverageEffect, reference: no3AverageRef }"/>
             </div>
           </td>
           <td class="data-table__cell data-table__cell--w33pct">
             <div class="data-table__content data-table__content--numeric effects-table__content--nutrient">
-              <strong class="effects-totals__metric-value">
-                {{ formatNumber(ndrainAverageEffect) }}
-                <span class="effects-totals__trend">
-                  {{ formatNumber(ndrainTrend) }}%
-                </span>
-              </strong>
+              <percentage-change :effect="{ effect: ndrainAverageEffect, reference: ndrainAverageRef }"/>
             </div>
           </td>
           <td class="data-table__cell data-table__cell--w33pct">
             <div class="data-table__content data-table__content--numeric effects-table__content--nutrient">
-              <strong class="effects-totals__metric-value">
-                {{ formatNumber(pdrainAverageEffect) }}
-                <span class="effects-totals__trend">
-                  {{ formatNumber(pdrainTrend) }}%
-                </span>
-              </strong>
+              <percentage-change :effect="{ effect: pdrainAverageEffect, reference: pdrainAverageRef }"/>
             </div>
           </td>
         </tr>
@@ -83,12 +68,15 @@
 </template>
 
 <script>
+import PercentageChange from '../percentage-change'
+
 import formatNumber, { isNumber, toNumber } from '../../lib/format-number'
 
 export default {
+  components: { PercentageChange },
   props: {
     effects: {
-      type: Array,
+      type: Array | Object,
       required: true,
       default: () => [],
     },
@@ -107,38 +95,33 @@ export default {
     },
     ndrainAverageRef() { return this.calculateAverageRef({ metric: 'ndrain' }) },
     ndrainAverageEffect() { return this.calculateAverageEffect({ metric: 'ndrain' }) },
-    ndrainTrend() { return this.calculateTrend({ metric: 'ndrain' }) },
     no3AverageRef() { return this.calculateAverageRef({ metric: 'no3' }) },
     no3AverageEffect() { return this.calculateAverageEffect({ metric: 'no3' }) },
-    no3Trend() { return this.calculateTrend({ metric: 'no3' }) },
     pdrainAverageRef() { return this.calculateAverageRef({ metric: 'pdrain' }) },
     pdrainAverageEffect() { return this.calculateAverageEffect({ metric: 'pdrain' }) },
-    pdrainTrend() { return this.calculateTrend({ metric: 'pdrain' }) },
     parcelsTotal() { return this.parcels.length },
   },
   methods: {
     calculateAverageRef({ metric }) {
-      const total = this.parcels.reduce((total, parcel) => {
-        const area = toNumber(parcel.properties.areaal)
-        const refValue = parcel.properties[`ref${metric}`]
-        return total += area * refValue
-      }, 0)
-      return total / this.areaTotal
+      const { areaTotal, parcels } = this
+      const total = this.parcels
+        .map(({ properties }) => (
+          properties[`ref${metric}`] * toNumber(properties.areaal)
+        ))
+        .reduce((total, value) => total + value, 0)
+
+      return total / areaTotal
     },
     calculateAverageEffect({ metric }) {
-      const { effects, parcels } = this
-      const total = parcels.reduce((total, parcel) => {
-        const area = toNumber(parcel.properties.areaal)
-        const effectValue = effects
-          .filter(effect => String(effect.pid) === String(parcel.id))
-          .map(effect => effect[`eff${metric}`])
-          .reduce((total, value) => total + value, 0)
-        return total += area * effectValue
-      }, 0)
-      return total / this.areaTotal
-    },
-    calculateTrend({ metric }) {
-      return this[`${metric}AverageEffect`] / this[`${metric}AverageRef`] * 100 - 100
+      const { effects, parcels, areaTotal } = this
+      const total = parcels
+        .map(parcel => ( effects[parcel.id]
+          ? effects[parcel.id].effect[metric] * toNumber(parcel.properties.areaal)
+          : parcel.properties[`ref${metric}`] * toNumber(parcel.properties.areaal)
+        ))
+        .reduce((total, value) => total + value, 0)
+
+      return total / areaTotal
     },
     formatNumber(value) {
       return formatNumber({ value, digits: 1 })

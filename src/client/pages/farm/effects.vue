@@ -6,7 +6,7 @@
     />
     <effects-totals
       :parcels="features"
-      :effects="effects"
+      :effects="totalEffectsPerParcel"
     />
     <portal
       to="footer-bar"
