@@ -2,11 +2,11 @@
   <div class="farm-page__panel-content">
     <effects-table
       :parcels="features"
-      :effects="effects"
+      :effects="totalEffectsPerParcel"
     />
     <effects-totals
       :parcels="features"
-      :effects="effects"
+      :effects="totalEffectsPerParcel"
     />
     <portal
       to="footer-bar"
@@ -56,6 +56,7 @@ export default {
   },
   computed: {
     ...mapState('mapbox/features', [ 'features' ]),
+    ...mapGetters('effects', [ 'totalEffectsPerParcel' ]),
     ...mapGetters('measures', [ 'measuresPerParcel' ]),
   },
   beforeMount () {
@@ -66,12 +67,8 @@ export default {
         measureIds: measuresPerParcel[parcelId],
       }
     })
-    fetch(`/.netlify/functions/hydrometra-parcel-effects?input=${JSON.stringify(input)}`)
-      .then(res => res.json())
-      .then(res => {
-        this.effects = res.data
-      })
-      .catch(err => console.error(err))
+
+    this.$store.dispatch('effects/getEffects', input)
   },
   methods: {
     initMapState() {

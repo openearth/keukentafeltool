@@ -77,7 +77,7 @@
                 >
                   <div class="data-table__content data-table__content--numeric effects-table__content--nutrient">
                     <template v-if="isLoaded">
-                      <span v-html="formattedEffect({ parcel, metric })" />
+                      <percentage-change :effect="effect({ parcelId: parcel.id, metric })" />
                     </template>
                     <template v-else>
                       <skeleton-value class="effects-table__skeleton-value" />
@@ -95,16 +95,20 @@
 </template>
 
 <script>
+import PercentageChange from '../percentage-change'
 import SkeletonValue from '../skeleton-value'
 import formatNumber from '../../lib/format-number'
 
 export default {
-  components: { SkeletonValue },
+  components: {
+    PercentageChange,
+    SkeletonValue
+  },
   props: {
     effects: {
-      type: Array,
+      type: Object,
       required: true,
-      default: () => [],
+      default: () => ({}),
     },
     parcels: {
       type: Array,
@@ -118,35 +122,17 @@ export default {
     }
   },
   computed: {
-    isLoaded() { return this.effects.length > 0 },
+    isLoaded() { return Object.keys(this.effects).length > 0 },
   },
   methods: {
     effect({ parcelId, metric }) {
-      if (!this.effects.length) return ''
-      const value = this.effects
-        .filter(effect => String(effect.pid) === String(parcelId))
-        .map(effect => effect[`eff${metric}`])
-        .reduce((total, value) => total + value, 0)
-      return value
+      const effect = this.effects[parcelId]
+      return effect
+        ? { effect: effect.effect[metric], reference: effect.reference[metric] }
+        : undefined
     },
     formatNumber(value) {
       return formatNumber({ value, digits: 1 })
-    },
-    formattedEffect({ parcel, metric }) {
-      const referenceValue = this.referenceValue({ parcel, metric })
-      const newValue = this.effect({ parcelId: parcel.id, metric })
-      const percentageEffect = this.percentageEffect({ referenceValue, newValue })
-      const isUp = (newValue > referenceValue)
-
-      return newValue === 0
-        ? `<strong>${this.formatNumber(referenceValue)}</strong> <span class="effects-table__trend" />`
-        : `<strong>${this.formatNumber(newValue)}</strong>
-          <span class="effects-table__trend effects-table__trend--${ isUp ? 'up' : 'down' }">
-            ${this.formatNumber(percentageEffect)}%
-          </span>`
-    },
-    percentageEffect({ referenceValue, newValue }) {
-      return Number(newValue) / Number(referenceValue) * 100 - 100
     },
     referenceValue({ parcel, metric }) {
       return parcel.properties[`ref${metric}`]
@@ -161,6 +147,7 @@ export default {
   .effects-table .data-table__scroll-vertical,
   .effects-table .data-table__scroll-horizontal {
     width: 100%;
+    min-width: 512px;
   }
   .effects-table
   .effects-table__skeleton-value {
@@ -170,21 +157,6 @@ export default {
     display: inline-block;
     width: 55px;
     font-size: .8em;
-  }
-  .effects-table__trend--down::after {
-    display: inline-block;
-  }
-  .effects-table__trend--down {
-    color: #0f9d58;
-  }
-  .effects-table__trend--down::after {
-    content: "▼";
-  }
-  .effects-table__trend--up {
-    color: #d23f31;
-  }
-  .effects-table__trend--up::after {
-    content: "▲";
   }
   .effects-table td:first-child {
     vertical-align: middle;

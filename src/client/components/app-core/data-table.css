@@ -36,6 +36,7 @@
 .data-table__cell--no-border {
   border-left: none;
 }
+.effects-table__row-alternate-background,
 .data-table tr:nth-child(even) {
   background-color: rgba(102, 102, 102, 0.05);
 }
