@@ -23,7 +23,7 @@
               Info
             </md-button>
             <md-button
-              class="md-primary"
+              class="md-raised"
               @click="selectMeasure({groupIndex, index})"
             >
               {{ selectedMeasureId === measure.id ? 'Klaar' : 'Kies percelen' }}
