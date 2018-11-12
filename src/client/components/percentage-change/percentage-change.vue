@@ -9,7 +9,8 @@
     </span>
   </div>
   <div v-else>
-    - <span class="percentage-change__trend" />
+    <strong>- </strong>
+    <span class="percentage-change__trend" />
   </div>
 </template>
 
