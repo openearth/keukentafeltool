@@ -147,6 +147,7 @@ export default {
   .effects-table .data-table__scroll-vertical,
   .effects-table .data-table__scroll-horizontal {
     width: 100%;
+    min-width: 512px;
   }
   .effects-table
   .effects-table__skeleton-value {
