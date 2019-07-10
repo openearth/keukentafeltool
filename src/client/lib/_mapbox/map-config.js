@@ -9,10 +9,10 @@ export const MAP_CENTER = [
 export const MAP_ZOOM = 7
 
 export const MAP_BASELAYERS = [
-  'streets',
-  'satellite',
+  'pulautekong/cjxunygdb3l6j1cqew198bivd',
+  'pulautekong/cjxvgjxaz17qn1cmmw95gx52v',
 ].map(layer => ({
-  style: `mapbox://styles/mapbox/${layer}-v9`,
+  style: `mapbox://styles/${layer}`,
   title: layer,
   thumbnail: `/thumbnails/${layer}.png`
 }))

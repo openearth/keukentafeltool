@@ -59,9 +59,6 @@ export default {
   },
   methods: {
     initMapState() {
-      const overlay = layerFactory.parcels()
-      this.$store.dispatch('mapbox/overlays/add', overlay)
-      this.$store.dispatch('mapbox/overlays/setOpacity', { id: overlay.id, opacity: 0.3 })
       this.features.forEach(feature => {
         this.$store.dispatch('mapbox/features/add', feature)
         this.$store.dispatch('mapbox/features/setStyle', {
