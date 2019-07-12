@@ -6,6 +6,5 @@ import wms from './wms'
 export default {
   geojson,
   parcel,
-  parcels,
   wms,
 }

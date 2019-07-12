@@ -37,10 +37,8 @@ export default {
   },
   methods: {
     initMapState() {
-      const overlay = layerFactory.parcels()
       this.$store.dispatch('mapbox/addEventHandler', { event: 'click', handler: (event) => this.mapClickHandler(event) })
-      this.$store.dispatch('mapbox/overlays/add', overlay)
-      this.$store.dispatch('mapbox/overlays/setOpacity', { id: overlay.id, opacity: 1 })
+
       this.features.forEach(feature => {
         this.$store.dispatch('mapbox/features/add', feature)
         this.$store.dispatch('mapbox/features/setStyle', {
