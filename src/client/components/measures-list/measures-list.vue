@@ -15,7 +15,7 @@
           <div class="measures-list__measure-header" >
             <strong class="measures-list__measure-title">{{ measure.title }}</strong>
             <md-button
-              v-if="measure.link.length > 0"
+              v-if="measure.link && measure.link.length > 0"
               :href="measure.link"
               target="_blank"
               rel="noopener"
