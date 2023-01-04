@@ -39,7 +39,7 @@
     "dotenv": "^6.1.0",
     "fscreen": "^1.0.2",
     "mapbox-gl": "^1.1.0",
-    "nuxt": "^2.0.0",
+    "nuxt": "^2.15.8",
     "portal-vue": "^1.4.0",
     "proj4": "^2.5.0",
     "query-string": "^6.2.0",
